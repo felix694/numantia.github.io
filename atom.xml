@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>Gridea</title>
-    <updated>2020-06-08T02:18:59.371Z</updated>
+    <updated>2020-06-08T03:19:26.879Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[LMS Ameim sign convention]]></title>
+        <id>https://numantia.github.io/post/lms-ameim-sign-convention/</id>
+        <link href="https://numantia.github.io/post/lms-ameim-sign-convention/">
+        </link>
+        <updated>2020-06-08T03:15:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-linear-sign-convention">1. Linear Sign Convention</h2>
+<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/1591586270137.png" alt="" loading="lazy"></figure>
+<p>质量块上符号和箭头标志，箭头指向右侧为位移正方向，同样速度和加速度正方向也是同侧。</p>
+<figure data-type="image" tabindex="2"><img src="https://numantia.github.io/post-images/1591586302225.png" alt="" loading="lazy"></figure>
+<p>质量组件变量窗口中，实际施加在质量块上的力箭头方向和变量串口中的一致。1口和2口的速度输出方向相反。在合力计算中，F2 视作正方向，而 F1 被视作负方向。假若F2=0， 若想质量块向右侧移动，F1需为负值。</p>
+<h2 id="2-rotary-sign-convention">2. Rotary Sign Convention</h2>
+<p>旋转部件的符号含义和线性符号一致，指示旋转方向，角速度，角加速度的旋转正方向。</p>
+<p><img src="https://numantia.github.io/post-images/1591586313322.png" alt="" loading="lazy"><img src="E:%5CTypora%5Cimg%5CrotarySignConvention02.png" alt="" loading="lazy"></p>
+<p>驱动力矩正旋向可以通过右手法则判断，右手拇指指向箭头方向，四指指示的旋向即为正方向（从右侧观察）</p>
+<p><img src="https://numantia.github.io/post-images/1591586326580.png" alt="" loading="lazy"><img src="E:%5CTypora%5Cimg%5CrotarySignConvention.png" alt="right-hand rule and corkscrew rule" loading="lazy"></p>
+<h2 id="3-u-turn-connections">3. U-Turn Connections</h2>
+<p>当两个组件使用U型连接线连接，速度方向会被改变，特别对于旋转部件。</p>
+<p><img src="https://numantia.github.io/post-images/1591586332538.png" alt="" loading="lazy"><img src="E:%5CTypora%5Cimg%5CU-Turn-Link01.png" alt="" loading="lazy"></p>
+<p>在需要使用U型连接线的场所，可以使用机械链接元件，这些元件自动考虑到负荷规则。<br>
+<img src="https://numantia.github.io/post-images/1591586343635.png" alt="" loading="lazy"></p>
+<h2 id="4-summary">4. Summary</h2>
+<p>旋转机械零件上的 &quot;+&quot; 号和箭头，指示转速和扭矩的正方向。用户连接组件的方式并不影响模型机理，但对Amesim中<code>方向规定(Sign Convention)</code>缺乏了解，对于仿真模型的分析上会变得棘手。可以使用重放（Replay）功能来监测方向规定，更详细的介绍可以参考<code>Replay manual</code>。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://numantia.github.io/post/hello-gridea/</id>
