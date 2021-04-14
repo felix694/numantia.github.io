@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
-    <title>故障诊断技术学习记录</title>
-    <updated>2021-02-02T02:00:26.391Z</updated>
+    <title>云杉的速记</title>
+    <updated>2021-04-14T03:03:24.482Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
-    <subtitle>记录设备故障诊断,全生命周期管理，维修规划的学科理论，系统架构和产业思考</subtitle>
+    <subtitle>开放和共享思考，力争简化复杂，复杂天真</subtitle>
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, 故障诊断技术学习记录</rights>
+    <rights>All rights reserved 2021, 云杉的速记</rights>
+    <entry>
+        <title type="html"><![CDATA[Python 代码编程规范 （）]]></title>
+        <id>https://numantia.github.io/post/python-dai-ma-bian-cheng-gui-fan/</id>
+        <link href="https://numantia.github.io/post/python-dai-ma-bian-cheng-gui-fan/">
+        </link>
+        <updated>2021-02-05T01:48:49.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<p>命名规范<br>
+1、模块命名尽量短小，使用全部小写的方式，可以使用下划线。<br>
+2、包命名尽量短小，使用全部小写的方式，不可以使用下划线。<br>
+3、类的命名使用驼峰命令的方式，即单词首字符大写，类名应该全部使用名词。<br>
+4、异常命令应该使用加 Error 后缀的方式，比如：HTTPError。<br>
+5、全局变量尽量只在模块内有效，并且应该尽量避免使用全局变量。<br>
+6、函数命名使用全部小写的方式，使用下划线分割单词，并采用动宾结构。<br>
+7、常量命名使用全部大写的方式，使用下划线分割单词。<br>
+8、类的属性（方法和变量）命名使用全部小写的方式，使用下划线分割单词。<br>
+9、变量、类属性等命令尽量不要使用缩写形式，除了计数器和迭代器，尽量不要使用单字符名称。<br>
+10、类的方法第一个参数必须是 self，而静态方法第一个参数必须是 cls。<br>
+11、在模块中要表示私有变量或者函数时，可以在变量或者函数前加一个下划线 _foo, _show_msg 来进行访问控制。<br>
+12、在 Python 中没有诸如 public、private、protected 等修饰符，而在类的定义中往往会有类似这样的需求，那么可以在属性或者方法前加一个下划线表示 protected，加两个下划线来表示 private。加两个下划线的变量或者方法没法直接访问。比如：类 Foo 中声明 __a, 则不能用 Foo.__a 的方式访问，但可以用 Foo._Foo__a 的方式访问。`<br>
+13、命名 Boolean 变量时，表示是不是时加 is 前缀，表示有没有时加 has 前缀，表示能不能时加 can 前缀</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Post Processing 01- variables_creation and simple multi-run analysis]]></title>
         <id>https://numantia.github.io/post/post-processing-01-variables_creation-and-simple-multi-run-analysis/</id>
