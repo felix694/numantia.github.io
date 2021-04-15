@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-04-15T10:25:45.601Z</updated>
+    <updated>2021-04-15T10:27:58.330Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -10,6 +10,117 @@
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 云杉的速记</rights>
+    <entry>
+        <title type="html"><![CDATA[传感器选型与安装系列文章01：常用传感器-谈发展和产品谱系]]></title>
+        <id>https://numantia.github.io/post/sensor-selection-guide01/</id>
+        <link href="https://numantia.github.io/post/sensor-selection-guide01/">
+        </link>
+        <updated>2021-04-16T18:09:44.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[传感器选型与安装系列文章02：看懂传感器技术参数表-谈规格、环境、电气和结构]]></title>
+        <id>https://numantia.github.io/post/sensor-selection-guide02/</id>
+        <link href="https://numantia.github.io/post/sensor-selection-guide02/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E6%8A%80%E6%9C%AF%E5%8F%82%E6%95%B0%E8%A1%A8">技术参数表</a></li>
+<li><a href="#%E4%BC%A0%E6%84%9F%E5%99%A8%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0">传感器性能参数</a>
+<ul>
+<li><a href="#1-%E7%81%B5%E6%95%8F%E5%BA%A6-%E8%BE%93%E5%87%BA%E9%87%8F%E8%BE%93%E5%85%A5%E9%87%8F%E6%AF%94%E5%80%BC">1. 灵敏度 -- 输出量/输入量比值</a></li>
+<li><a href="#2-%E7%BA%BF%E6%80%A7%E5%BA%A6-%E7%81%B5%E6%95%8F%E5%BA%A6%E5%81%8F%E7%A6%BB%E6%A0%A1%E5%87%86%E6%9B%B2%E7%BA%BF%E7%A8%8B%E5%BA%A6">2. 线性度  -- 灵敏度偏离校准曲线程度</a></li>
+<li><a href="#3-%E5%93%8D%E5%BA%94%E9%A2%91%E7%8E%87-%E4%BC%A0%E6%84%9F%E5%99%A8%E5%A4%96%E9%83%A8%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8F%8D%E5%BA%94%E8%83%BD%E5%8A%9B">3. 响应频率 -- 传感器外部信号的反应能力</a></li>
+<li><a href="#4-%E7%B2%BE%E5%BA%A6%E5%92%8C%E5%88%86%E8%BE%A8%E7%8E%87">4. 精度和分辨率</a></li>
+<li><a href="#5-%E9%87%8D%E5%A4%8D%E6%80%A7-%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7">5. 重复性 -- 特性曲线的稳定性</a></li>
+<li><a href="#7-%E9%9B%B6%E7%82%B9%E6%BC%82%E7%A7%BB-%E9%9B%B6%E7%82%B9%E5%81%8F%E7%A6%BB%E7%A8%8B%E5%BA%A6%E5%8F%98%E5%8C%96">7. 零点漂移 -- 零点偏离程度变化</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%A0%E6%84%9F%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%82%E5%BA%94%E6%80%A7">传感器环境适应性</a>
+<ul>
+<li><a href="#1-%E6%B8%A9%E5%BA%A6%E6%B8%A9%E5%BA%A6%E6%BC%82%E7%A7%BB-%E6%B8%A9%E5%BA%A6%E5%AF%B9%E7%81%B5%E6%95%8F%E5%BA%A6%E5%BD%B1%E5%93%8D%E7%89%B9%E6%80%A7">1. 温度/温度漂移 -- 温度对灵敏度影响特性</a></li>
+<li><a href="#2-%E6%B9%BF%E5%BA%A6%E5%B0%98%E5%9C%9F">2. 湿度/尘土</a></li>
+<li><a href="#3-%E7%94%B5%E7%A3%81%E5%B9%B2%E6%89%B0">3. 电磁干扰</a></li>
+<li><a href="#4-%E5%86%B2%E5%87%BB%E6%9E%81%E9%99%90">4. 冲击极限</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%A0%E6%84%9F%E5%99%A8%E7%94%B5%E6%B0%94%E7%89%B9%E6%80%A7">传感器电气特性</a>
+<ul>
+<li><a href="#1%E6%BF%80%E5%8A%B1%E7%94%B5%E5%8E%8B%E7%94%B5%E6%B5%81%E6%9C%89%E6%BA%90%E6%97%A0%E6%BA%90">1.激励电压/电流——有源/无源</a></li>
+<li><a href="#2-%E7%A8%B3%E5%AE%9A%E6%97%B6%E9%97%B4%E4%BF%A1%E5%8F%B7%E7%A8%B3%E5%AE%9A%E7%9A%84%E6%97%B6%E9%97%B4">2. 稳定时间——信号稳定的时间</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%A0%E6%84%9F%E5%99%A8%E7%89%A9%E7%90%86%E7%89%B9%E6%80%A7">传感器物理特性</a>
+<ul>
+<li><a href="#1-%E6%9D%90%E6%96%99%E7%89%B9%E6%80%A7">1. 材料特性</a></li>
+<li><a href="#2-%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F">2. 尺寸质量</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B6%E4%BB%96%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">其他注意事项</a></li>
+</ul>
+</p>
+<p>[TOC]</p>
+<p>通过<a href="https://numantia.github.io/post/sensor-selection-guide01/">系列文章01-常用传感器-谈发展和产品谱系</a>，我们认识了常用传感器的种类，以及对传感器工作原理和特点有所了解。接下来，让一份由<code>技术参数表</code>带领我们更深入认识传感器。</p>
+<h1 id="技术参数表">技术参数表</h1>
+<p>下图为Kistler 8702和8704型加速度计主要技术参数（<a href="https://www.kistler.com/files/document/000-239c.pdf?callee=frontend">中文版</a>，<a href="https://www.kistler.com/files/document/000-238a.pdf?callee=frontend">英文版</a>），该型号下加速度内置剪切模式石英晶体传感器元件。稳定性强的石英晶体材料应用，确保了长期可重复、准确测量。剪切式元件设计具有横向灵敏度低、底座变形和热瞬变不敏感等特点。该型号加速度计体积小、重量轻、适用于实验室或工业环境下通用振动测量。应用场景包括：车辆测试、汽车NVH测试和旋转机械振动分析。</p>
+<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-specifications.png" alt="kistler-8702B-accelerometer-specifications" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-environments.png" alt="kistler-8702B-accelerometer-environments" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-electrics.png" alt="kistler-8702B-accelerometer-electrics" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-construction.png" alt="kistler-8702B-accelerometer-construction" loading="lazy"></figure>
+<p>技术参数表中提供了一款传感器的主要技术规格情况，包括性能参数、电气特性、环境适用性以及结构和安装方式。传感器选型过程中要综合考虑这些技术参数，不仅是性能的满足，也要考虑安装方式可行性以及环境适用性。下面是主要技术指标的介绍。</p>
+<h1 id="传感器性能参数">传感器性能参数</h1>
+<h2 id="1-灵敏度-输出量输入量比值">1. 灵敏度 -- 输出量/输入量比值</h2>
+<p>传感器灵敏度指到达稳定工作状态时，输出变化量与引起变化的输入变化量之比。</p>
+<p>a. <strong>灵敏度和量程关系：</strong>  量程大的传感器，灵敏度低，量程小的传感器，灵敏度高；</p>
+<p>b. <strong>灵敏度和质量关系：</strong>  （振动传感器）传感器灵敏度越高，则传感器的质量越大，传感器输出电压越大，信噪比越高，分辨能力越强。</p>
+<h2 id="2-线性度-灵敏度偏离校准曲线程度">2. <a href="https://www.vfe.ac.cn/NewsDetail-2188.aspx">线性度 </a> -- 灵敏度偏离校准曲线程度</h2>
+<p>在规定条件下，传感器校准曲线与拟合直线间最大偏差与满量程 (F.S) 输出值的百分比称。</p>
+<p>如果传感器不在线性区间进行测量，则测量得到的幅值误差较大，一般要求传感器非线性 &lt; 1% 。</p>
+<p>a. <strong>实际灵敏度和理想灵敏度：</strong> 实际灵敏度不同于理想线性灵敏度，输出输入间并非完美的线性关系；</p>
+<p>b. <strong>线性度和灵敏度关系：</strong> 线性度反应的是灵敏度的偏离程度。</p>
+<img src="https://numantia.github.io/post-images/image-20210414103935775.png" alt="线性度说明" style="zoom:80%;" />
+<h2 id="3-响应频率-传感器外部信号的反应能力">3. 响应频率 -- 传感器外部信号的反应能力</h2>
+<p>a.  <strong>响应频率和外部信号关系：</strong> 频率响应受到结构特性的影响，频响越高，可测的信号频率范围就宽；频率低的压力传感器可测信号的频率较低。比如压力传感器的响应频率是每秒5000次，外部信号频率是6000次，那么传感器就无法对外部信号做出正确的反应度。如果这时传感器是作为问计数器信号采集的话，传感器就无法输出正确的计数器值，造成计数信号缺答失；</p>
+<p>b.  <strong>谐振频率和工作频率：</strong> 谐振频率为传感器本身结构决定的第一阶固有频率，谐振频率和质量有关，一般尺寸越小，谐振频率越高。传感器工作上限频率取决于幅频曲线中谐振频率（一般工作频率范围为其自身谐振频率的1/3以下）；</p>
+<p>c. <strong>频响特性和工作频率：</strong> b项中提到的<code>谐振频率 1/3 确定传感器工作频率上限</code>，但这个1/3是约估，准确的使用范围，需分析加速度计的频响曲线。去除低频响应段和高频响应段。另外传感器的安装刚度对传感器能测的频率范围也有影响。</p>
+<p>下图某加速度传感器频响特性曲线，在 2 Hz 以下信号衰减严重，频响性能差，在 12 KHz 以上线性度差，其谐振频率约为 38 KHz 。该传感器的工作频率为 12 KHz 以下。</p>
+<img src="https://numantia.github.io/post-images/某加速度传感器频响特性曲线.png" alt="某加速度传感器频响特性曲线" style="zoom:80%;" />
+<h2 id="4-精度和分辨率">4. 精度和分辨率</h2>
+<p>a. <strong>精度：</strong>  传感器的精度表示传感器在规定条件下允许的<strong>最大绝对误差</strong>相对于传感器满量程输出的百分数。</p>
+<p>b. <strong>最小检测量（分辨率）：</strong>  最小检测量是指传感器能确切反映被检测量的最低极限量。</p>
+<h2 id="5-重复性-特性曲线的稳定性">5. 重复性 -- 特性曲线的稳定性</h2>
+<p>重复性指在同一工作条件下，输入量按同一方向在全测量范围内连续变动多次所得特性曲线的不一致性。</p>
+<h2 id="7-零点漂移-零点偏离程度变化">7. 零点漂移 -- 零点偏离程度变化</h2>
+<p>传感器无输入(或某一输入值不变)时，每隔一段时间进行读数，其输出偏离零值(或原指示值)，即为零点漂移。</p>
+<h1 id="传感器环境适应性">传感器环境适应性</h1>
+<h2 id="1-温度温度漂移-温度对灵敏度影响特性">1. 温度/温度漂移 -- 温度对灵敏度影响特性</h2>
+<p>任何一种传感器都有自身的工作温度范围，因此根据实际测点位置的温度，以及环境温度来选择合适的传感器。可用温度漂移来表征温度变化时，传感器输出值的偏离程度。</p>
+<figure data-type="image" tabindex="5"><img src="https://numantia.github.io/post-images/%E6%B8%A9%E5%BA%A6%E5%AF%B9%E4%BC%A0%E6%84%9F%E5%99%A8%E7%81%B5%E6%95%8F%E5%BA%A6%E5%BD%B1%E5%93%8D.png" alt="温度对传感器灵敏度影响" loading="lazy"></figure>
+<h2 id="2-湿度尘土">2. 湿度/尘土</h2>
+<p>传感器使用时湿度、尘土等环境因素的影响。对于测试环境存在潮湿、腐蚀等影响因素时，选择传感器也应该考虑这些因素。</p>
+<h2 id="3-电磁干扰">3. 电磁干扰</h2>
+<h2 id="4-冲击极限">4. 冲击极限</h2>
+<p>通常用峰值表示，如某传感器的冲击极限为±7000g pk</p>
+<h1 id="传感器电气特性">传感器电气特性</h1>
+<h2 id="1激励电压电流有源无源">1.激励电压/电流——有源/无源</h2>
+<p>a. ICP型传感器需要提供20-30VDC激励电压和2-20mA的恒流激励，数据采集仪普遍内置了这样的供电装置，可直接给ICP传感器供电。</p>
+<p>b. MEMS加速度传感器，力平衡式加速度传感器等，采集仪不能提供相应的激励电压/电流，则需要选择外部供电方式</p>
+<h2 id="2-稳定时间信号稳定的时间">2. 稳定时间——信号稳定的时间</h2>
+<p>对于ICP型传感器，由于存在放电常数，当给传感器供电时，传感器输出的信号会从无穷远处慢慢地稳定到基线附近，这个时间称为稳定时间。而我们在进行测量时，应待传感器输出的信号稳定之后再进行测量。通常这个时间只需要几秒钟。</p>
+<h1 id="传感器物理特性">传感器物理特性</h1>
+<h2 id="1-材料特性">1. 材料特性</h2>
+<p>对于压电式和ICP型传感器多半采用石英晶体和压电陶瓷作为敏感材料。</p>
+<p>石英晶体的介电和压电常数的温度稳定性好，适于做工作温度很宽的传感器。</p>
+<p>具有压电效应的压电陶瓷是人工合成的，原始的压电陶瓷不具有压电效应。由于压电陶瓷制作工艺更方便、耐湿、耐高温等优点，当今的压电传感器多半采用压电陶瓷作为敏感材料。</p>
+<h2 id="2-尺寸质量">2. 尺寸质量</h2>
+<p>a. 安装空间和传感器尺寸型式</p>
+<p>b. 有效质量（参与振动部分质量）和传感器质量</p>
+<p>c. 考虑工装质量</p>
+<h1 id="其他注意事项">其他注意事项</h1>
+<p>接下来，我们通过两个案例分析，来直观掌握传感器的选型和安装。</p>
+<p><a href="https://numantia.github.io/post/sensor-selection-guide03/">传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装</a></p>
+<p><a href="https://numantia.github.io/post/sensor-selection-guide04/">传感器选型与安装系列文章04：案例2-搭建船舶柴油机热工参数监测系统</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Python 代码编程规范 （）]]></title>
         <id>https://numantia.github.io/post/python-dai-ma-bian-cheng-gui-fan/</id>
