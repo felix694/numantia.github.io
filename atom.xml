@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-04-15T10:27:58.330Z</updated>
+    <updated>2021-04-15T10:28:54.230Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -120,6 +120,27 @@
 <p><a href="https://numantia.github.io/post/sensor-selection-guide03/">传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装</a></p>
 <p><a href="https://numantia.github.io/post/sensor-selection-guide04/">传感器选型与安装系列文章04：案例2-搭建船舶柴油机热工参数监测系统</a></p>
 ]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装]]></title>
+        <id>https://numantia.github.io/post/sensor-selection-guide03/</id>
+        <link href="https://numantia.github.io/post/sensor-selection-guide03/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[传感器选型与安装系列文章04：案例2-搭建船舶柴油机热工参数监测系统]]></title>
+        <id>https://numantia.github.io/post/sensor-selection-guide04/</id>
+        <link href="https://numantia.github.io/post/sensor-selection-guide04/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[传感器选型与安装系列文章05：关于传感器展望-物联网、边缘、无线]]></title>
+        <id>https://numantia.github.io/post/sensor-selection-guide05/</id>
+        <link href="https://numantia.github.io/post/sensor-selection-guide05/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Python 代码编程规范 （）]]></title>
