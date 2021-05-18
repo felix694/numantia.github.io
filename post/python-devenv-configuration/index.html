@@ -4,43 +4,43 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装 - 云杉的速记</title>
+<title>一文读懂 Python 开发环境配置 - 云杉的速记</title>
 <link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="一文读懂 Python 开发环境配置 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
 
     
 
-  <meta name="description" content="传感器原理种类
-传感器静态指标
-
-
-灵敏度和横向灵敏度
-振动传感器灵敏度指单位振动量输出的电信号量，常用单位有pC/g、mV/g、mV/(m/ss)等。由于切割或极化方向偏差等因素影响，振动传感器感受到与横向(敏感轴正交)作用的加速度时也会..." />
-  <meta property="og:title" content="传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装 - 云杉的速记">
-  <meta property="og:description" content="传感器原理种类
-传感器静态指标
-
-
-灵敏度和横向灵敏度
-振动传感器灵敏度指单位振动量输出的电信号量，常用单位有pC/g、mV/g、mV/(m/ss)等。由于切割或极化方向偏差等因素影响，振动传感器感受到与横向(敏感轴正交)作用的加速度时也会..." />
+  <meta name="description" content="Python 多版本管理
+1. 多版本使用需求
+场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。
+场景2：
+2. Windows 下多版本管理
+步骤 1：官网 （速度慢）或者国内镜像..." />
+  <meta property="og:title" content="一文读懂 Python 开发环境配置 - 云杉的速记">
+  <meta property="og:description" content="Python 多版本管理
+1. 多版本使用需求
+场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。
+场景2：
+2. Windows 下多版本管理
+步骤 1：官网 （速度慢）或者国内镜像..." />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://numantia.github.io/post/sensor-selection-guide03/" />
+  <meta property="og:url" content="https://numantia.github.io/post/python-devenv-configuration/" />
   <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装 - 云杉的速记">
-  <meta name="twitter:description" content="传感器原理种类
-传感器静态指标
-
-
-灵敏度和横向灵敏度
-振动传感器灵敏度指单位振动量输出的电信号量，常用单位有pC/g、mV/g、mV/(m/ss)等。由于切割或极化方向偏差等因素影响，振动传感器感受到与横向(敏感轴正交)作用的加速度时也会...">
+  <meta name="twitter:title" content="一文读懂 Python 开发环境配置 - 云杉的速记">
+  <meta name="twitter:description" content="Python 多版本管理
+1. 多版本使用需求
+场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。
+场景2：
+2. Windows 下多版本管理
+步骤 1：官网 （速度慢）或者国内镜像...">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://numantia.github.io/post/sensor-selection-guide03/">
+  <link rel="canonical" href="https://numantia.github.io/post/python-devenv-configuration/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -62,37 +62,102 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          传感器选型与安装系列文章03：案例1-电机故障诊断用振动传感器选型和安装
+          一文读懂 Python 开发环境配置
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 4 min read</div>
           
-            <a href="https://numantia.github.io/tag/Rz6zlvC_V/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
-              传感器
+              python
             </a>
           
-            <a href="https://numantia.github.io/tag/dLbWJhRO-Y/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+            <a href="https://numantia.github.io/tag/ZwlGyWABM7/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
-              数采
+              windows
             </a>
           
-            <a href="https://numantia.github.io/tag/CRuFsJ7Rjn/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+            <a href="https://numantia.github.io/tag/0-OmOHcwqn/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
-              测控系统
+              linux
+            </a>
+          
+            <a href="https://numantia.github.io/tag/ZEfZ5iByZH/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              VS code
             </a>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <p>传感器原理种类</p>
-<p>传感器静态指标</p>
+          <h1 id="python-多版本管理">Python 多版本管理</h1>
+<h2 id="1-多版本使用需求">1. 多版本使用需求</h2>
+<p>场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。</p>
+<p>场景2：</p>
+<h2 id="2-windows-下多版本管理">2. Windows 下多版本管理</h2>
+<p><strong>步骤 1：</strong><a href="https://www.python.org/downloads/windows/">官网</a> （速度慢）或者<a href="http://npm.taobao.org/mirrors/python/">国内镜像</a>（速度快）下载Python 对应版本；</p>
+<p><strong>步骤 2：</strong> 点击可执行文件安装 Python，注意<strong>选择“Add python.exe to Path”</strong>；</p>
+<p>**步骤 3：**打开 CMD，查看当前电脑下有哪些 Python 版本和安装位置；</p>
+<pre><code class="language-bash">&gt; where python 
+C:\Users\***\AppData\Local\Programs\Python\Python39\python.exe
+C:\Users\***\AppData\Local\Programs\Python\Python37\python.exe
+
+&gt; python --version  # 查看默认版本 或者python -V
+Python 3.9.4
+</code></pre>
+<p>打开 python 的文件路径，或者右键 python 快捷方式打开 “打开文件位置” 找到 Python 的安装位置；</p>
+<img src="../post-images/python_filepath.png" alt="python_filepath" style="zoom: 80%;" />
+<p><strong>步骤 4 ：</strong> 打开任意版本的 Python，并执行脚本命令；</p>
+<p>​	方法1： 修改环境变量，将目标版本的 Python 路径添加到环境变量中，调用参数打开对应版本。</p>
+<pre><code class="language-bash">&gt; py -3.9 # 快速启动 python 3.9
+&gt; py -3.7 # 快速启动 python 3.7
+
+&gt; py -3.9 -V # 查看详细版本 
+
+&gt; py -3.7 helloworld.py # 打开 python 2 脚本
+</code></pre>
+<p>​	方法2：复制一份重命名为python39.exe。注意是复制一份重命名，而不是直接重命名。</p>
+<img src="../post-images/python-rename.png" alt="python-rename" style="zoom:80%;" />
+<p><strong>步骤 5 ：</strong> 多版本共存对应版本的 pip 管理；</p>
+<pre><code class="language-bash"># 多版本共存查看 pip 版本
+&gt; python -m pip -V / pip -V # 查看默认 pip 版本
+pip 21.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python39\lib\site-packages\pip (python 3.9)
+&gt; py -3.7 -m pip -V
+pip 20.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python37\lib\site-packages\pip (python 3.7)
+
+# 卸载pip
+&gt; python -m pip uninstall pip setuptools
+
+# 多版本共存升级pip
+&gt; python -m pip install --upgrade pip
+&gt; py -3.7 -m pip install --upgrade pip # python 3.7 的pip更新
+若更新好，重新运行命令，发现
+Requirement already satisfied: pip in c:\users\octob\appdata\local\programs\python\python37\lib\site-packages (21.1.1)
+
+# 多版本共存如何 pip 安装
+&gt; pip install requests # 默认 python 关联的 pip 命令安装，安装在python3.9（默认）下
+&gt; py -3.7 install requests # python3.7 关联 pip 命令安装，安装在python3.7下
+
+&gt; python -m pip list # 查看 list ，安装在C:\Users\***\AppData\Local\Programs\Python\Python39\Lib\site-packages
+&gt; python -m pip list --outdated  # 检查哪些包需要更新
+</code></pre>
+<p>参考链接</p>
 <ol>
-<li>
-<p>灵敏度和横向灵敏度</p>
-<p>振动传感器灵敏度指单位振动量输出的电信号量，常用单位有pC/g、mV/g、mV/(m/ss)等。由于切割或极化方向偏差等因素影响，振动传感器感受到与<code>横向(敏感轴正交)作用的加速度</code>时也会输出信号，此输出信号与<code>横向作用的加速度</code>之比称为传感器的横向灵敏度。<code>横向灵敏度通常以主轴灵敏度的百分数表示</code>。</p>
-</li>
+<li><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a></li>
 </ol>
+<h2 id="3-linux-系统下多版本管理">3. Linux 系统下多版本管理</h2>
+<p>https://www.jianshu.com/p/929cd16edc2c</p>
+<h1 id="python-虚拟环境配置">Python 虚拟环境配置</h1>
+<h2 id="1-配置需求">1. 配置需求</h2>
+<h2 id="2-配置方法简介">2. 配置方法简介</h2>
+<h2 id="3-配置流程-anaconda-版本">3. 配置流程 - Anaconda 版本</h2>
+<h2 id="4-配置流程-virtualenv-版本">4.  配置流程 - Virtualenv 版本</h2>
+<p>https://zhuanlan.zhihu.com/p/60647332</p>
+<p>http://www.justdopython.com/2020/05/26/python-virtualenv/</p>
+<h1 id="python-开发环境迁移">Python 开发环境迁移</h1>
+<h1 id="vs-code-ide-配置和使用">VS Code IDE 配置和使用</h1>
+<p>https://zhuanlan.zhihu.com/p/64994681</p>
+<p>https://zhuanlan.zhihu.com/p/137347138</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -135,7 +200,26 @@
         </div>
       </div>
       <div class="post-toc-container">
-        
+        <ul class="markdownIt-TOC">
+<li><a href="#python-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">Python 多版本管理</a>
+<ul>
+<li><a href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82">1. 多版本使用需求</a></li>
+<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理</a></li>
+<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">3. Linux 系统下多版本管理</a></li>
+</ul>
+</li>
+<li><a href="#python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Python 虚拟环境配置</a>
+<ul>
+<li><a href="#1-%E9%85%8D%E7%BD%AE%E9%9C%80%E6%B1%82">1. 配置需求</a></li>
+<li><a href="#2-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B">2. 配置方法简介</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B-anaconda-%E7%89%88%E6%9C%AC">3. 配置流程 - Anaconda 版本</a></li>
+<li><a href="#4-%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B-virtualenv-%E7%89%88%E6%9C%AC">4.  配置流程 - Virtualenv 版本</a></li>
+</ul>
+</li>
+<li><a href="#python-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E8%BF%81%E7%A7%BB">Python 开发环境迁移</a></li>
+<li><a href="#vs-code-ide-%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8">VS Code IDE 配置和使用</a></li>
+</ul>
+
       </div>
     </div>
 

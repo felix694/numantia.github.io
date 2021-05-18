@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-04-15T13:00:43.445Z</updated>
+    <updated>2021-05-18T14:25:50.100Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -18,6 +18,277 @@
         <updated>2021-04-16T18:09:44.000Z</updated>
     </entry>
     <entry>
+        <title type="html"><![CDATA[Python常见问题集]]></title>
+        <id>https://numantia.github.io/post/python-FAQs/</id>
+        <link href="https://numantia.github.io/post/python-FAQs/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
+        <content type="html"><![CDATA[<p>[toc]</p>
+<p>持续更新...</p>
+<h1 id="import-module">Import Module</h1>
+<h2 id="1-typeerror-module-object-is-not-callable">1. TypeError: 'module' object is not callable</h2>
+<p><strong>产生原因</strong></p>
+<p>模块前面未加模块名限定</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python">Python导入模块的方法有两种：
+import module  # 所有导入的方法使用时需加上模块名的限
+from module import *  # 无需模块名
+</code></pre>
+<p>List</p>
+<p>dict</p>
+<p>可存储长度不同，文件类型可以不一</p>
+<p>np.array</p>
+<p>长度必须一致</p>
+<h1 id="list">List</h1>
+<h2 id="1-list-comprehension-双循环">1. List Comprehension - 双循环</h2>
+<pre><code class="language-python">ntest=['a','b']
+ltest=[[1,2],[4,5,6]]
+data=[(k,v) for k,l in zip(ntest,ltest) for v in l] 
+</code></pre>
+<h2 id="2-初始化一维数组二维数组">2. 初始化一维数组+二维数组</h2>
+<pre><code class="language-python"># 一维数组
+a = [None] * n # 方法1
+a = [None for i in range(n)] # 方法2
+
+&gt;&gt;&gt; [None, None, None, None, None]
+
+# 二维数组
+a = [list()] * 5 # 浅拷贝方法，所有List会同步变化
+a[0].append(1)  # 方法1
+&gt;&gt;&gt; [[1], [1], [1], [1], [1]]
+
+a = [list() for i in range(5)] # 所有List独立
+a[0].append(1)  # 方法2
+&gt;&gt;&gt; [[1], [], [], [], []]
+
+</code></pre>
+<h1 id="pandas">Pandas</h1>
+<h2 id="1-字典创建-dataframe-长度不一致出错">1. 字典创建 DataFrame 长度不一致出错</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">import pandas as pd
+d = {'A': [1, 2], 'C': [1, 2, 3, 4]}
+data = pd.DataFrame(d)
+&gt;&gt;&gt; ValueError: arrays must all be same length
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>字典创建 DataFrame，键值对应的数组需等长。可以将键值数组转化转化为Series格式。</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python">import pandas as pd
+a = {'A': [1, 2], 'C': [1, 2, 3, 4]}
+b = dict([(k, pd.Series(v)) for k, v in d.items()]) # 列表转化为字典
+c = pd.DataFrame(b) # 字典转化为Dataframe
+c.to_excel('1.xlsx',index=False) # 序号从1开始
+
+&gt;&gt;&gt;
+    A  C
+1  1.0  1
+2  2.0  2
+3  NaN  3
+4  NaN  4
+</code></pre>
+<h2 id="2-pandas-to-excel-存储不同-sheet">2. Pandas to-excel() 存储不同 Sheet</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+df1.to_excel('export_test.xls',sheet_name = 'sheet1')
+df1.to_excel('export_test.xls',sheet_name = 'sheet2‘)
+</code></pre>
+<p>输出表格只有sheet2表，sheet1 表被覆盖。</p>
+<p><strong>产生原因</strong></p>
+<p>多次 to_excel() 输出，’export_test.xlsx‘ 被打开多次，写入只保留了最后一次。</p>
+<p><strong>解决方法1 :</strong>  with open 方式使 ’export_test.xlsx‘ 被打开一次。</p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+
+with pd.ExcelWriter('export_test.xlsx') as write:
+    df1.to_excel(write,sheet_name = 'sheet1')
+    df2.to_excel(write,sheet_name = 'sheet2')
+</code></pre>
+<p>**解决方法2：**不用 with 方法，需在写入后上 write.save()</p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+
+write = pd.ExcelWriter('export_test.xlsx')
+df1.to_excel(write,sheet_name = 'sheet1')
+df2.to_excel(write,sheet_name = 'sheet2')
+write.save()
+</code></pre>
+<p>**解决方法3：**补充<a href="https://www.thinbug.com/q/45251721">例子</a>利用字典循环输出不同 Sheet 表格</p>
+<pre><code class="language-python">import pandas as pd
+
+df1 = pd.DataFrame({'1_A': [1,2,3,4], '1_B': [5,4,6,5],
+                    '1_C': [8,7,9,0], '1_D': [9,7,8,5], '1_E': [2,4,9,8]})
+df2 = pd.DataFrame({'1_A': [5,4,1,3], '1_B': [55,2,3,4]})
+
+setup_dict = {'Sheet_1': df1, 'Sheet_2': df2}
+
+with pd.ExcelWriter('excel_file.xlsx',
+                    engine='xlsxwriter') as writer:
+
+    for ws_name, df_sheet in setup_dict.items():
+        df_sheet.to_excel(writer, sheet_name=ws_name)
+</code></pre>
+<h2 id="3-pandas-浅拷贝和深拷贝-表格复制同步修改问题">3. Pandas 浅拷贝和深拷贝 - 表格复制同步修改问题</h2>
+<p><strong>问题描述</strong></p>
+<p>浅拷贝复制 pandas 数据，原数据修改会同时改变复制数据</p>
+<pre><code class="language-python">import pandas as pd
+a = pd.DataFrame({'id':[1,2,3,4,5],'fruit_name':[&quot;apple&quot;,&quot;orange&quot;,&quot;pineapple&quot;,&quot;banana&quot;,&quot;strawberry&quot;],'price':[7,8,9,10,11]})
+b = a
+a['price'] =[1, 1, 1, 1, 1]
+
+&gt;&gt;&gt; b
+   id  fruit_name  price
+0   1       apple      1
+1   2      orange      1
+2   3   pineapple      1
+3   4      banana      1
+4   5  strawberry      1
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>浅拷贝共用内存</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python"> b = a.copy()
+ a['price'] =[2, 2, 2, 2, 2]
+
+&gt;&gt;&gt; a
+   id  fruit_name  price
+0   1       apple      2
+1   2      orange      2
+2   3   pineapple      2
+3   4      banana      2
+4   5  strawberry      2
+&gt;&gt;&gt; b
+   id  fruit_name  price
+0   1       apple      1
+1   2      orange      1
+2   3   pineapple      1
+3   4      banana      1
+4   5  strawberry      1
+ 
+</code></pre>
+<h1 id="文件读写">文件读写</h1>
+<h2 id="1-导出-csv-存在空白行隔行空行">1. 导出 csv 存在空白行/隔行空行</h2>
+<pre><code class="language-python">with open(test.csv,'w',newline='') as f:
+</code></pre>
+<h2 id="2-多个-print-显示内容在同一行">2. 多个 Print() 显示内容在同一行</h2>
+<p>原理：Print 函数输出最后一个值缺省为换行符，由<code>end= '\n'</code>指定 , 去掉 <code>\n</code> ，即可实现不换行</p>
+<pre><code class="language-python">print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+</code></pre>
+<p>解决方法</p>
+<pre><code class="language-python">print('hello,',end = '')
+print('world')
+&gt;&gt;&gt; hello,world
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一文读懂 Python 开发环境配置]]></title>
+        <id>https://numantia.github.io/post/python-devenv-configuration/</id>
+        <link href="https://numantia.github.io/post/python-devenv-configuration/">
+        </link>
+        <updated>2021-04-13T18:09:44.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="python-多版本管理">Python 多版本管理</h1>
+<h2 id="1-多版本使用需求">1. 多版本使用需求</h2>
+<p>场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。</p>
+<p>场景2：</p>
+<h2 id="2-windows-下多版本管理">2. Windows 下多版本管理</h2>
+<p><strong>步骤 1：</strong><a href="https://www.python.org/downloads/windows/">官网</a> （速度慢）或者<a href="http://npm.taobao.org/mirrors/python/">国内镜像</a>（速度快）下载Python 对应版本；</p>
+<p><strong>步骤 2：</strong> 点击可执行文件安装 Python，注意<strong>选择“Add python.exe to Path”</strong>；</p>
+<p>**步骤 3：**打开 CMD，查看当前电脑下有哪些 Python 版本和安装位置；</p>
+<pre><code class="language-bash">&gt; where python 
+C:\Users\***\AppData\Local\Programs\Python\Python39\python.exe
+C:\Users\***\AppData\Local\Programs\Python\Python37\python.exe
+
+&gt; python --version  # 查看默认版本 或者python -V
+Python 3.9.4
+</code></pre>
+<p>打开 python 的文件路径，或者右键 python 快捷方式打开 “打开文件位置” 找到 Python 的安装位置；</p>
+<img src="../post-images/python_filepath.png" alt="python_filepath" style="zoom: 80%;" />
+<p><strong>步骤 4 ：</strong> 打开任意版本的 Python，并执行脚本命令；</p>
+<p>​	方法1： 修改环境变量，将目标版本的 Python 路径添加到环境变量中，调用参数打开对应版本。</p>
+<pre><code class="language-bash">&gt; py -3.9 # 快速启动 python 3.9
+&gt; py -3.7 # 快速启动 python 3.7
+
+&gt; py -3.9 -V # 查看详细版本 
+
+&gt; py -3.7 helloworld.py # 打开 python 2 脚本
+</code></pre>
+<p>​	方法2：复制一份重命名为python39.exe。注意是复制一份重命名，而不是直接重命名。</p>
+<img src="../post-images/python-rename.png" alt="python-rename" style="zoom:80%;" />
+<p><strong>步骤 5 ：</strong> 多版本共存对应版本的 pip 管理；</p>
+<pre><code class="language-bash"># 多版本共存查看 pip 版本
+&gt; python -m pip -V / pip -V # 查看默认 pip 版本
+pip 21.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python39\lib\site-packages\pip (python 3.9)
+&gt; py -3.7 -m pip -V
+pip 20.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python37\lib\site-packages\pip (python 3.7)
+
+# 卸载pip
+&gt; python -m pip uninstall pip setuptools
+
+# 多版本共存升级pip
+&gt; python -m pip install --upgrade pip
+&gt; py -3.7 -m pip install --upgrade pip # python 3.7 的pip更新
+若更新好，重新运行命令，发现
+Requirement already satisfied: pip in c:\users\octob\appdata\local\programs\python\python37\lib\site-packages (21.1.1)
+
+# 多版本共存如何 pip 安装
+&gt; pip install requests # 默认 python 关联的 pip 命令安装，安装在python3.9（默认）下
+&gt; py -3.7 install requests # python3.7 关联 pip 命令安装，安装在python3.7下
+
+&gt; python -m pip list # 查看 list ，安装在C:\Users\***\AppData\Local\Programs\Python\Python39\Lib\site-packages
+&gt; python -m pip list --outdated  # 检查哪些包需要更新
+</code></pre>
+<p>参考链接</p>
+<ol>
+<li><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a></li>
+</ol>
+<h2 id="3-linux-系统下多版本管理">3. Linux 系统下多版本管理</h2>
+<p>https://www.jianshu.com/p/929cd16edc2c</p>
+<h1 id="python-虚拟环境配置">Python 虚拟环境配置</h1>
+<h2 id="1-配置需求">1. 配置需求</h2>
+<h2 id="2-配置方法简介">2. 配置方法简介</h2>
+<h2 id="3-配置流程-anaconda-版本">3. 配置流程 - Anaconda 版本</h2>
+<h2 id="4-配置流程-virtualenv-版本">4.  配置流程 - Virtualenv 版本</h2>
+<p>https://zhuanlan.zhihu.com/p/60647332</p>
+<p>http://www.justdopython.com/2020/05/26/python-virtualenv/</p>
+<h1 id="python-开发环境迁移">Python 开发环境迁移</h1>
+<h1 id="vs-code-ide-配置和使用">VS Code IDE 配置和使用</h1>
+<p>https://zhuanlan.zhihu.com/p/64994681</p>
+<p>https://zhuanlan.zhihu.com/p/137347138</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[传感器选型与安装系列文章02：看懂传感器技术参数表-谈规格、环境、电气和结构]]></title>
         <id>https://numantia.github.io/post/sensor-selection-guide02/</id>
         <link href="https://numantia.github.io/post/sensor-selection-guide02/">
@@ -30,9 +301,8 @@
 <li><a href="#1-%E7%81%B5%E6%95%8F%E5%BA%A6-%E8%BE%93%E5%87%BA%E9%87%8F%E8%BE%93%E5%85%A5%E9%87%8F%E6%AF%94%E5%80%BC">1. 灵敏度 -- 输出量/输入量比值</a></li>
 <li><a href="#2-%E7%BA%BF%E6%80%A7%E5%BA%A6-%E7%81%B5%E6%95%8F%E5%BA%A6%E5%81%8F%E7%A6%BB%E6%A0%A1%E5%87%86%E6%9B%B2%E7%BA%BF%E7%A8%8B%E5%BA%A6">2. 线性度  -- 灵敏度偏离校准曲线程度</a></li>
 <li><a href="#3-%E5%93%8D%E5%BA%94%E9%A2%91%E7%8E%87-%E4%BC%A0%E6%84%9F%E5%99%A8%E5%A4%96%E9%83%A8%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8F%8D%E5%BA%94%E8%83%BD%E5%8A%9B">3. 响应频率 -- 传感器外部信号的反应能力</a></li>
-<li><a href="#4-%E7%B2%BE%E5%BA%A6%E5%92%8C%E5%88%86%E8%BE%A8%E7%8E%87">4. 精度和分辨率</a></li>
-<li><a href="#5-%E9%87%8D%E5%A4%8D%E6%80%A7-%E7%89%B9%E6%80%A7%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7">5. 重复性 -- 特性曲线的稳定性</a></li>
-<li><a href="#7-%E9%9B%B6%E7%82%B9%E6%BC%82%E7%A7%BB-%E9%9B%B6%E7%82%B9%E5%81%8F%E7%A6%BB%E7%A8%8B%E5%BA%A6%E5%8F%98%E5%8C%96">7. 零点漂移 -- 零点偏离程度变化</a></li>
+<li><a href="#4-%E7%B2%BE%E5%BA%A6%E5%92%8C%E5%88%86%E8%BE%A8%E7%8E%87-%E6%9C%80%E5%A4%A7%E7%BB%9D%E5%AF%B9%E8%AF%AF%E5%B7%AE%E5%92%8C%E6%9C%80%E5%B0%8F%E5%8F%98%E5%8C%96%E9%87%8F">4. 精度和分辨率 - 最大绝对误差和最小变化量</a></li>
+<li><a href="#5-%E9%9B%B6%E7%82%B9%E6%BC%82%E7%A7%BB-%E9%9B%B6%E7%82%B9%E5%81%8F%E7%A6%BB%E7%A8%8B%E5%BA%A6%E5%8F%98%E5%8C%96">5. 零点漂移 -- 零点偏离程度变化</a></li>
 </ul>
 </li>
 <li><a href="#%E4%BC%A0%E6%84%9F%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%82%E5%BA%94%E6%80%A7">传感器环境适应性</a>
@@ -61,40 +331,100 @@
 <p>[TOC]</p>
 <p>通过<a href="https://numantia.github.io/post/sensor-selection-guide01/">系列文章01-常用传感器-谈发展和产品谱系</a>，我们认识了常用传感器的种类，以及对传感器工作原理和特点有所了解。接下来，让一份由<code>技术参数表</code>带领我们更深入认识传感器。</p>
 <h1 id="技术参数表">技术参数表</h1>
-<p>下图为Kistler 8702和8704型加速度计主要技术参数（<a href="https://www.kistler.com/files/document/000-239c.pdf?callee=frontend">中文版</a>，<a href="https://www.kistler.com/files/document/000-238a.pdf?callee=frontend">英文版</a>），该型号下加速度内置剪切模式石英晶体传感器元件。稳定性强的石英晶体材料应用，确保了长期可重复、准确测量。剪切式元件设计具有横向灵敏度低、底座变形和热瞬变不敏感等特点。该型号加速度计体积小、重量轻、适用于实验室或工业环境下通用振动测量。应用场景包括：车辆测试、汽车NVH测试和旋转机械振动分析。</p>
-<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-specifications.png" alt="kistler-8702B-accelerometer-specifications" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-environments.png" alt="kistler-8702B-accelerometer-environments" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-electrics.png" alt="kistler-8702B-accelerometer-electrics" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-construction.png" alt="kistler-8702B-accelerometer-construction" loading="lazy"></figure>
-<p>技术参数表中提供了一款传感器的主要技术规格情况，包括性能参数、电气特性、环境适用性以及结构和安装方式。传感器选型过程中要综合考虑这些技术参数，不仅是性能的满足，也要考虑安装方式可行性以及环境适用性。下面是主要技术指标的介绍。</p>
+<p>选型传感器前，我们可以拿到一份厂家提供的技术手册，结合产品说明和技术参数，我们就可以获得产品的基本信息。对比分析就可以对市场传感器技术规则，特点，应用环境有个大体认识。</p>
+<p>Kistler 8702和8704型加速度计的产品描述：</p>
+<blockquote>
+<p>该型号下加速度内置剪切模式石英晶体传感器元件。稳定性强的石英晶体材料应用，确保了长期可重复、准确测量。剪切式元件设计具有横向灵敏度低、底座变形和热瞬变不敏感等特点。该型号加速度计体积小、重量轻、适用于实验室或工业环境下通用振动测量。应用场景包括：车辆测试、汽车NVH测试和旋转机械振动分析。</p>
+</blockquote>
+<p>下图为Kistler 8702和8704型加速度计主要技术参数（<a href="https://www.kistler.com/files/document/000-239c.pdf?callee=frontend">中文版</a>，<a href="https://www.kistler.com/files/document/000-238a.pdf?callee=frontend">英文版</a>）。</p>
+<p>技术参数表提供了一款传感器的详细技术规格情况，包括性能参数、电气特性、环境适用性以及结构和安装方式。</p>
+<img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-specifications.png" alt="kistler-8702B-accelerometer-specifications" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-environments.png" alt="kistler-8702B-accelerometer-environments" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-electrics.png" alt="kistler-8702B-accelerometer-electrics" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/kistler-8702B-accelerometer-construction.png" alt="kistler-8702B-accelerometer-construction" style="zoom:80%;" />
+<p>传感器选型过程中要综合考虑这些技术参数，不仅是性能的满足，也要考虑安装方式可行性以及环境适用性。下面是主要技术指标的介绍。</p>
 <h1 id="传感器性能参数">传感器性能参数</h1>
 <h2 id="1-灵敏度-输出量输入量比值">1. 灵敏度 -- 输出量/输入量比值</h2>
 <p>传感器灵敏度指到达稳定工作状态时，输出变化量与引起变化的输入变化量之比。</p>
 <p>a. <strong>灵敏度和量程关系：</strong>  量程大的传感器，灵敏度低，量程小的传感器，灵敏度高；</p>
 <p>b. <strong>灵敏度和质量关系：</strong>  （振动传感器）传感器灵敏度越高，则传感器的质量越大，传感器输出电压越大，信噪比越高，分辨能力越强。</p>
 <h2 id="2-线性度-灵敏度偏离校准曲线程度">2. <a href="https://www.vfe.ac.cn/NewsDetail-2188.aspx">线性度 </a> -- 灵敏度偏离校准曲线程度</h2>
-<p>在规定条件下，传感器校准曲线与拟合直线间最大偏差与满量程 (F.S) 输出值的百分比称。</p>
-<p>如果传感器不在线性区间进行测量，则测量得到的幅值误差较大，一般要求传感器非线性 &lt; 1% 。</p>
+<p>线性度或非线性误差表征的是传感器在幅域上的偏差，指的是校准曲线与某一规定直线一致的程度，如果传感器不在线性区间进行测量，则测量得到的幅值误差较大，一般要求传感器非线性 &lt; 1% 。如下所示。这个偏差除了取决于校准曲线，还取决于拟合直线，因此在谈到线性度或非线性误差时，应同时说明其所依据的基准直线。常用的拟合直线有<code>端基直线</code>、<code>最佳直线</code>、<code>最小二乘线</code>等，端基直线指的是两端点之间的直线，最佳直线指的是保证传感器正反行程校准曲线对它的正负偏差相等且最小的直线，最小二乘线指的是使传感器校准数据残差平方和最小的直线。</p>
+<p>非线性误差最常见的表征形式是最大偏差与满量程的比值</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable side="right"><mlabeledtr><mtd><mtext>(1)</mtext></mtd><mtd><mrow><msub><mi>δ</mi><mi>L</mi></msub><mo>=</mo><mo>±</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><msub><mi>Y</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mrow><msub><mi>Y</mi><mrow><mi>F</mi><mi>S</mi></mrow></msub></mfrac><mo>×</mo><mn>100</mn><mi mathvariant="normal">%</mi></mrow></mtd></mlabeledtr></mtable><annotation encoding="application/x-tex">\delta_{L}=\pm\frac{\Delta Y_{max}}{Y_{FS}}\times 100 \% \tag{1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord">±</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">%</span></span><span class="tag"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>a. <strong>实际灵敏度和理想灵敏度：</strong> 实际灵敏度不同于理想线性灵敏度，输出输入间并非完美的线性关系；</p>
 <p>b. <strong>线性度和灵敏度关系：</strong> 线性度反应的是灵敏度的偏离程度。</p>
-<img src="https://numantia.github.io/post-images/image-20210414103935775.png" alt="线性度说明" style="zoom:80%;" />
+<img src="../post-images/非线性度误差.png" alt="非线性度误差" style="zoom: 80%;" />
 <h2 id="3-响应频率-传感器外部信号的反应能力">3. 响应频率 -- 传感器外部信号的反应能力</h2>
-<p>a.  <strong>响应频率和外部信号关系：</strong> 频率响应受到结构特性的影响，频响越高，可测的信号频率范围就宽；频率低的压力传感器可测信号的频率较低。比如压力传感器的响应频率是每秒5000次，外部信号频率是6000次，那么传感器就无法对外部信号做出正确的反应度。如果这时传感器是作为问计数器信号采集的话，传感器就无法输出正确的计数器值，造成计数信号缺答失；</p>
-<p>b.  <strong>谐振频率和工作频率：</strong> 谐振频率为传感器本身结构决定的第一阶固有频率，谐振频率和质量有关，一般尺寸越小，谐振频率越高。传感器工作上限频率取决于幅频曲线中谐振频率（一般工作频率范围为其自身谐振频率的1/3以下）；</p>
-<p>c. <strong>频响特性和工作频率：</strong> b项中提到的<code>谐振频率 1/3 确定传感器工作频率上限</code>，但这个1/3是约估，准确的使用范围，需分析加速度计的频响曲线。去除低频响应段和高频响应段。另外传感器的安装刚度对传感器能测的频率范围也有影响。</p>
-<p>下图某加速度传感器频响特性曲线，在 2 Hz 以下信号衰减严重，频响性能差，在 12 KHz 以上线性度差，其谐振频率约为 38 KHz 。该传感器的工作频率为 12 KHz 以下。</p>
-<img src="https://numantia.github.io/post-images/某加速度传感器频响特性曲线.png" alt="某加速度传感器频响特性曲线" style="zoom:80%;" />
-<h2 id="4-精度和分辨率">4. 精度和分辨率</h2>
+<p>很多传感器可以看作一个单自由度系统，因此传感器也有自己的固有频率，其频率响应往往不是一条直线。传感器典型的频率响应曲线如下图所示，它分为幅频曲线与相频曲线，在频响曲线的起始段与接近共振峰的频率附近传感器的测量精度会产生较大偏差。</p>
+<img src="../post-images/amplitude_phase_frequency.png" alt="amplitude_phase_frequency.png" style="zoom:80%;" />
+<p>a. 响应频率和外部信号关系：** 频率响应受到结构特性的影响，频响越高，可测的信号频率范围就宽；频率低的压力传感器可测信号的频率较低。比如压力传感器的响应频率是每秒5000次，外部信号频率是6000次，那么传感器就无法对外部信号做出正确的反应度。如果这时传感器是作为问计数器信号采集的话，传感器就无法输出正确的计数器值，造成计数信号缺答失；</p>
+<p>b. <strong>谐振频率和工作频率：</strong> 谐振频率为传感器本身结构决定的第一阶固有频率，谐振频率和质量有关，一般尺寸越小，谐振频率越高。传感器工作上限频率取决于幅频曲线中谐振频率（一般工作频率范围为其自身谐振频率的1/3以下）；</p>
+<p>c. <strong>频响特性和工作频率：</strong> b项中提到的<code>谐振频率 1/3 确定传感器工作频率上限</code>，但这个 1/3 是约估，准确的使用范围，需分析加速度计的频响曲线。去除低频响应段和高频响应段。另一般将幅频曲线偏差 <code>± 5%</code> (谐振频率的 1/5 )以内的频带作为传感器的工作频率范围，也有的传感器会按照<code>± 10%</code>(谐振频率的 1/3 )的偏差给出工作频率范围。工业传感器则一般以 <code>3 dB</code>以内的偏差作为工作频率范围，这些指标在传感器的规格说明书里都会给出具体值。外传感器的安装刚度对传感器能测的频率范围也有影响。</p>
+<p>d. <strong>低频响应特性：</strong><a href="https://www.sekorm.com/news/8711.html">内装IC电路芯片传感器</a>低频特性主要由内置芯片的下限频率和传感器的基座应变、热释电效应等环境特性决定；而电路芯片的下限频率取决于 RC 电路，也就是取决于放电时间常数 DTC。**放电时间常数越大，信号衰减越慢，低频响应越好。**基座应变、环境温度变化等环境干扰引起的输出通常在 5 Hz 以下，当测试信号频率在 5 Hz 以上时，应将 IEPE 传感器内置电路芯片下限截止频率设置在 5 Hz 以上，以消除压电传感器的热电等环境干扰引起的噪声输出。当测试信号频率在 5 Hz 以下时，可以选择诸如<code>隔离剪切结构</code>等隔离基座应变、<code>热释电效应等环境干扰性能好</code>的加速度传感器。</p>
+<img src="../post-images/working-frequency- resonant-frequency.png" alt="working-frequency- resonant-frequency" style="zoom:80%;" />
+<p><code>质量对灵敏度和频响特性影响规律:在敏感元件的刚度时，质量块越重，谐振频率越低。同时，大的质量块产生高的机械增益，传感器的灵敏度高，噪声低。相反，小的质量块产生低的机械增益，传感器的灵敏度低、输出小，频率范围宽，可以测量较高的频率信号。</code></p>
+<h2 id="4-精度和分辨率-最大绝对误差和最小变化量">4. 精度和分辨率 - 最大绝对误差和最小变化量</h2>
 <p>a. <strong>精度：</strong>  传感器的精度表示传感器在规定条件下允许的<strong>最大绝对误差</strong>相对于传感器满量程输出的百分数。</p>
 <p>b. <strong>最小检测量（分辨率）：</strong>  最小检测量是指传感器能确切反映被检测量的最低极限量。</p>
-<h2 id="5-重复性-特性曲线的稳定性">5. 重复性 -- 特性曲线的稳定性</h2>
-<p>重复性指在同一工作条件下，输入量按同一方向在全测量范围内连续变动多次所得特性曲线的不一致性。</p>
-<h2 id="7-零点漂移-零点偏离程度变化">7. 零点漂移 -- 零点偏离程度变化</h2>
+<p>c. <strong>分辨率与噪声：<strong>噪声往往决定了传感器能测量的</strong>最小量</strong>，分辨率则决定了传感器测量的<strong>最小变化量</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>Broadband Resolution （1  to 10000 Hz）</th>
+<th>0.00015 g rms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spectral Noise(1 Hz)</td>
+<td>39 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi><mi>g</mi><msqrt><mo>(</mo></msqrt><mi>H</mi><mi>z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu g \sqrt(Hz)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault">μ</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>spectral Noise(10 Hz)</td>
+<td>11 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi><mi>g</mi><msqrt><mo>(</mo></msqrt><mi>H</mi><mi>z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu g \sqrt(Hz)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault">μ</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>spectral Noise(100 Hz)</td>
+<td>3.4 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi><mi>g</mi><msqrt><mo>(</mo></msqrt><mi>H</mi><mi>z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu g \sqrt(Hz)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault">μ</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>spectral Noise(1 kHz)</td>
+<td>1.4 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>μ</mi><mi>g</mi><msqrt><mo>(</mo></msqrt><mi>H</mi><mi>z</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\mu g \sqrt(Hz)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord mathdefault">μ</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mopen" style="padding-left:1em;">(</span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119c34,79.3,68.167,
+158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120c340,-704.7,510.7,-1060.3,512,-1067
+c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
+175,-136,283c-52,108,-89.167,185.3,-111.5,232c-22.3,46.7,-33.8,70.3,-34.5,71
+c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
+-252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
+s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-零点漂移-零点偏离程度变化">5. 零点漂移 -- 零点偏离程度变化</h2>
 <p>传感器无输入(或某一输入值不变)时，每隔一段时间进行读数，其输出偏离零值(或原指示值)，即为零点漂移。</p>
 <h1 id="传感器环境适应性">传感器环境适应性</h1>
 <h2 id="1-温度温度漂移-温度对灵敏度影响特性">1. 温度/温度漂移 -- 温度对灵敏度影响特性</h2>
 <p>任何一种传感器都有自身的工作温度范围，因此根据实际测点位置的温度，以及环境温度来选择合适的传感器。可用温度漂移来表征温度变化时，传感器输出值的偏离程度。</p>
-<figure data-type="image" tabindex="5"><img src="https://numantia.github.io/post-images/%E6%B8%A9%E5%BA%A6%E5%AF%B9%E4%BC%A0%E6%84%9F%E5%99%A8%E7%81%B5%E6%95%8F%E5%BA%A6%E5%BD%B1%E5%93%8D.png" alt="温度对传感器灵敏度影响" loading="lazy"></figure>
+<img src="https://numantia.github.io/post-images/温度对传感器灵敏度影响.png" alt="温度对传感器灵敏度影响" style="zoom:80%;" />
 <h2 id="2-湿度尘土">2. 湿度/尘土</h2>
 <p>传感器使用时湿度、尘土等环境因素的影响。对于测试环境存在潮湿、腐蚀等影响因素时，选择传感器也应该考虑这些因素。</p>
 <h2 id="3-电磁干扰">3. 电磁干扰</h2>
@@ -127,6 +457,15 @@
         <link href="https://numantia.github.io/post/sensor-selection-guide03/">
         </link>
         <updated>2021-04-13T18:09:44.000Z</updated>
+        <content type="html"><![CDATA[<p>传感器原理种类</p>
+<p>传感器静态指标</p>
+<ol>
+<li>
+<p>灵敏度和横向灵敏度</p>
+<p>振动传感器灵敏度指单位振动量输出的电信号量，常用单位有pC/g、mV/g、mV/(m/ss)等。由于切割或极化方向偏差等因素影响，振动传感器感受到与<code>横向(敏感轴正交)作用的加速度</code>时也会输出信号，此输出信号与<code>横向作用的加速度</code>之比称为传感器的横向灵敏度。<code>横向灵敏度通常以主轴灵敏度的百分数表示</code>。</p>
+</li>
+</ol>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[传感器选型与安装系列文章04：案例2-搭建船舶柴油机热工参数监测系统]]></title>

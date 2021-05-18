@@ -1,0 +1,538 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python常见问题集 - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python常见问题集 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="[toc]
+持续更新...
+Import Module
+1. TypeError: &#39;module&#39; object is not callable
+产生原因
+模块前面未加模块名限定
+解决方法
+Python导入模块的方法有两种：
+import..." />
+  <meta property="og:title" content="Python常见问题集 - 云杉的速记">
+  <meta property="og:description" content="[toc]
+持续更新...
+Import Module
+1. TypeError: &#39;module&#39; object is not callable
+产生原因
+模块前面未加模块名限定
+解决方法
+Python导入模块的方法有两种：
+import..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-FAQs/" />
+  <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python常见问题集 - 云杉的速记">
+  <meta name="twitter:description" content="[toc]
+持续更新...
+Import Module
+1. TypeError: &#39;module&#39; object is not callable
+产生原因
+模块前面未加模块名限定
+解决方法
+Python导入模块的方法有两种：
+import...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-FAQs/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python常见问题集
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 6 min read</div>
+          
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+            <a href="https://numantia.github.io/tag/ZcsYilN5r9/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              FAQs
+            </a>
+          
+            <a href="https://numantia.github.io/tag/avH69KDP7W/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              pandas
+            </a>
+          
+            <a href="https://numantia.github.io/tag/peDZfDg-Bp/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              data structure
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>[toc]</p>
+<p>持续更新...</p>
+<h1 id="import-module">Import Module</h1>
+<h2 id="1-typeerror-module-object-is-not-callable">1. TypeError: 'module' object is not callable</h2>
+<p><strong>产生原因</strong></p>
+<p>模块前面未加模块名限定</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python">Python导入模块的方法有两种：
+import module  # 所有导入的方法使用时需加上模块名的限
+from module import *  # 无需模块名
+</code></pre>
+<p>List</p>
+<p>dict</p>
+<p>可存储长度不同，文件类型可以不一</p>
+<p>np.array</p>
+<p>长度必须一致</p>
+<h1 id="list">List</h1>
+<h2 id="1-list-comprehension-双循环">1. List Comprehension - 双循环</h2>
+<pre><code class="language-python">ntest=['a','b']
+ltest=[[1,2],[4,5,6]]
+data=[(k,v) for k,l in zip(ntest,ltest) for v in l] 
+</code></pre>
+<h2 id="2-初始化一维数组二维数组">2. 初始化一维数组+二维数组</h2>
+<pre><code class="language-python"># 一维数组
+a = [None] * n # 方法1
+a = [None for i in range(n)] # 方法2
+
+&gt;&gt;&gt; [None, None, None, None, None]
+
+# 二维数组
+a = [list()] * 5 # 浅拷贝方法，所有List会同步变化
+a[0].append(1)  # 方法1
+&gt;&gt;&gt; [[1], [1], [1], [1], [1]]
+
+a = [list() for i in range(5)] # 所有List独立
+a[0].append(1)  # 方法2
+&gt;&gt;&gt; [[1], [], [], [], []]
+
+</code></pre>
+<h1 id="pandas">Pandas</h1>
+<h2 id="1-字典创建-dataframe-长度不一致出错">1. 字典创建 DataFrame 长度不一致出错</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">import pandas as pd
+d = {'A': [1, 2], 'C': [1, 2, 3, 4]}
+data = pd.DataFrame(d)
+&gt;&gt;&gt; ValueError: arrays must all be same length
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>字典创建 DataFrame，键值对应的数组需等长。可以将键值数组转化转化为Series格式。</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python">import pandas as pd
+a = {'A': [1, 2], 'C': [1, 2, 3, 4]}
+b = dict([(k, pd.Series(v)) for k, v in d.items()]) # 列表转化为字典
+c = pd.DataFrame(b) # 字典转化为Dataframe
+c.to_excel('1.xlsx',index=False) # 序号从1开始
+
+&gt;&gt;&gt;
+    A  C
+1  1.0  1
+2  2.0  2
+3  NaN  3
+4  NaN  4
+</code></pre>
+<h2 id="2-pandas-to-excel-存储不同-sheet">2. Pandas to-excel() 存储不同 Sheet</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+df1.to_excel('export_test.xls',sheet_name = 'sheet1')
+df1.to_excel('export_test.xls',sheet_name = 'sheet2‘)
+</code></pre>
+<p>输出表格只有sheet2表，sheet1 表被覆盖。</p>
+<p><strong>产生原因</strong></p>
+<p>多次 to_excel() 输出，’export_test.xlsx‘ 被打开多次，写入只保留了最后一次。</p>
+<p><strong>解决方法1 :</strong>  with open 方式使 ’export_test.xlsx‘ 被打开一次。</p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+
+with pd.ExcelWriter('export_test.xlsx') as write:
+    df1.to_excel(write,sheet_name = 'sheet1')
+    df2.to_excel(write,sheet_name = 'sheet2')
+</code></pre>
+<p>**解决方法2：**不用 with 方法，需在写入后上 write.save()</p>
+<pre><code class="language-python">import pandas as pd
+a = dict.fromkeys(['a','b','c'],[])
+b = dict.fromkeys(['a','b','c'],[])
+num = 1 
+for index in a.keys():
+    a[index] = [num, num + 1 ,num + 2]
+    for index in b.keys():
+        b[index] = [num, num**2, num**3]
+df1 = pd.DataFrame(df1)
+df2 = pd.DataFrame(df2)
+
+write = pd.ExcelWriter('export_test.xlsx')
+df1.to_excel(write,sheet_name = 'sheet1')
+df2.to_excel(write,sheet_name = 'sheet2')
+write.save()
+</code></pre>
+<p>**解决方法3：**补充<a href="https://www.thinbug.com/q/45251721">例子</a>利用字典循环输出不同 Sheet 表格</p>
+<pre><code class="language-python">import pandas as pd
+
+df1 = pd.DataFrame({'1_A': [1,2,3,4], '1_B': [5,4,6,5],
+                    '1_C': [8,7,9,0], '1_D': [9,7,8,5], '1_E': [2,4,9,8]})
+df2 = pd.DataFrame({'1_A': [5,4,1,3], '1_B': [55,2,3,4]})
+
+setup_dict = {'Sheet_1': df1, 'Sheet_2': df2}
+
+with pd.ExcelWriter('excel_file.xlsx',
+                    engine='xlsxwriter') as writer:
+
+    for ws_name, df_sheet in setup_dict.items():
+        df_sheet.to_excel(writer, sheet_name=ws_name)
+</code></pre>
+<h2 id="3-pandas-浅拷贝和深拷贝-表格复制同步修改问题">3. Pandas 浅拷贝和深拷贝 - 表格复制同步修改问题</h2>
+<p><strong>问题描述</strong></p>
+<p>浅拷贝复制 pandas 数据，原数据修改会同时改变复制数据</p>
+<pre><code class="language-python">import pandas as pd
+a = pd.DataFrame({'id':[1,2,3,4,5],'fruit_name':[&quot;apple&quot;,&quot;orange&quot;,&quot;pineapple&quot;,&quot;banana&quot;,&quot;strawberry&quot;],'price':[7,8,9,10,11]})
+b = a
+a['price'] =[1, 1, 1, 1, 1]
+
+&gt;&gt;&gt; b
+   id  fruit_name  price
+0   1       apple      1
+1   2      orange      1
+2   3   pineapple      1
+3   4      banana      1
+4   5  strawberry      1
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>浅拷贝共用内存</p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python"> b = a.copy()
+ a['price'] =[2, 2, 2, 2, 2]
+
+&gt;&gt;&gt; a
+   id  fruit_name  price
+0   1       apple      2
+1   2      orange      2
+2   3   pineapple      2
+3   4      banana      2
+4   5  strawberry      2
+&gt;&gt;&gt; b
+   id  fruit_name  price
+0   1       apple      1
+1   2      orange      1
+2   3   pineapple      1
+3   4      banana      1
+4   5  strawberry      1
+ 
+</code></pre>
+<h1 id="文件读写">文件读写</h1>
+<h2 id="1-导出-csv-存在空白行隔行空行">1. 导出 csv 存在空白行/隔行空行</h2>
+<pre><code class="language-python">with open(test.csv,'w',newline='') as f:
+</code></pre>
+<h2 id="2-多个-print-显示内容在同一行">2. 多个 Print() 显示内容在同一行</h2>
+<p>原理：Print 函数输出最后一个值缺省为换行符，由<code>end= '\n'</code>指定 , 去掉 <code>\n</code> ，即可实现不换行</p>
+<pre><code class="language-python">print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+</code></pre>
+<p>解决方法</p>
+<pre><code class="language-python">print('hello,',end = '')
+print('world')
+&gt;&gt;&gt; hello,world
+</code></pre>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#import-module">Import Module</a>
+<ul>
+<li><a href="#1-typeerror-module-object-is-not-callable">1. TypeError: 'module' object is not callable</a></li>
+</ul>
+</li>
+<li><a href="#list">List</a>
+<ul>
+<li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
+<li><a href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84">2. 初始化一维数组+二维数组</a></li>
+</ul>
+</li>
+<li><a href="#pandas">Pandas</a>
+<ul>
+<li><a href="#1-%E5%AD%97%E5%85%B8%E5%88%9B%E5%BB%BA-dataframe-%E9%95%BF%E5%BA%A6%E4%B8%8D%E4%B8%80%E8%87%B4%E5%87%BA%E9%94%99">1. 字典创建 DataFrame 长度不一致出错</a></li>
+<li><a href="#2-pandas-to-excel-%E5%AD%98%E5%82%A8%E4%B8%8D%E5%90%8C-sheet">2. Pandas to-excel() 存储不同 Sheet</a></li>
+<li><a href="#3-pandas-%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D-%E8%A1%A8%E6%A0%BC%E5%A4%8D%E5%88%B6%E5%90%8C%E6%AD%A5%E4%BF%AE%E6%94%B9%E9%97%AE%E9%A2%98">3. Pandas 浅拷贝和深拷贝 - 表格复制同步修改问题</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
+<ul>
+<li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
+<li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>
