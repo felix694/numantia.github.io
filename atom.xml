@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-05-19T08:44:58.525Z</updated>
+    <updated>2021-05-19T09:24:43.427Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -117,7 +117,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-1573397"><label class="task-list-item-label" for="task-item-1573397"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9237882"><label class="task-list-item-label" for="task-item-9237882"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
@@ -196,8 +196,7 @@ $ echo $PYTHON_HOME
 <h3 id="虚拟环境运行和-path-修改">虚拟环境运行和 PATH 修改</h3>
 <p>Python 虚拟环境就是利用这个特性构建的，在激活虚拟环境之时，激活脚本会将当前命令行程序的 PATH 修改为虚拟环境的，这样执行命令就会在被修改的 PATH 中查找，从而避免了原本 PATH 可以找到的命令，从而实现了 Python 环境的隔离。</p>
 <h3 id="python解释器和虚拟环境关系">Python解释器和虚拟环境关系</h3>
-<img src="../post-images/Python环境.png" alt="Python环境" style="zoom:80%;" />
-<figure data-type="image" tabindex="4"><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9e4b8acb-e423-4af0-8162-27494c80eb54/Untitled.png" alt="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9e4b8acb-e423-4af0-8162-27494c80eb54/Untitled.png" loading="lazy"></figure>
+<img src="https://numantia.github.io/post-images/Python环境.png" alt="Python环境" style="zoom:80%;" />
 <ul>
 <li>一个操作系统下，可以有多个<code>“操作系统级别的” Python解释器</code>；</li>
 <li>每个Python解释器有一个指向自己的pip工具，两者<code>一一对应</code>；</li>
@@ -306,7 +305,7 @@ conda --help
 <p>按下 Ctrl+Shift+P, 在弹出的命令窗口中输入 “解析器”，然后在下拉列表中选择 “Python:选择解析器”，这里会缓存一些已经创建好的解析器，如果没有想要的，可以选择 “Enter interpreter path” 来选择解析器路径，即已经创建好的虚拟环境脚本文件夹中的 Python 程序，就可以创建一个新的解析器。</p>
 <h3 id="pycharm">Pycharm</h3>
 <p>创建项目时，在项目创建对话框中，可以创建或者选择已经已有的解析器</p>
-<img src="../post-images/pycharm配置python环境.png" alt="选择 Python 解析器" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/pycharm配置python环境.png" alt="选择 Python 解析器" style="zoom:80%;" />
 <h2 id="6-python-开发环境部署">6. Python 开发环境部署</h2>
 <p><strong>此部分拷贝自<a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a></strong></p>
 <p>之所以在开发时选择虚拟环境，除了避免库之间的冲突，还有重要的原因时方便部署，因为虚拟环境时独立的，仅包含了项目相关的依赖库，所以部署的效率更高，风险更小</p>
@@ -633,15 +632,15 @@ print('world')
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">L</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord">±</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">F</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">%</span></span><span class="tag"><span class="strut" style="height:2.19633em;vertical-align:-0.8360000000000001em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>a. <strong>实际灵敏度和理想灵敏度：</strong> 实际灵敏度不同于理想线性灵敏度，输出输入间并非完美的线性关系；</p>
 <p>b. <strong>线性度和灵敏度关系：</strong> 线性度反应的是灵敏度的偏离程度。</p>
-<img src="../post-images/非线性度误差.png" alt="非线性度误差" style="zoom: 80%;" />
+<img src="https://numantia.github.io/post-images/非线性度误差.png" alt="非线性度误差" style="zoom: 80%;" />
 <h2 id="3-响应频率-传感器外部信号的反应能力">3. 响应频率 -- 传感器外部信号的反应能力</h2>
 <p>很多传感器可以看作一个单自由度系统，因此传感器也有自己的固有频率，其频率响应往往不是一条直线。传感器典型的频率响应曲线如下图所示，它分为幅频曲线与相频曲线，在频响曲线的起始段与接近共振峰的频率附近传感器的测量精度会产生较大偏差。</p>
-<img src="../post-images/amplitude_phase_frequency.png" alt="amplitude_phase_frequency.png" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/amplitude_phase_frequency.png" alt="amplitude_phase_frequency.png" style="zoom:80%;" />
 <p>a. 响应频率和外部信号关系：** 频率响应受到结构特性的影响，频响越高，可测的信号频率范围就宽；频率低的压力传感器可测信号的频率较低。比如压力传感器的响应频率是每秒5000次，外部信号频率是6000次，那么传感器就无法对外部信号做出正确的反应度。如果这时传感器是作为问计数器信号采集的话，传感器就无法输出正确的计数器值，造成计数信号缺答失；</p>
 <p>b. <strong>谐振频率和工作频率：</strong> 谐振频率为传感器本身结构决定的第一阶固有频率，谐振频率和质量有关，一般尺寸越小，谐振频率越高。传感器工作上限频率取决于幅频曲线中谐振频率（一般工作频率范围为其自身谐振频率的1/3以下）；</p>
 <p>c. <strong>频响特性和工作频率：</strong> b项中提到的<code>谐振频率 1/3 确定传感器工作频率上限</code>，但这个 1/3 是约估，准确的使用范围，需分析加速度计的频响曲线。去除低频响应段和高频响应段。另一般将幅频曲线偏差 <code>± 5%</code> (谐振频率的 1/5 )以内的频带作为传感器的工作频率范围，也有的传感器会按照<code>± 10%</code>(谐振频率的 1/3 )的偏差给出工作频率范围。工业传感器则一般以 <code>3 dB</code>以内的偏差作为工作频率范围，这些指标在传感器的规格说明书里都会给出具体值。外传感器的安装刚度对传感器能测的频率范围也有影响。</p>
 <p>d. <strong>低频响应特性：</strong><a href="https://www.sekorm.com/news/8711.html">内装IC电路芯片传感器</a>低频特性主要由内置芯片的下限频率和传感器的基座应变、热释电效应等环境特性决定；而电路芯片的下限频率取决于 RC 电路，也就是取决于放电时间常数 DTC。**放电时间常数越大，信号衰减越慢，低频响应越好。**基座应变、环境温度变化等环境干扰引起的输出通常在 5 Hz 以下，当测试信号频率在 5 Hz 以上时，应将 IEPE 传感器内置电路芯片下限截止频率设置在 5 Hz 以上，以消除压电传感器的热电等环境干扰引起的噪声输出。当测试信号频率在 5 Hz 以下时，可以选择诸如<code>隔离剪切结构</code>等隔离基座应变、<code>热释电效应等环境干扰性能好</code>的加速度传感器。</p>
-<img src="../post-images/working-frequency- resonant-frequency.png" alt="working-frequency- resonant-frequency" style="zoom:80%;" />
+<img src="https://numantia.github.io/post-images/working-frequency- resonant-frequency.png" alt="working-frequency- resonant-frequency" style="zoom:80%;" />
 <p><code>质量对灵敏度和频响特性影响规律:在敏感元件的刚度时，质量块越重，谐振频率越低。同时，大的质量块产生高的机械增益，传感器的灵敏度高，噪声低。相反，小的质量块产生低的机械增益，传感器的灵敏度低、输出小，频率范围宽，可以测量较高的频率信号。</code></p>
 <h2 id="4-精度和分辨率-最大绝对误差和最小变化量">4. 精度和分辨率 - 最大绝对误差和最小变化量</h2>
 <p>a. <strong>精度：</strong>  传感器的精度表示传感器在规定条件下允许的<strong>最大绝对误差</strong>相对于传感器满量程输出的百分数。</p>
