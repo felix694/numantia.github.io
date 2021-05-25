@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-05-25T08:14:18.829Z</updated>
+    <updated>2021-05-25T08:16:21.125Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -10,6 +10,167 @@
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 云杉的速记</rights>
+    <entry>
+        <title type="html"><![CDATA[Python 添加配置文件（.ini, .py, .json, etc）]]></title>
+        <id>https://numantia.github.io/post/python-configuration-method/</id>
+        <link href="https://numantia.github.io/post/python-configuration-method/">
+        </link>
+        <updated>2021-05-25T06:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%BF%85%E8%A6%81%E6%80%A7">配置文件必要性</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%AF%94%E8%BE%83">常用配置文件比较</a>
+<ul>
+<li><a href="#1-ini-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">1. ini 配置文件</a></li>
+<li><a href="#2-json-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">2. json 配置文件</a></li>
+<li><a href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B1%BB">3.  初始化类</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>[TOC]</p>
+<h1 id="配置文件必要性">配置文件必要性</h1>
+<ol>
+<li>集中管理，统一修改，降低修改难度，避免修改不全面</li>
+<li>代码和参数分离，方便不同模块代码中重复调用，保持核心代码整洁</li>
+</ol>
+<h1 id="常用配置文件比较">常用配置文件比较</h1>
+<p>配置文件复杂度比 ini &lt; json ≈ toml &lt; yaml</p>
+<table>
+<thead>
+<tr>
+<th>格式类型</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>config.ini</td>
+<td>通用格式，格式简单</td>
+<td>不适合存储大量数据</td>
+</tr>
+<tr>
+<td>config.json</td>
+<td>通用格式，可嵌套，适合存放大量的<strong>结构化配置</strong>或者本地数据</td>
+<td><strong>嵌套过深</strong>的问题，容易导致出错；语法标准严格限制，无法在当中<strong>写注释</strong></td>
+</tr>
+<tr>
+<td>config.py / setting.py</td>
+<td>在python工程中方便通过import方式导入</td>
+<td>不利于<strong>非 Python 的平台</strong>进行配置文件共享</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-ini-配置文件">1. ini 配置文件</h2>
+<p>使用 “ import configparser ”导入configparser模块，即可实现配置文件的写入、更新、删除、读取等操作。</p>
+<p><strong>读</strong>  :</p>
+<p><code>config.get(&quot;section&quot;, &quot;option&quot;)</code>  # 获取指定section下的options</p>
+<p><code>config.getint(&quot;section&quot;, &quot;option&quot;)</code> # 将获取到值转换为int型</p>
+<p><code>config.getboolean(&quot;section&quot;, &quot;option&quot;)</code> # 将获取到值转换为bool型</p>
+<p><code>config.getfloat(&quot;section&quot;, &quot;option&quot;)</code>  # 将获取到值转换为浮点型</p>
+<p><strong>更新：</strong></p>
+<p><code>config.set(&quot;section_mod&quot;, &quot;option&quot;, &quot;option_value&quot;)</code> # 修改section_mod的option</p>
+<p><code>config.add_section(&quot;section_add&quot;)</code> # 添加section节点</p>
+<p><code>config.set(&quot;section_add&quot;, &quot;option&quot;, &quot;option_value&quot;)</code> # 设置指定section_add的options</p>
+<p><strong>检查：</strong></p>
+<p><code>config.options('section')</code>  # 获取指定section 的options即该节点的所有键</p>
+<p><code>config.has_section(&quot;section&quot;)</code># 是否存在该section</p>
+<p><code>config.has_option(&quot;section&quot;, &quot;option&quot;)</code>  # 是否存在该option</p>
+<p><strong>删除：</strong></p>
+<p><code>config.remove_section(&quot;section_rmv&quot;)</code> # 整个section_rmv下的所有内容都将删除</p>
+<p><code>config.remove_option(&quot;section_rmv&quot;, 'option')</code> # 删除section_rmv下的指定option</p>
+<p><strong>保存：</strong></p>
+<p><code>config.write(open(&quot;Config&quot;, &quot;w&quot;))</code> # 保存config</p>
+<p><strong>注意事项</strong></p>
+<ol>
+<li>
+<p>读取都是字符串，无需在配置的时候写成字符串</p>
+</li>
+<li>
+<p>读取字符串不区分大小写</p>
+</li>
+</ol>
+<p>参考链接 1. <a href="https://zhuanlan.zhihu.com/p/59479898">python中配置文件的使用方法</a></p>
+<h2 id="2-json-配置文件">2. json 配置文件</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import json
+&gt;&gt;&gt; from pprint import pprint
+&gt;&gt;&gt; with open('/Users/Bobot/db.json') as j:
+...   cfg = json.load(j)['localdb']
+... 
+&gt;&gt;&gt; pprint(cfg)
+{'database': 'mysql',
+ 'host': '127.0.0.1',
+ 'password': '123456',
+ 'port': 3306,
+ 'user': 'root'}
+</code></pre>
+<p>使用json.load()读取json文件，读入的词典，无法直接用键值当做变量，常规需要 <code>database = cfg['database']</code> 赋值方式来配置变量，若变量增多，配置过程会非常繁琐。通过 <code>globals().update(config)</code>  可以实现字典的变量访问，<code>globals()</code>获得（模块级）全局变量所组成的字典，修改该字典等同修改全局变量，所以通过 <code>.update(config)</code>可以将 <code>config</code> 字典内容转为变量<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<pre><code class="language-python">a_dict = {&quot;key&quot;: &quot;value&quot;}
+globals().update(a_dict)
+print(key)
+</code></pre>
+<h2 id="3-初始化类">3.  初始化类</h2>
+<p><strong>config.ini</strong></p>
+<pre><code class="language-ini">[first_section]
+option1 = 1
+option2 = 0
+option3 = 3.4
+</code></pre>
+<p><strong>config.json</strong></p>
+<pre><code class="language-json">{
+    &quot;localdb&quot;:{
+        &quot;host&quot;: &quot;127.0.0.1&quot;,
+        &quot;user&quot;: &quot;root&quot;,
+        &quot;password&quot;: &quot;123456&quot;,
+        &quot;port&quot;: 3306,
+        &quot;database&quot;: &quot;mysql&quot;
+    }
+}
+</code></pre>
+<p><strong>initDemo()</strong></p>
+<pre><code class="language-python">import configparser
+import json
+
+class initDemo():
+    def __init__(self,fp1,fp2):
+        self.fp1 = fp1 # .json 文件路径
+        self.fp2 = fp2 # .ini 文件路径
+
+    def read_json_config(self):
+        &quot;&quot;&quot;&quot;读取json配置文件&quot;&quot;&quot;
+        with open(self.fp1) as json_file:
+            config = json.load(json_file)['localdb']
+        return config
+
+    def read_ini_config(self):
+        
+        &quot;&quot;&quot;&quot;读取ini配置文件&quot;&quot;&quot;
+        config = configparser.ConfigParser()
+        config.read(self.fp2, encoding=&quot;utf-8&quot;)
+
+        first_section_items = dict(config.items(&quot;first_section&quot;))
+        all_keys = config.options('first_section') # 只能识别小写，获取指定section 的options即该节点的所有键
+        
+        item1 = config.getint('first_section','item1') # 将获取到值转换为int型
+        itme2 = config.getboolean('first_section','item2') # 将获取到值转换为bool型
+        item3 = config.getfloat('first_section','item3') # 将获取到值转换为浮点型
+        return 
+
+    def update_json_config(self, config):
+        &quot;&quot;&quot;&quot;更新配置文件&quot;&quot;&quot;
+        with open(self.fp1, 'w') as json_file:
+            json.dump(config, json_file)
+        return None
+</code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/modabao/article/details/89193990">Python3.用json作为配置文件</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一文读懂 Python 开发环境配置]]></title>
         <id>https://numantia.github.io/post/python-devenv-configuration/</id>
@@ -113,7 +274,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3965678"><label class="task-list-item-label" for="task-item-3965678"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3911406"><label class="task-list-item-label" for="task-item-3911406"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
