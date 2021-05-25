@@ -66,7 +66,7 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 11 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 13 min read</div>
           
             <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -99,6 +99,12 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
 </ul>
 </li>
 <li><a href="#data-type-and-conversion">Data type and Conversion</a></li>
+<li><a href="#string">String</a>
+<ul>
+<li><a href="#1-typeerror-str-object-is-not-callable">1. TypeError: 'str' object is not callable</a></li>
+<li><a href="#2-string-%E5%88%87%E7%89%87%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%86%E5%BA%8F%E5%9F%BA%E6%95%B0%E8%BE%93%E5%87%BA">2. String 切片逆序输出，逆序基数输出</a></li>
+</ul>
+</li>
 <li><a href="#list">List</a>
 <ul>
 <li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
@@ -113,6 +119,7 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
 <ul>
 <li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
 <li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
+<li><a href="#3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</a></li>
 </ul>
 </li>
 <li><a href="#numpy">Numpy</a>
@@ -151,11 +158,6 @@ pow(x,y,z) 等价于 x**y%z
 import module  # 所有导入的方法使用时需加上模块名的限
 from module import *  # 无需模块名
 </code></pre>
-<p>List</p>
-<p>dict</p>
-<p>可存储长度不同，文件类型可以不一</p>
-<p>np.array</p>
-<p>长度必须一致</p>
 <h2 id="unboundlocalerror-local-variable-xxx-referenced-before-assignment">UnboundLocalError： local variable 'xxx' referenced before assignment</h2>
 <p><strong>产生原因</strong></p>
 <p>外部定义了变量，函数内部对该变量运算时</p>
@@ -189,6 +191,15 @@ value = a = 1
 b = test()
 </code></pre>
 <h1 id="data-type-and-conversion">Data type and Conversion</h1>
+<p>首先：表现形式不一致：list：[];字典{}；元组（）集合{}；</p>
+<p>其次：python的列表各个元素可以是不一致的类型即[1,&quot;asd&quot;,10.25]；字典得有key-value，且key不能重复；元组不可以修改，是只读的list,但对于可变数据类型是可以修改的如：a=（1，2，[5,6,7]）,a[-1][-1]=2,则a=[1，2，2]；集合的元素不能有重复；</p>
+<p>最后：类型转换：list（）；set（）；dict（）；tuple（）</p>
+<p>比如删除list的重复元素，直接将其变换成set类型即可，然后在list变成列表。</p>
+<p>List</p>
+<p>dict</p>
+<p>可存储长度不同，文件类型可以不一</p>
+<p>np.array</p>
+<p>长度必须一致</p>
 <pre><code class="language-python"># 查看格式
 print(type(1),type(3.14),
       type('a'),type('abd'),
@@ -213,6 +224,27 @@ print(type(str(f)))
 print('c:\\\\user\\\\pycharm') #\\\\转义\\
 print(r'c:\\user\\pycharm') #用r无需加转义
 </code></pre>
+<h1 id="string">String</h1>
+<h2 id="1-typeerror-str-object-is-not-callable">1. TypeError: 'str' object is not callable</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; x=1.235
+&gt;&gt;&gt; int(x)
+1
+&gt;&gt;&gt; str=&quot;fsgavfdbafdbntsbgbt&quot;
+&gt;&gt;&gt; len(str)
+19
+&gt;&gt;&gt;
+&gt;&gt;&gt; x=987456123
+&gt;&gt;&gt; str(x)
+TypeError: 'str' object is not callable
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>str 为内部函数，str 变量赋值将其转化为变量，发生冲突，无法调用</p>
+<p><strong>解决方法</strong></p>
+<p>更改变量名，和系统内置函数名称<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>不重复</p>
+<h2 id="2-string-切片逆序输出逆序基数输出">2. String 切片逆序输出，逆序基数输出</h2>
+<p>name[::-1],没有写数字，默认为0，两个冒号表示从头到尾，以-1为间隔输出，即逆序输出全部</p>
+<p>name[::-2]，以-1为间隔输出，即逆序输出奇数下标元素</p>
 <h1 id="list">List</h1>
 <h2 id="1-list-comprehension-双循环">1. List Comprehension - 双循环</h2>
 <pre><code class="language-python">ntest=['a','b']
@@ -306,6 +338,7 @@ print List3.tolist()
 <pre><code class="language-python">with open(test.csv,'w',newline='') as f:
 </code></pre>
 <h2 id="2-多个-print-显示内容在同一行">2. 多个 Print() 显示内容在同一行</h2>
+<p><strong>产生原因</strong></p>
 <p>原理：Print 函数输出最后一个值缺省为换行符，由<code>end= '\n'</code>指定 , 去掉 <code>\n</code> ，即可实现不换行</p>
 <pre><code class="language-python">print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
 
@@ -316,11 +349,18 @@ print List3.tolist()
     end:   string appended after the last value, default a newline.
     flush: whether to forcibly flush the stream.
 </code></pre>
-<p>解决方法</p>
+<p><strong>解决方法</strong></p>
 <pre><code class="language-python">print('hello,',end = '')
 print('world')
 &gt;&gt;&gt; hello,world
 </code></pre>
+<h2 id="3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</h2>
+<p><strong>问题描述</strong></p>
+<p>保存CSV，路径为<strong>文件名</strong>，有访问权限，部分数据已顺利存储进入，继续运行，报错<code>PermissionError: [Errno 13] Permission denied</code></p>
+<p><strong>产生原因</strong></p>
+<p><a href="https://blog.csdn.net/shuiyixin/article/details/90370387?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control">文章</a> 指出有三个原因造成该错误，第一是缺乏访问权限，第二是路径为<strong>文件夹名</strong>，而非文件名，第三为改文件打开。这里补充一个原因，该文件夹默认添加到云盘（Onedrive，Icloud，坚果云等）的同步文件夹中，同步操作时该文件无添加权限。</p>
+<p><strong>解决方法</strong></p>
+<p>关闭同步软件</p>
 <h1 id="numpy">Numpy</h1>
 <h2 id="1-numpy-获取对应数字索引值">1. numpy 获取对应数字索引值</h2>
 <pre><code class="language-python">q=np.arange(0,16,1)
@@ -383,7 +423,7 @@ df1.to_excel('export_test.xls',sheet_name = 'sheet2‘)
 <p>输出表格只有sheet2表，sheet1 表被覆盖。</p>
 <p><strong>产生原因</strong></p>
 <p>多次 to_excel() 输出，’export_test.xlsx‘ 被打开多次，写入只保留了最后一次。</p>
-<p><strong>解决方法1 :</strong>  with open 方式使 ’export_test.xlsx‘ 被打开一次。</p>
+<p><strong>解决方法1 :</strong>   with open 方式使 ’export_test.xlsx‘ 被打开一次。</p>
 <pre><code class="language-python">import pandas as pd
 a = dict.fromkeys(['a','b','c'],[])
 b = dict.fromkeys(['a','b','c'],[])
@@ -399,7 +439,7 @@ with pd.ExcelWriter('export_test.xlsx') as write:
     df1.to_excel(write,sheet_name = 'sheet1')
     df2.to_excel(write,sheet_name = 'sheet2')
 </code></pre>
-<p>**解决方法2：**不用 with 方法，需在写入后上 write.save()</p>
+<p><strong>解决方法2：</strong> 不用 with 方法，需在写入后上 write.save()</p>
 <pre><code class="language-python">import pandas as pd
 a = dict.fromkeys(['a','b','c'],[])
 b = dict.fromkeys(['a','b','c'],[])
@@ -416,7 +456,7 @@ df1.to_excel(write,sheet_name = 'sheet1')
 df2.to_excel(write,sheet_name = 'sheet2')
 write.save()
 </code></pre>
-<p>**解决方法3：**补充<a href="https://www.thinbug.com/q/45251721">例子</a>利用字典循环输出不同 Sheet 表格</p>
+<p><strong>解决方法3：</strong> 补充<a href="https://www.thinbug.com/q/45251721">例子</a>利用字典循环输出不同 Sheet 表格</p>
 <pre><code class="language-python">import pandas as pd
 
 df1 = pd.DataFrame({'1_A': [1,2,3,4], '1_B': [5,4,6,5],
@@ -469,6 +509,13 @@ a['price'] =[1, 1, 1, 1, 1]
 4   5  strawberry      1
  
 </code></pre>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/nameix/article/details/54341949">内置函数+内置变量+内置模块</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -519,6 +566,12 @@ a['price'] =[1, 1, 1, 1, 1]
 </ul>
 </li>
 <li><a href="#data-type-and-conversion">Data type and Conversion</a></li>
+<li><a href="#string">String</a>
+<ul>
+<li><a href="#1-typeerror-str-object-is-not-callable">1. TypeError: 'str' object is not callable</a></li>
+<li><a href="#2-string-%E5%88%87%E7%89%87%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%86%E5%BA%8F%E5%9F%BA%E6%95%B0%E8%BE%93%E5%87%BA">2. String 切片逆序输出，逆序基数输出</a></li>
+</ul>
+</li>
 <li><a href="#list">List</a>
 <ul>
 <li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
@@ -533,6 +586,7 @@ a['price'] =[1, 1, 1, 1, 1]
 <ul>
 <li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
 <li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
+<li><a href="#3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</a></li>
 </ul>
 </li>
 <li><a href="#numpy">Numpy</a>

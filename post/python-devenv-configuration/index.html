@@ -18,31 +18,29 @@
 Python 多版本管理
 
 1. 多版本使用需求
-2. Windows 下多版本管理
-3. Linux 系统下多版本管理  - 建立一个对照表
+2. Windows 下多版本管理[^1]
+3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表
 
 
 Python 虚拟环境配置
 
 1. 原理和配置需求
 
-操作系统的环境变量
-虚拟环境运行和 ..." />
+操作系统的环境变..." />
   <meta property="og:title" content="一文读懂 Python 开发环境配置 - 云杉的速记">
   <meta property="og:description" content="
 Python 多版本管理
 
 1. 多版本使用需求
-2. Windows 下多版本管理
-3. Linux 系统下多版本管理  - 建立一个对照表
+2. Windows 下多版本管理[^1]
+3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表
 
 
 Python 虚拟环境配置
 
 1. 原理和配置需求
 
-操作系统的环境变量
-虚拟环境运行和 ..." />
+操作系统的环境变..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://numantia.github.io/post/python-devenv-configuration/" />
   <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
@@ -53,16 +51,15 @@ Python 虚拟环境配置
 Python 多版本管理
 
 1. 多版本使用需求
-2. Windows 下多版本管理
-3. Linux 系统下多版本管理  - 建立一个对照表
+2. Windows 下多版本管理[^1]
+3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表
 
 
 Python 虚拟环境配置
 
 1. 原理和配置需求
 
-操作系统的环境变量
-虚拟环境运行和 ...">
+操作系统的环境变...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://numantia.github.io/post/python-devenv-configuration/">
 
@@ -118,8 +115,8 @@ Python 虚拟环境配置
 <li><a href="#python-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">Python 多版本管理</a>
 <ul>
 <li><a href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82">1. 多版本使用需求</a></li>
-<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理</a></li>
-<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理  - 建立一个对照表</a></li>
+<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理[^1]</a></li>
+<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-2-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表</a></li>
 </ul>
 </li>
 <li><a href="#python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Python 虚拟环境配置</a>
@@ -131,9 +128,9 @@ Python 虚拟环境配置
 <li><a href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%85%B3%E7%B3%BB">Python解释器和虚拟环境关系</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置</a>
+<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置 [^6][^7]</a>
 <ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理[^5]</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-venv-%E7%AE%A1%E7%90%86">使用 venv 管理</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-pipenv-%E7%AE%A1%E7%90%86">使用 pipenv 管理</a></li>
 </ul>
@@ -156,7 +153,7 @@ Python 虚拟环境配置
 <h1 id="python-多版本管理">Python 多版本管理</h1>
 <h2 id="1-多版本使用需求">1. 多版本使用需求</h2>
 <p>场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。</p>
-<h2 id="2-windows-下多版本管理">2. Windows 下多版本管理</h2>
+<h2 id="2-windows-下多版本管理">2. Windows 下多版本管理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
 <p><strong>步骤 1：</strong><a href="https://www.python.org/downloads/windows/">官网</a> （速度慢）或者<a href="http://npm.taobao.org/mirrors/python/">国内镜像</a>（速度快）下载Python 对应版本；</p>
 <p><strong>步骤 2：</strong> 点击可执行文件安装 Python，注意<strong>选择“Add python.exe to Path”</strong>；</p>
 <p><strong>步骤 3：</strong> 打开 CMD，查看当前电脑下有哪些 Python 版本和安装位置；</p>
@@ -203,11 +200,7 @@ Requirement already satisfied: pip in c:\users\octob\appdata\local\programs\pyth
 &gt; python -m pip list # 查看 list ，安装在C:\Users\***\AppData\Local\Programs\Python\Python39\Lib\site-packages
 &gt; python -m pip list --outdated  # 检查哪些包需要更新
 </code></pre>
-<p>参考链接</p>
-<ol>
-<li><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a></li>
-</ol>
-<h2 id="3-linux-系统下多版本管理-建立一个对照表">3. Linux 系统下多版本管理  - 建立一个对照表</h2>
+<h2 id="3-linux-系统下多版本管理-2-建立一个对照表">3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表</h2>
 <figure data-type="image" tabindex="3"><img src="https://numantia.github.io/post-images/linux_python.png" alt="linux_python" loading="lazy"></figure>
 <p><strong>步骤 1：</strong> 查看 Linux 默认安装的 Python 位置</p>
 <pre><code class="language-bash">$ whereis python # 多版本 python 安装位置
@@ -215,7 +208,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3906297"><label class="task-list-item-label" for="task-item-3906297"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3965678"><label class="task-list-item-label" for="task-item-3965678"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
@@ -234,7 +227,7 @@ $ yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel
 $ ./configure --prefix=/root/training/Python-3.6.5
 $ make &amp;&amp; make install
 </code></pre>
-<p>步骤 3： 多版本 Python 管理</p>
+<p><strong>步骤 3：</strong> 多版本 Python 管理</p>
 <pre><code class="language-bash">$ sudo rm /usr/bin/python
 
 $ python
@@ -247,7 +240,7 @@ $ python
 
 $ python3
 </code></pre>
-<p>步骤 4： 多版本 Pip 管理</p>
+<p><strong>步骤 4：</strong> 多版本 Pip 管理</p>
 <ol>
 <li>创建软链接；</li>
 <li>配置环境变量</li>
@@ -282,10 +275,6 @@ export PATH=$PYTHON_HOME/bin:$PATH
 $ source ~/.bash_profile
 $ echo $PYTHON_HOME
 </code></pre>
-<p>参考链接</p>
-<ol>
-<li><a href="https://blog.csdn.net/weixin_38725737/article/details/81084153">Linux下多版本python与多版本pip以及对应安装库包管理</a></li>
-</ol>
 <h1 id="python-虚拟环境配置">Python 虚拟环境配置</h1>
 <h2 id="1-原理和配置需求">1. 原理和配置需求</h2>
 <p>虚拟环境并不是什么新技术，主要是利用了操作系统中环境变量以及进程间环境隔离的特性</p>
@@ -301,8 +290,8 @@ $ echo $PYTHON_HOME
 <li>通过virtualenv可以虚拟任何一个“操作系统级别的”Python解释器成为一个“虚拟级别”的解释器；</li>
 <li>每个“虚拟级别”的解释器又拥有自己独立的<code>pip工具和site-packages</code>。</li>
 </ul>
-<h2 id="2-安装-配置">2.  安装 &amp; 配置</h2>
-<h3 id="使用-virtualenv-管理">使用 Virtualenv 管理</h3>
+<h2 id="2-安装-配置">2.  安装 &amp; 配置 <sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></h2>
+<h3 id="使用-virtualenv-管理">使用 Virtualenv 管理<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h3>
 <p>要点：</p>
 <ol>
 <li>python3.3 之前，只能通过 virtualenv 创建虚拟环境</li>
@@ -327,7 +316,7 @@ $ echo $PYTHON_HOME
 
 </code></pre>
 <h3 id="使用-pipenv-管理">使用 <a href="https://pipenv.pypa.io/en/latest/">pipenv</a> 管理</h3>
-<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。能够自动为项目创建和管理虚拟环境。 pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并且在使用pipenv添加或删除包时，自动维护 Pipfile 文件，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息，避免构建错误。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。</p>
+<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。能够自动为项目创建和管理虚拟环境。 pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并且在使用pipenv添加或删除包时，自动维护 Pipfile 文件，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息，避免构建错误。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。详细使用方法，可参考这篇文章<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
 <pre><code class="language-bash"># 下载
 $ pip install pipenv
 # 创建环境并安装
@@ -339,15 +328,6 @@ $ pipenv install requests # 或者直接安装库
 $ pipenv shell
 $ python --version
 </code></pre>
-<p>详细使用方法，可参考下面两篇文章</p>
-<ol>
-<li>
-<p>https://zhuanlan.zhihu.com/p/37581807</p>
-</li>
-<li>
-<p>https://www.cnblogs.com/zingp/p/8525138.html</p>
-</li>
-</ol>
 <h2 id="3-激活-退出">3. 激活 &amp; 退出</h2>
 <p>通过 virtualenv 和 模块 venv 创建的虚拟环境，激活方式是一样的，即运行激活脚本</p>
 <ul>
@@ -420,18 +400,25 @@ conda --help
 <li>服务类项目 服务类项目就是需要以服务的形式长时间运行的，例如之前介绍的 公交闹钟，或者一些定时爬虫之类的，对于 Linux 而言，当前主流的服务方式是 Systemd，是一种比 init 更先进的服务管理工具，在服务脚本中， 设置 ExecStart 执行命令为全路径的虚拟环境的 Python 解析器，服务启动时，使用独立的虚拟环境了。 Windows 服务，对于达成 EXE 包的，不需要配置虚拟环境，因为打包时已经考虑了环境问题了，如果时脚本运行的话，需要指定全路径的 Python 解析器</li>
 <li>单次运行项目 对于一些测试或者实验性质的项目，大多数情况下手动执行，只要在激活的虚拟环境下，或者用特定的 Python 解析器运行就好了，和在开发过程中运行区别不大</li>
 </ul>
-<p>参考链接</p>
-<ol>
-<li>
-<p><a href="https://zhuanlan.zhihu.com/p/60647332">最全的Python虚拟环境使用方法</a></p>
+<p>脚注链接</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a><br>
+[^2 ]:<a href="https://blog.csdn.net/weixin_38725737/article/details/81084153">Linux下多版本python与多版本pip以及对应安装库包管理</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li>
-<p><a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a></p>
+<li id="fn2" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/60647332">最全的Python虚拟环境使用方法</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li>
-<p><a href="https://www.liujiangblog.com/course/python/6">virtualenv 虚拟环境</a></p>
+<li id="fn3" class="footnote-item"><p><a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://www.liujiangblog.com/course/python/6">virtualenv 虚拟环境</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>https://zhuanlan.zhihu.com/p/37581807 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p>https://www.cnblogs.com/zingp/p/8525138.html <a href="#fnref6" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
+</section>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -478,8 +465,8 @@ conda --help
 <li><a href="#python-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">Python 多版本管理</a>
 <ul>
 <li><a href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82">1. 多版本使用需求</a></li>
-<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理</a></li>
-<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理  - 建立一个对照表</a></li>
+<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理[^1]</a></li>
+<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-2-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表</a></li>
 </ul>
 </li>
 <li><a href="#python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Python 虚拟环境配置</a>
@@ -491,9 +478,9 @@ conda --help
 <li><a href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%85%B3%E7%B3%BB">Python解释器和虚拟环境关系</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置</a>
+<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置 [^6][^7]</a>
 <ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理[^5]</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-venv-%E7%AE%A1%E7%90%86">使用 venv 管理</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-pipenv-%E7%AE%A1%E7%90%86">使用 pipenv 管理</a></li>
 </ul>
