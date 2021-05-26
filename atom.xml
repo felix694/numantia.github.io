@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-05-25T08:16:21.125Z</updated>
+    <updated>2021-05-26T05:53:37.520Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -104,7 +104,7 @@
  'port': 3306,
  'user': 'root'}
 </code></pre>
-<p>使用json.load()读取json文件，读入的词典，无法直接用键值当做变量，常规需要 <code>database = cfg['database']</code> 赋值方式来配置变量，若变量增多，配置过程会非常繁琐。通过 <code>globals().update(config)</code>  可以实现字典的变量访问，<code>globals()</code>获得（模块级）全局变量所组成的字典，修改该字典等同修改全局变量，所以通过 <code>.update(config)</code>可以将 <code>config</code> 字典内容转为变量<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<p>使用json.load()读取json文件，读入的词典，无法直接用键值当做变量，常规需要 <code>database = cfg ['database']</code>  赋值方式来配置变量，若变量增多，配置过程会非常繁琐。通过 <code>globals().update(config)</code>  可以实现字典的变量访问，<code>globals()</code>获得（模块级）全局变量所组成的字典，修改该字典等同修改全局变量，所以通过 <code>.update(config)</code>可以将 <code>config</code> 字典内容转为变量<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
 <pre><code class="language-python">a_dict = {&quot;key&quot;: &quot;value&quot;}
 globals().update(a_dict)
 print(key)
@@ -165,8 +165,10 @@ class initDemo():
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/modabao/article/details/89193990">Python3.用json作为配置文件</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
+<li id="fn1" class="footnote-item"><ol>
+<li><a href="https://blog.csdn.net/modabao/article/details/89193990">Python3.用json作为配置文件</a></li>
+</ol>
+ <a href="#fnref1" class="footnote-backref">↩︎</a></li>
 </ol>
 </section>
 ]]></content>
@@ -182,7 +184,7 @@ class initDemo():
 <ul>
 <li><a href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82">1. 多版本使用需求</a></li>
 <li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理[^1]</a></li>
-<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-2-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表</a></li>
+<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理[^2]  - 建立一个对照表</a></li>
 </ul>
 </li>
 <li><a href="#python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Python 虚拟环境配置</a>
@@ -194,9 +196,9 @@ class initDemo():
 <li><a href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%85%B3%E7%B3%BB">Python解释器和虚拟环境关系</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置 [^6][^7]</a>
+<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置</a>
 <ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理[^5]</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理[^3]</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-venv-%E7%AE%A1%E7%90%86">使用 venv 管理</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-pipenv-%E7%AE%A1%E7%90%86">使用 pipenv 管理</a></li>
 </ul>
@@ -266,7 +268,7 @@ Requirement already satisfied: pip in c:\users\octob\appdata\local\programs\pyth
 &gt; python -m pip list # 查看 list ，安装在C:\Users\***\AppData\Local\Programs\Python\Python39\Lib\site-packages
 &gt; python -m pip list --outdated  # 检查哪些包需要更新
 </code></pre>
-<h2 id="3-linux-系统下多版本管理-2-建立一个对照表">3. Linux 系统下多版本管理[^ 2 ]  - 建立一个对照表</h2>
+<h2 id="3-linux-系统下多版本管理-建立一个对照表">3. Linux 系统下多版本管理<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>  - 建立一个对照表</h2>
 <figure data-type="image" tabindex="3"><img src="https://numantia.github.io/post-images/linux_python.png" alt="linux_python" loading="lazy"></figure>
 <p><strong>步骤 1：</strong> 查看 Linux 默认安装的 Python 位置</p>
 <pre><code class="language-bash">$ whereis python # 多版本 python 安装位置
@@ -274,7 +276,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3911406"><label class="task-list-item-label" for="task-item-3911406"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-2808137"><label class="task-list-item-label" for="task-item-2808137"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
@@ -356,8 +358,8 @@ $ echo $PYTHON_HOME
 <li>通过virtualenv可以虚拟任何一个“操作系统级别的”Python解释器成为一个“虚拟级别”的解释器；</li>
 <li>每个“虚拟级别”的解释器又拥有自己独立的<code>pip工具和site-packages</code>。</li>
 </ul>
-<h2 id="2-安装-配置">2.  安装 &amp; 配置 <sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup><sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></h2>
-<h3 id="使用-virtualenv-管理">使用 Virtualenv 管理<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h3>
+<h2 id="2-安装-配置">2.  安装 &amp; 配置</h2>
+<h3 id="使用-virtualenv-管理">使用 Virtualenv 管理<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></h3>
 <p>要点：</p>
 <ol>
 <li>python3.3 之前，只能通过 virtualenv 创建虚拟环境</li>
@@ -382,7 +384,7 @@ $ echo $PYTHON_HOME
 
 </code></pre>
 <h3 id="使用-pipenv-管理">使用 <a href="https://pipenv.pypa.io/en/latest/">pipenv</a> 管理</h3>
-<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。能够自动为项目创建和管理虚拟环境。 pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并且在使用pipenv添加或删除包时，自动维护 Pipfile 文件，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息，避免构建错误。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。详细使用方法，可参考这篇文章<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup><sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。能够自动为项目创建和管理虚拟环境。 pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并且在使用pipenv添加或删除包时，自动维护 Pipfile 文件，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息，避免构建错误。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。详细使用方法，可参考这篇文章<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>。</p>
 <pre><code class="language-bash"># 下载
 $ pip install pipenv
 # 创建环境并安装
@@ -450,6 +452,7 @@ conda --help
 <h3 id="pycharm">Pycharm</h3>
 <p>创建项目时，在项目创建对话框中，可以创建或者选择已经已有的解析器</p>
 <img src="https://numantia.github.io/post-images/pycharm配置python环境.png" alt="选择 Python 解析器" style="zoom:80%;" />
+<p>其他参考<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p>
 <h2 id="6-python-开发环境部署">6. Python 开发环境部署</h2>
 <p><strong>此部分拷贝自<a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a></strong></p>
 <p>之所以在开发时选择虚拟环境，除了避免库之间的冲突，还有重要的原因时方便部署，因为虚拟环境时独立的，仅包含了项目相关的依赖库，所以部署的效率更高，风险更小</p>
@@ -466,23 +469,37 @@ conda --help
 <li>服务类项目 服务类项目就是需要以服务的形式长时间运行的，例如之前介绍的 公交闹钟，或者一些定时爬虫之类的，对于 Linux 而言，当前主流的服务方式是 Systemd，是一种比 init 更先进的服务管理工具，在服务脚本中， 设置 ExecStart 执行命令为全路径的虚拟环境的 Python 解析器，服务启动时，使用独立的虚拟环境了。 Windows 服务，对于达成 EXE 包的，不需要配置虚拟环境，因为打包时已经考虑了环境问题了，如果时脚本运行的话，需要指定全路径的 Python 解析器</li>
 <li>单次运行项目 对于一些测试或者实验性质的项目，大多数情况下手动执行，只要在激活的虚拟环境下，或者用特定的 Python 解析器运行就好了，和在开发过程中运行区别不大</li>
 </ul>
-<p>脚注链接</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a><br>
-[^2 ]:<a href="https://blog.csdn.net/weixin_38725737/article/details/81084153">Linux下多版本python与多版本pip以及对应安装库包管理</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/60647332">最全的Python虚拟环境使用方法</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p><a href="https://www.liujiangblog.com/course/python/6">virtualenv 虚拟环境</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn5" class="footnote-item"><p>https://zhuanlan.zhihu.com/p/37581807 <a href="#fnref5" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn6" class="footnote-item"><p>https://www.cnblogs.com/zingp/p/8525138.html <a href="#fnref6" class="footnote-backref">↩︎</a></p>
-</li>
+<li id="fn1" class="footnote-item"><ol>
+<li><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">python多版本安装</a></li>
+</ol>
+ <a href="#fnref1" class="footnote-backref">↩︎</a></li>
+<li id="fn2" class="footnote-item"><ol start="2">
+<li><a href="https://blog.csdn.net/weixin_38725737/article/details/81084153">Linux下多版本python与多版本pip以及对应安装库包管理</a></li>
+</ol>
+ <a href="#fnref2" class="footnote-backref">↩︎</a></li>
+<li id="fn3" class="footnote-item"><ol start="3">
+<li><a href="https://www.liujiangblog.com/course/python/6">virtualenv 虚拟环境</a></li>
+</ol>
+ <a href="#fnref3" class="footnote-backref">↩︎</a></li>
+<li id="fn4" class="footnote-item"><ol start="4">
+<li>https://zhuanlan.zhihu.com/p/37581807</li>
+</ol>
+ <a href="#fnref4" class="footnote-backref">↩︎</a></li>
+<li id="fn5" class="footnote-item"><ol start="5">
+<li>https://www.cnblogs.com/zingp/p/8525138.html</li>
+</ol>
+ <a href="#fnref5" class="footnote-backref">↩︎</a></li>
+<li id="fn6" class="footnote-item"><ol start="6">
+<li><a href="https://zhuanlan.zhihu.com/p/60647332">最全的Python虚拟环境使用方法</a></li>
+</ol>
+ <a href="#fnref6" class="footnote-backref">↩︎</a></li>
+<li id="fn7" class="footnote-item"><ol start="7">
+<li><a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a></li>
+</ol>
+ <a href="#fnref7" class="footnote-backref">↩︎</a></li>
 </ol>
 </section>
 ]]></content>
