@@ -90,7 +90,7 @@ Python 虚拟环境配置
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-05-18 · 14 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-05-18 · 15 min read</div>
           
             <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -147,6 +147,8 @@ Python 虚拟环境配置
 </ul>
 </li>
 <li><a href="#6-python-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2">6. Python 开发环境部署</a></li>
+<li><a href="#vs-code%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E8%BF%87%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">VS Code开发环境使用过程常见问题</a></li>
+<li><a href="#1-%E5%90%8C%E7%BA%A7%E7%9B%AE%E5%BD%95%E6%A8%A1%E5%9D%97%E8%B0%83%E7%94%A8">1. 同级目录模块调用</a></li>
 </ul>
 </li>
 </ul>
@@ -211,7 +213,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-7622760"><label class="task-list-item-label" for="task-item-7622760"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6013695"><label class="task-list-item-label" for="task-item-6013695"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
@@ -404,6 +406,21 @@ conda --help
 <li>服务类项目 服务类项目就是需要以服务的形式长时间运行的，例如之前介绍的 公交闹钟，或者一些定时爬虫之类的，对于 Linux 而言，当前主流的服务方式是 Systemd，是一种比 init 更先进的服务管理工具，在服务脚本中， 设置 ExecStart 执行命令为全路径的虚拟环境的 Python 解析器，服务启动时，使用独立的虚拟环境了。 Windows 服务，对于达成 EXE 包的，不需要配置虚拟环境，因为打包时已经考虑了环境问题了，如果时脚本运行的话，需要指定全路径的 Python 解析器</li>
 <li>单次运行项目 对于一些测试或者实验性质的项目，大多数情况下手动执行，只要在激活的虚拟环境下，或者用特定的 Python 解析器运行就好了，和在开发过程中运行区别不大</li>
 </ul>
+<h2 id="vs-code开发环境使用过程常见问题">VS Code开发环境使用过程常见问题</h2>
+<h2 id="1-同级目录模块调用">1. 同级目录模块调用</h2>
+<figure data-type="image" tabindex="4"><img src="https://numantia.github.io/post-images/the-same-level-callback.png" alt="the-same-level-callback" loading="lazy"></figure>
+<p>在 comb_analyser.py 下 想调用 config 下配置文件。</p>
+<p>方法1：在 comb_analyser.py 中添加 如下片段</p>
+<pre><code class="language-python">import sys,os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # __file__获取执行文件相对路径，整行为取上一级的上一级目录
+sys.path.append(BASE_DIR)
+</code></pre>
+<p>方法2：在setting.json中添加自动寻找路径（此方法测试不成功）</p>
+<pre><code class="language-json">    &quot;python.autoComplete.extraPaths&quot;: [
+        &quot;e:/engine-fault-diagnosis-signal_processing&quot;,
+        &quot;e:/engine-fault-diagnosis-signal_processing/config&quot;
+    ]
+</code></pre>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -498,6 +515,8 @@ conda --help
 </ul>
 </li>
 <li><a href="#6-python-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2">6. Python 开发环境部署</a></li>
+<li><a href="#vs-code%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E8%BF%87%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">VS Code开发环境使用过程常见问题</a></li>
+<li><a href="#1-%E5%90%8C%E7%BA%A7%E7%9B%AE%E5%BD%95%E6%A8%A1%E5%9D%97%E8%B0%83%E7%94%A8">1. 同级目录模块调用</a></li>
 </ul>
 </li>
 </ul>

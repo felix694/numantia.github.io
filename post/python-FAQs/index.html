@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Python常见问题集 - 云杉的速记</title>
+<title>Python 编程常见问题集 - 云杉的速记</title>
 <link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Python常见问题集 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Python 编程常见问题集 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
 
     
 
@@ -20,7 +20,7 @@ Import Module
 
 1. TypeError: &#39;module&#39; object is not callable
 UnboundLocalError： local variable &#39;xxx&#39; referenced b..." />
-  <meta property="og:title" content="Python常见问题集 - 云杉的速记">
+  <meta property="og:title" content="Python 编程常见问题集 - 云杉的速记">
   <meta property="og:description" content="[toc]
 
 Import Module
@@ -32,7 +32,7 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b..." />
   <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="Python常见问题集 - 云杉的速记">
+  <meta name="twitter:title" content="Python 编程常见问题集 - 云杉的速记">
   <meta name="twitter:description" content="[toc]
 
 Import Module
@@ -62,11 +62,11 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          Python常见问题集
+          Python 编程常见问题集
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-04-14 · 13 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-06-04 · 19 min read</div>
           
             <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -113,6 +113,7 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
 <li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
 <li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
 <li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
+<li><a href="#6-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">6. List 判断空与非空</a></li>
 </ul>
 </li>
 <li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
@@ -125,6 +126,11 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
 <li><a href="#numpy">Numpy</a>
 <ul>
 <li><a href="#1-numpy-%E8%8E%B7%E5%8F%96%E5%AF%B9%E5%BA%94%E6%95%B0%E5%AD%97%E7%B4%A2%E5%BC%95%E5%80%BC">1. numpy 获取对应数字索引值</a></li>
+<li><a href="#2-npdelete-%E6%96%B9%E6%B3%95">2. np.delete() 方法</a></li>
+<li><a href="#3-numpy%E4%B8%AD%E6%89%BE%E5%89%8D%E5%87%A0%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%80%BC%E6%9C%80%E5%B0%8F%E5%80%BC">3. numpy中找前几个最大值/最小值</a></li>
+<li><a href="#4-ndarray-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">4. ndarray 判断空与非空</a></li>
+<li><a href="#5-npall-%E5%92%8C-npany%E7%9A%84%E7%94%A8%E6%B3%95%E8%A7%A3%E6%9E%90">5. np.all 和 np.any的用法解析</a></li>
+<li><a href="#6-nppad%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3">6. np.pad()的用法详解</a></li>
 </ul>
 </li>
 <li><a href="#pandas">Pandas</a>
@@ -191,6 +197,8 @@ value = a = 1
 b = test()
 </code></pre>
 <h1 id="data-type-and-conversion">Data type and Conversion</h1>
+<p>https://blog.csdn.net/vivian_python/article/details/102968868</p>
+<p>https://blog.csdn.net/nameix/article/details/54341949</p>
 <p>首先：表现形式不一致：list：[];字典{}；元组（）集合{}；</p>
 <p>其次：python的列表各个元素可以是不一致的类型即[1,&quot;asd&quot;,10.25]；字典得有key-value，且key不能重复；元组不可以修改，是只读的list,但对于可变数据类型是可以修改的如：a=（1，2，[5,6,7]）,a[-1][-1]=2,则a=[1，2，2]；集合的元素不能有重复；</p>
 <p>最后：类型转换：list（）；set（）；dict（）；tuple（）</p>
@@ -251,6 +259,7 @@ TypeError: 'str' object is not callable
 ltest=[[1,2],[4,5,6]]
 data=[(k,v) for k,l in zip(ntest,ltest) for v in l] 
 </code></pre>
+<p>https://blog.csdn.net/leavemetomorrow/article/details/90641362</p>
 <h2 id="2-初始化一维数组二维数组">2. 初始化一维数组+二维数组</h2>
 <pre><code class="language-python"># 一维数组
 a = [None] * n # 方法1
@@ -333,6 +342,14 @@ List2 = [5,6,7]
 List3 = np.multiply(np.array(List1),np.array(List2))
 print List3.tolist()
 </code></pre>
+<h2 id="6-list-判断空与非空">6. List 判断空与非空</h2>
+<pre><code class="language-python"># 一、二维通用
+list = []
+if list:
+    print('非空')
+if not list:
+    print('空')
+</code></pre>
 <h1 id="文件读写">文件读写</h1>
 <h2 id="1-导出-csv-存在空白行隔行空行">1. 导出 csv 存在空白行/隔行空行</h2>
 <pre><code class="language-python">with open(test.csv,'w',newline='') as f:
@@ -381,6 +398,121 @@ print int(g) # 转化为可运算的数字序列
 [[7]]
 7
 </code></pre>
+<h2 id="2-npdelete-方法">2. np.delete() 方法</h2>
+<p>numpy.delete()适用于numpy ndarray数组。但是numpy数组不支持删除数组元素，numpy.delete() 返回删除了某些元素的新数组。</p>
+<pre><code class="language-python">numpy.delete(arr,obj,axis = None)
+</code></pre>
+<p>arr : 输入向量</p>
+<p>obj : 表明哪一个子向量应该被移除（index）。可以为整数或一个int型的向量</p>
+<p>axis : 表明删除哪个轴的子向量，若默认，则返回一个被拉平的向量</p>
+<p>例子</p>
+<pre><code class="language-python">import numpy as np
+a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+index = [2, 3, 6]
+new_a = np.delete(a, index)
+print(new_a) #Prints `[1, 2, 5, 6, 8, 9]
+</code></pre>
+<h2 id="3-numpy中找前几个最大值最小值">3. numpy中找前几个最大值/最小值</h2>
+<p>方法1：</p>
+<pre><code class="language-python">def find_max(a):
+    b = np.zeros(4)
+    c = np.zeros(4)
+    c[0] = np.max(a)    #最大值
+    b[0] = np.where(a==c[0])[0]     #最大``值位置
+    new_a = np.delete(a,b[0])
+
+    c[1] = np.max(new_a)    #次大值
+    b[1] = np.where(new_a==c[1])[0]     #找出次大值位置。注：位置为新数组位置，无意义
+    new_a1 = np.delete(new_a,b[1])
+
+    c[2] = np.max(new_a1)   #第三大值
+    b[2] = np.where(new_a1==c[2] )[0]   #找出第三大值位置
+    new_a2 = np.delete(new_a1,b[2])
+
+    c[3] = np.max(new_a2)   #第四大值
+    b[3] = np.where(new_a2==c[3])[0]    #找出第四大值位置
+    return b,c
+</code></pre>
+<p>方法2：</p>
+<pre><code class="language-python">&gt;&gt;&gt; import heapq
+&gt;&gt;&gt; nums=[1,8,2,23,7,-4,18,23,42,37,2]
+&gt;&gt;&gt; print(heapq.nlargest(3,nums))
+[42, 37, 23]
+&gt;&gt;&gt; print(heapq.nsmallest(3,nums))
+[-4, 1, 2]
+</code></pre>
+<h2 id="4-ndarray-判断空与非空">4. ndarray 判断空与非空</h2>
+<p>方法1：</p>
+<pre><code class="language-python"># 一维数组
+array = np.array([])
+if array:
+    print('非空')
+if not array:
+    print('空')
+# 二维数组
+array = np.array([[1], []])
+if array.any():
+    print('非空')
+if not array.any():
+    print('空')
+</code></pre>
+<h2 id="5-npall-和-npany的用法解析">5. np.all 和 np.any的用法解析</h2>
+<p><strong>一维数组</strong></p>
+<p><code>np.all((a, axis=None, out=None, keepdims=np._NoValue))</code> : 判断给定轴上所有元素是否***都为 True***，如果<code>axis</code>为None，返回单个布尔值True或False。</p>
+<pre><code class="language-python">a1 = np.arange(5)       # 生成一个矩阵 [0  1  2  3  4]
+print(&quot;np.all(a1):&quot;, np.all(a2))    # 并运算，未输入axis，输出：False
+</code></pre>
+<p><code>any(a, axis=None, out=None, keepdims=np._NoValue)</code> : 断给定轴向上***是否有一个元素为True***</p>
+<pre><code class="language-python">a2 = np.arange(5)       # 生成一个矩阵 [0  1  2  3  4]
+print(&quot;np.any(a2):&quot;, np.any(a2))    # 输出：True
+</code></pre>
+<p><strong>二维数组</strong></p>
+<pre><code class="language-python">b1 = np.arange(36).reshape(2, 3, 6)     # # 创建一个2*3*6矩阵`
+print(&quot;np.all(b1):&quot;, np.all(b1))    # 判断矩阵中所有元素是否都为True
+&gt;&gt;&gt; np.all(b1): False
+print(&quot;np.all(b1):&quot;, np.all(b1))    # 判断矩阵中所有元素是否都为True
+&gt;&gt;&gt; np.any(b1): True
+</code></pre>
+<p><strong><a href="https://blog.csdn.net/yl_best/article/details/102593264">多维数组</a></strong></p>
+<pre><code class="language-python">b02 = np.all(b1, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 所有元素是否都为True
+print(&quot;np.all(b1, axis=0):\n&quot;, b02)
+&gt;&gt;&gt;np.all(b1, axis=0):
+[[[False True True True True True]
+[ True True True True True True]
+[ True True True True True True]]]
+
+b03 = np.any(b1, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 是否有一个元素为True
+print(&quot;np.any(b1, axis=0):\n&quot;, b03)
+&gt;&gt;&gt;np.any(b1, axis=0):
+[[[ True True True True True True]
+[ True True True True True True]
+[ True True True True True True]]]
+
+b02 = np.all(b1 &lt; 15, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 所有元素是否都小于15
+print(&quot;(np.all(b1 &lt; 15, axis=0):\n&quot;, b02)
+&gt;&gt;&gt;(np.all(b1 &lt; 15, axis=0):
+[[[False False False False False False]
+[False False False False False False]
+[False False False False False False]]]
+
+b03 = np.any(b1 &lt; 15, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 是否有一个元素小于15。所有元素都大于15为False，有一个小于15即为True
+print(&quot;np.any(b1 &lt; 15, axis=0):\n&quot;, b03)
+&gt;&gt;&gt;np.any(b1 &lt; 15, axis=0):
+[[[ True True True True True True]
+[ True True True True True True]
+[ True True True False False False]]] 
+
+</code></pre>
+<p><strong>功能：</strong></p>
+<p>某矩阵A前n行是否全为零/前N+1行是否存在不为零的元素</p>
+<pre><code class="language-python">if np.all(A[:n, :] == 0):
+	print(&quot;A矩阵前n行所有元素均为零&quot;)
+
+if np.any(A[:n+1，:] !=0 ):
+	print(&quot;A矩阵前n+1行存在元素不为零&quot;)
+</code></pre>
+<h2 id="6-nppad的用法详解">6. np.pad()的用法详解</h2>
+<p>https://blog.csdn.net/zenghaitao0128/article/details/78713663</p>
 <h1 id="pandas">Pandas</h1>
 <h2 id="1-字典创建-dataframe-长度不一致出错">1. 字典创建 DataFrame 长度不一致出错</h2>
 <p><strong>问题描述</strong></p>
@@ -580,6 +712,7 @@ a['price'] =[1, 1, 1, 1, 1]
 <li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
 <li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
 <li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
+<li><a href="#6-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">6. List 判断空与非空</a></li>
 </ul>
 </li>
 <li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
@@ -592,6 +725,11 @@ a['price'] =[1, 1, 1, 1, 1]
 <li><a href="#numpy">Numpy</a>
 <ul>
 <li><a href="#1-numpy-%E8%8E%B7%E5%8F%96%E5%AF%B9%E5%BA%94%E6%95%B0%E5%AD%97%E7%B4%A2%E5%BC%95%E5%80%BC">1. numpy 获取对应数字索引值</a></li>
+<li><a href="#2-npdelete-%E6%96%B9%E6%B3%95">2. np.delete() 方法</a></li>
+<li><a href="#3-numpy%E4%B8%AD%E6%89%BE%E5%89%8D%E5%87%A0%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%80%BC%E6%9C%80%E5%B0%8F%E5%80%BC">3. numpy中找前几个最大值/最小值</a></li>
+<li><a href="#4-ndarray-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">4. ndarray 判断空与非空</a></li>
+<li><a href="#5-npall-%E5%92%8C-npany%E7%9A%84%E7%94%A8%E6%B3%95%E8%A7%A3%E6%9E%90">5. np.all 和 np.any的用法解析</a></li>
+<li><a href="#6-nppad%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3">6. np.pad()的用法详解</a></li>
 </ul>
 </li>
 <li><a href="#pandas">Pandas</a>

@@ -1,0 +1,997 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python 日志模块 logging - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python 日志模块 logging - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="
+1. 简介 Python 日志记录模块
+
+1.1 日志记录的重要性
+1.2 Logging模块优点
+1.3 常用日志模块比较
+
+
+2. Logging 模块组成和工作流
+
+2.1 Logging 模块组成
+2.2 Logging 工作流
+..." />
+  <meta property="og:title" content="Python 日志模块 logging - 云杉的速记">
+  <meta property="og:description" content="
+1. 简介 Python 日志记录模块
+
+1.1 日志记录的重要性
+1.2 Logging模块优点
+1.3 常用日志模块比较
+
+
+2. Logging 模块组成和工作流
+
+2.1 Logging 模块组成
+2.2 Logging 工作流
+..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-modules-logging/" />
+  <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python 日志模块 logging - 云杉的速记">
+  <meta name="twitter:description" content="
+1. 简介 Python 日志记录模块
+
+1.1 日志记录的重要性
+1.2 Logging模块优点
+1.3 常用日志模块比较
+
+
+2. Logging 模块组成和工作流
+
+2.1 Logging 模块组成
+2.2 Logging 工作流
+...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-modules-logging/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python 日志模块 logging
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-06-15 · 19 min read</div>
+          
+            <a href="https://numantia.github.io/tag/E57SzuC8o/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python-module
+            </a>
+          
+            <a href="https://numantia.github.io/tag/Q5Qsu_s1ni/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              logging
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p><ul class="markdownIt-TOC">
+<li><a href="#1-%E7%AE%80%E4%BB%8B-python-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E6%A8%A1%E5%9D%97">1. 简介 Python 日志记录模块</a>
+<ul>
+<li><a href="#11-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7">1.1 日志记录的重要性</a></li>
+<li><a href="#12-logging%E6%A8%A1%E5%9D%97%E4%BC%98%E7%82%B9">1.2 Logging模块优点</a></li>
+<li><a href="#13-%E5%B8%B8%E7%94%A8%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97%E6%AF%94%E8%BE%83">1.3 常用日志模块比较</a></li>
+</ul>
+</li>
+<li><a href="#2-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">2. Logging 模块组成和工作流</a>
+<ul>
+<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a></li>
+<li><a href="#22-logging-%E5%B7%A5%E4%BD%9C%E6%B5%81">2.2 Logging 工作流</a></li>
+<li><a href="#23-logging-%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81">2.3 Logging 配置工作流</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%951loggingbasicconfig">方法1：logging.basicConfig()</a></li>
+<li><a href="#%E6%96%B9%E6%B3%952%E7%9B%B4%E6%8E%A5-python-%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95">方法2：直接 Python 代码调用配置方法</a></li>
+<li><a href="#%E6%96%B9%E6%B3%953%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9fileconfig">方法3：创建配置文件，从文件中读取配置内容（<code>fileConfig()</code> ）</a></li>
+<li><a href="#%E6%96%B9%E6%B3%954%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%AD%97%E5%85%B8yaml-json%E4%BB%8E%E5%AD%97%E5%85%B8%E4%B8%AD%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9dictconfig">方法4：创建配置文件字典(YAML, JSON)，从字典中读取配置内容（<code>dictConfig()</code>）</a></li>
+</ul>
+</li>
+<li><a href="#24-%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%8B%E5%AD%90">2.4 简单的例子</a></li>
+</ul>
+</li>
+<li><a href="#3-logging-%E6%A8%A1%E5%9D%97%E7%94%A8%E6%B3%95">3. Logging 模块用法</a>
+<ul>
+<li><a href="#31-%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E5%B1%8F%E5%B9%95">3.1 日志写入到文件和屏幕</a></li>
+<li><a href="#32-%E5%A4%9A%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BAlogging-from-multiple-modules">3.2 多模块输出（Logging from multiple modules）</a></li>
+<li><a href="#33-logging-%E8%AE%B0%E5%BD%95-traceback-%E4%BF%A1%E6%81%AF">3.3 Logging 记录 Traceback 信息</a></li>
+<li><a href="#34-%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E4%BF%A1%E6%81%AF">3.4 输出进度信息</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>[TOC]</p>
+<h1 id="1-简介-python-日志记录模块">1. 简介 Python 日志记录模块</h1>
+<h2 id="11-日志记录的重要性">1.1 日志记录的重要性</h2>
+<ol>
+<li>部署到生产环境中的程序黑箱运行，无法通过调试程序来检查出现的问题，通过观察问题现象来调试，无法精准复现问题，修复问题棘手，会消耗大量时间</li>
+<li>日志文件记录相关的时间记录，状态记录，错误记录等信息，方便地追踪运行状况，快速排查问题。</li>
+</ol>
+<h2 id="12-logging模块优点">1.2 Logging模块优点</h2>
+<ol>
+<li>
+<p>方便日志按重要程度分级管理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Level</th>
+<th style="text-align:left">When it’s used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>DEBUG</code></td>
+<td style="text-align:left">Detailed information, typically of interest only when diagnosing problems.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>INFO</code></td>
+<td style="text-align:left">Confirmation that things are working as expected.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>WARNING</code></td>
+<td style="text-align:left">An indication that something unexpected happened, or indicative of some problem in the near future (e.g. ‘disk space low’). The software is still working as expected.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ERROR</code></td>
+<td style="text-align:left">Due to a more serious problem, the software has not been able to perform some function.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CRITICAL</code></td>
+<td style="text-align:left">A serious error, indicating that the program itself may be unable to continue running.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>方便日志信息管理（额外日志信息的记录，如时间、运行模块信息）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute name</th>
+<th style="text-align:left">Format</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">args</td>
+<td style="text-align:left">You shouldn’t need to format this yourself.</td>
+<td style="text-align:left">The tuple of arguments merged into <code>msg</code> to produce <code>message</code>, or a dict whose values are used for the merge (when there is only one argument, and it is a dictionary).</td>
+</tr>
+<tr>
+<td style="text-align:left">asctime</td>
+<td style="text-align:left"><code>%(asctime)s</code></td>
+<td style="text-align:left">Human-readable time when the <a href="https://docs.python.org/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> was created. By default this is of the form ‘2003-07-08 16:49:45,896’ (the numbers after the comma are millisecond portion of the time).</td>
+</tr>
+<tr>
+<td style="text-align:left">created</td>
+<td style="text-align:left"><code>%(created)f</code></td>
+<td style="text-align:left">Time when the <a href="https://docs.python.org/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> was created (as returned by <a href="https://docs.python.org/3/library/time.html#time.time"><code>time.time()</code></a>).</td>
+</tr>
+<tr>
+<td style="text-align:left">exc_info</td>
+<td style="text-align:left">You shouldn’t need to format this yourself.</td>
+<td style="text-align:left">Exception tuple (à la <code>sys.exc_info</code>) or, if no exception has occurred, <code>None</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">filename</td>
+<td style="text-align:left"><code>%(filename)s</code></td>
+<td style="text-align:left">Filename portion of <code>pathname</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">funcName</td>
+<td style="text-align:left"><code>%(funcName)s</code></td>
+<td style="text-align:left">Name of function containing the logging call.</td>
+</tr>
+<tr>
+<td style="text-align:left">levelname</td>
+<td style="text-align:left"><code>%(levelname)s</code></td>
+<td style="text-align:left">Text logging level for the message (<code>'DEBUG'</code>, <code>'INFO'</code>, <code>'WARNING'</code>, <code>'ERROR'</code>, <code>'CRITICAL'</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left">levelno</td>
+<td style="text-align:left"><code>%(levelno)s</code></td>
+<td style="text-align:left">Numeric logging level for the message (<code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, <code>CRITICAL</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left">lineno</td>
+<td style="text-align:left"><code>%(lineno)d</code></td>
+<td style="text-align:left">Source line number where the logging call was issued (if available).</td>
+</tr>
+<tr>
+<td style="text-align:left">message</td>
+<td style="text-align:left"><code>%(message)s</code></td>
+<td style="text-align:left">The logged message, computed as <code>msg % args</code>. This is set when <a href="https://docs.python.org/3/library/logging.html#logging.Formatter.format"><code>Formatter.format()</code></a> is invoked.</td>
+</tr>
+<tr>
+<td style="text-align:left">module</td>
+<td style="text-align:left"><code>%(module)s</code></td>
+<td style="text-align:left">Module (name portion of <code>filename</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left">msecs</td>
+<td style="text-align:left"><code>%(msecs)d</code></td>
+<td style="text-align:left">Millisecond portion of the time when the <a href="https://docs.python.org/3/library/logging.html#logging.LogRecord"><code>LogRecord</code></a> was created.</td>
+</tr>
+<tr>
+<td style="text-align:left">msg</td>
+<td style="text-align:left">You shouldn’t need to format this yourself.</td>
+<td style="text-align:left">The format string passed in the original logging call. Merged with <code>args</code> to produce <code>message</code>, or an arbitrary object (see <a href="https://docs.python.org/3/howto/logging.html#arbitrary-object-messages">Using arbitrary objects as messages</a>).</td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left"><code>%(name)s</code></td>
+<td style="text-align:left">Name of the logger used to log the call.</td>
+</tr>
+<tr>
+<td style="text-align:left">pathname</td>
+<td style="text-align:left"><code>%(pathname)s</code></td>
+<td style="text-align:left">Full pathname of the source file where the logging call was issued (if available).</td>
+</tr>
+<tr>
+<td style="text-align:left">process</td>
+<td style="text-align:left"><code>%(process)d</code></td>
+<td style="text-align:left">Process ID (if available).</td>
+</tr>
+<tr>
+<td style="text-align:left">processName</td>
+<td style="text-align:left"><code>%(processName)s</code></td>
+<td style="text-align:left">Process name (if available).</td>
+</tr>
+<tr>
+<td style="text-align:left">relativeCreated</td>
+<td style="text-align:left"><code>%(relativeCreated)d</code></td>
+<td style="text-align:left">Time in milliseconds when the LogRecord was created, relative to the time the logging module was loaded.</td>
+</tr>
+<tr>
+<td style="text-align:left">stack_info</td>
+<td style="text-align:left">You shouldn’t need to format this yourself.</td>
+<td style="text-align:left">Stack frame information (where available) from the bottom of the stack in the current thread, up to and including the stack frame of the logging call which resulted in the creation of this record.</td>
+</tr>
+<tr>
+<td style="text-align:left">thread</td>
+<td style="text-align:left"><code>%(thread)d</code></td>
+<td style="text-align:left">Thread ID (if available).</td>
+</tr>
+<tr>
+<td style="text-align:left">threadName</td>
+<td style="text-align:left"><code>%(threadName)s</code></td>
+<td style="text-align:left">Thread name (if available).</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h2 id="13-常用日志模块比较">1.3 常用日志模块比较</h2>
+<img src="../post-images/log-recording-modules-comparison.jpg" alt="log-recording-modules-comparison" style="zoom:80%;float:center;" />
+<p>​                                                                     图片摘自<a href="https://zhuanlan.zhihu.com/p/339961421">python输出日志</a></p>
+<ul>
+<li>print : 更加使用程序快速打印，不在乎日志格式，只想更快看到结果 ，一般用于程序的某个片段或者单点进行调试输出 。</li>
+<li>pprint: 对元组，列表，字典数据打印更加直观友好，若输出的是这种格式，可以优先考虑pprint .</li>
+<li>logging :对实现一个系统或框架时比较合适 ，且对日志需求有更高要求，可以优先考虑logging</li>
+<li>loguru ：对实现一个系统或框架也比较合适 ，但是更加轻量化，不需要配置 ，若对日志需求要求不高，可优先考虑loguru</li>
+</ul>
+<h1 id="2-logging-模块组成和工作流">2. Logging 模块组成和工作流</h1>
+<h2 id="21-logging-模块组成">2.1 Logging 模块组成</h2>
+<ul>
+<li>Logger：即 Logger Main Class，日志记录时创建的对象，我们可以调用Logger的方法传入日志模板和信息，来生成一条条日志记录，称作 Log Record。</li>
+<li>Log Record：就代指生成的一条条日志记录。</li>
+<li>Handler：处理日志记录的类，它可以将 Log Record 输出到指定的日志位置和存储形式等。</li>
+<li>Formatter：生成的 Log Record 也是对象，输出日志文本的话，就需要有一个格式化的过程，那么这个过程就由 Formatter 来完成，返回的就是日志字符串，然后传回给 Handler 来处理。</li>
+<li>Filter：保存前过滤，保存想要的日志，如只保存某个级别的日志，或只保存包含某个关键字的日志等，那么这个过滤过程就交给 Filter 来完成。</li>
+</ul>
+<p>以上就是整个 logging 模块的基本架构和对象功能<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，下面对Logging模块的对象及方法做简要的组成说明，详细参考https://docs.python.org/3/library/logging.html#module-level-functions</p>
+<p><strong>Logging 模块层级类</strong></p>
+<pre><code class="language-bash">&gt;&gt;&gt; dir(logging.Handler)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'acquire', 'addFilter', 'close', 'createLock', 'emit', 'filter', 'flush', 'format', 'get_name', 'handle', 'handleError', 'name', 'release', 'removeFilter', 'setFormatter', 'setLevel', 'set_name']
+&gt;&gt;&gt; dir(logging.Formatter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'converter', 'default_msec_format', 'default_time_format', 'format', 'formatException', 'formatMessage', 'formatStack', 'formatTime', 'usesTime']
+&gt;&gt;&gt; dir(logging.Filter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'filter']
+</code></pre>
+<p><strong>Logging 模块层级函数</strong></p>
+<p><code>logging.getLogger(name=None)</code></p>
+<p><code>logging.getLoggerClass()</code></p>
+<p><code>logging.debug(msg, *args, **kwargs)</code></p>
+<p><code>logging.info(msg, *args, **kwargs)</code></p>
+<p><code>logging.warning(msg, *args, **kwargs)</code></p>
+<p><code>logging.error(msg, *args, **kwargs)</code></p>
+<p><code>logging.critical(msg, *args, **kwargs)</code></p>
+<p><code>logging.exception(msg, *args, **kwargs)</code></p>
+<p><code>logging.basicConfig(**kwargs)</code></p>
+<h2 id="22-logging-工作流">2.2 Logging 工作流</h2>
+<img src="https://numantia.github.io/post-images/logging_flow.png" alt="logging_flow.png" style="zoom:80%;" />
+<p>​                                                                  图片摘自官网<a href="https://docs.python.org/3/howto/logging.html#logging-flow">logging-basic-tutorial</a></p>
+<h2 id="23-logging-配置工作流">2.3 Logging 配置工作流</h2>
+<p>配置 logging 有四种方法</p>
+<h3 id="方法1loggingbasicconfig">方法1：logging.basicConfig()</h3>
+<pre><code class="language-python">&quot;&quot;&quot;
+logging.basicConfig(
+    filename,
+    filemode,
+    format,
+    datefmt,
+    style,
+    level,
+    stream,
+    handlers
+)
+&quot;&quot;&quot;
+import logging
+
+_format = ('%(asctime)s '
+           '%(name)s '  # the name of logger
+           '%(levelname)s '
+           '%(filename)s '
+           '%(threadName)s '
+           '%(lineno)d: '
+           '%(message)s')
+logging.basicConfig(
+    level=logging.DEBUG,  # 默认 level 是 WARNING
+    filename='test.log',
+    format=_format,
+)
+
+logging.debug('logging debug')
+logging.info('logging info')
+
+</code></pre>
+<h3 id="方法2直接-python-代码调用配置方法">方法2：直接 Python 代码调用配置方法</h3>
+<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/image-20210615161943846.png" alt="image-20210615161943846" loading="lazy"></figure>
+<pre><code class="language-python">import logging
+
+# create logger
+logger = logging.getLogger('simple_example')
+logger.setLevel(logging.DEBUG)
+
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
+
+# 'application' code
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warn message')
+logger.error('error message')
+logger.critical('critical message')
+</code></pre>
+<h3 id="方法3创建配置文件从文件中读取配置内容fileconfig">方法3：创建配置文件，从文件中读取配置内容（<a href="https://docs.python.org/3/library/logging.config.html#logging.config.fileConfig"><code>fileConfig()</code></a> ）</h3>
+<pre><code class="language-python">import logging
+import logging.config
+
+logging.config.fileConfig('logging.conf')
+
+# create logger
+logger = logging.getLogger('simpleExample')
+
+# 'application' code
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warn message')
+logger.error('error message')
+logger.critical('critical message')
+</code></pre>
+<p>logging.conf (使用配置文件需去除批注)</p>
+<pre><code class="language-bash">[loggers]
+keys=root,simpleExample
+
+[handlers]
+keys=consoleHandler
+
+[formatters]
+keys=simpleFormatter
+
+##########################################################
+[logger_root] # 定义 root 的日志器，logger_key1
+level=DEBUG
+handlers=consoleHandler # 继承自[handlers]中key
+
+[logger_simpleExample] # 定义 simpleExample 的日志器,logger_key2
+level=DEBUG
+handlers=consoleHandler
+qualname=simpleExample # 继承自[loggers]中key
+propagate=0
+
+[handler_consoleHandler] # 定义窗口输出的处理器,handlers_key1
+class=StreamHandler
+level=DEBUG
+formatter=simpleFormatter # 继承自[formatters]中key
+args=(sys.stdout,)
+
+[formatter_simpleFormatter] # 定义格式器，formatters_key1
+format=%(asctime)s - %(name)s - %(levelname)s - %(message)s
+</code></pre>
+<h3 id="方法4创建配置文件字典yaml-json从字典中读取配置内容dictconfig">方法4：创建配置文件字典(YAML, JSON)，从字典中读取配置内容（<a href="https://docs.python.org/3/library/logging.config.html#logging.config.dictConfig"><code>dictConfig()</code></a>）</h3>
+<pre><code class="language-python">def setup_logging(default_path = &quot;config/logging.json&quot;, default_level = logging.INFO,env_key = &quot;LOG_CFG&quot;):
+    path = default_path
+    value = os.getenv(env_key,None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path,&quot;r&quot;) as f:
+            config = json.load(f)
+            logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level = default_level)
+
+if __name__ == '__main__':
+    setup_logging(default_path = &quot;config/logging.json&quot;)
+    main()
+</code></pre>
+<p><strong>配置文件：YAML format dictionary</strong></p>
+<pre><code class="language-yaml">version: 1
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+loggers:
+  simpleExample:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+root:
+  level: DEBUG
+  handlers: [console]
+</code></pre>
+<p><strong>配置文件：JSON format dictionary</strong> （去除#后内容方可使用）</p>
+<pre><code class="language-json">{
+    &quot;version&quot;:1,
+    &quot;disable_existing_loggers&quot;:false,
+    &quot;formatters&quot;:{
+        &quot;simple&quot;:{
+            &quot;format&quot;:&quot;%(asctime)s - %(name)s - %(filename)s  - %(funcName)s - %(lineno)d- %(levelname)s - %(message)s&quot;
+        }
+    },
+    &quot;handlers&quot;:{
+        &quot;console&quot;:{
+            &quot;class&quot;:&quot;logging.StreamHandler&quot;,
+            &quot;level&quot;:&quot;DEBUG&quot;, # 设置 handlers 的输出级别，下一级
+            &quot;formatter&quot;:&quot;simple&quot;,
+            &quot;stream&quot;:&quot;ext://sys.stdout&quot;
+        },
+        &quot;info_file_handler&quot;:{
+            &quot;class&quot;:&quot;logging.handlers.RotatingFileHandler&quot;,
+            &quot;level&quot;:&quot;INFO&quot;, # 设置 handlers 的输出级别，下一级
+            &quot;formatter&quot;:&quot;simple&quot;,
+            &quot;filename&quot;:&quot;log/info.log&quot;,
+            &quot;maxBytes&quot;:40960,
+            &quot;backupCount&quot;:20,
+            &quot;encoding&quot;:&quot;utf8&quot;
+        },
+        &quot;error_file_handler&quot;:{
+            &quot;class&quot;:&quot;logging.handlers.RotatingFileHandler&quot;,
+            &quot;level&quot;:&quot;ERROR&quot;, # 设置 handlers 的输出级别，下一级
+            &quot;formatter&quot;:&quot;simple&quot;,
+            &quot;filename&quot;:&quot;log/errors.log&quot;,
+            &quot;maxBytes&quot;:40960, # 单个文件大小 1024*40
+            &quot;backupCount&quot;:20, #备份文件数目 20个文件
+            &quot;encoding&quot;:&quot;utf8&quot;
+        }
+    },
+    &quot;loggers&quot;:{
+        &quot;my_module&quot;:{
+            &quot;level&quot;:&quot;ERROR&quot;, # 设置 Logger 的输出级别
+            &quot;handlers&quot;:[&quot;info_file_handler&quot;],
+            &quot;propagate&quot;:&quot;no&quot;
+        }
+    },
+    &quot;root&quot;:{
+        &quot;level&quot;:&quot;INFO&quot;,
+        &quot;handlers&quot;:[&quot;console&quot;,&quot;info_file_handler&quot;,&quot;error_file_handler&quot;]
+    }
+}
+</code></pre>
+<h2 id="24-简单的例子">2.4 简单的例子</h2>
+<pre><code class="language-python">import logging
+import logging.handlers
+
+logger = logging.getLogger('test')
+logger.setLevel(level=logging.DEBUG)  # 记录日志的级别
+&quot;&quot;&quot;
+%(name)s：Logger的名字
+%(levelno)s：打印日志级别的数值
+%(levelname)s：打印日志级别的名称
+%(pathname)s：打印当前执行程序的路径，其实就是sys.argv[0]
+%(filename)s：打印当前执行程序名
+%(funcName)s：打印日志的当前函数
+%(lineno)d：打印日志的当前行号
+%(asctime)s：打印日志的时间
+%(thread)d：打印线程ID
+%(threadName)s：打印线程名称
+%(process)d：打印进程ID
+%(message)s：打印日志信息
+&quot;&quot;&quot;
+
+formatter = logging.Formatter('%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+&quot;&quot;&quot;
+logging.StreamHandler -&gt; 控制台输出
+logging.FileHandler -&gt; 文件输出
+logging.handlers.RotatingFileHandler -&gt; 按照大小自动分割日志文件，一旦达到指定的大小重新生成文件
+logging.handlers.TimedRotatingFileHandler -&gt; 按照时间自动分割日志文件
+&quot;&quot;&quot;
+file_handler = logging.FileHandler('log/test.log') # 输出文件日志的位置方式，添加文件位置
+file_handler.setLevel(level=logging.INFO) # 输出文件日志的级别 
+file_handler.setFormatter(formatter) # 输出文件日志的格式
+
+stream_handler = logging.StreamHandler() # 输出屏幕日志的位置方式
+stream_handler.setLevel(logging.DEBUG) # 输出屏幕日志的级别
+stream_handler.setFormatter(formatter) # 输出屏幕日志的格式
+
+# time_rotating_file_handler = logging.handlers.TimedRotatingFileHandler(filename='rotating_test.log', when='D')
+# time_rotating_file_handler.setLevel(logging.DEBUG)
+# time_rotating_file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+# logger.addHandler(time_rotating_file_handler)
+
+# 运行测试
+logger.debug('debug级别，一般用来打印一些调试信息，级别最低')
+logger.info('info级别，一般用来打印一些正常的操作信息')
+logger.warning('waring级别，一般用来打印警告信息')
+logger.error('error级别，一般用来打印一些错误信息')
+logger.critical('critical级别，一般用来打印一些致命的错误信息，等级最高')
+</code></pre>
+<h1 id="3-logging-模块用法">3. Logging 模块用法</h1>
+<h2 id="31-日志写入到文件和屏幕">3.1 日志写入到文件和屏幕</h2>
+<p>输出到文件：设置logging，创建一个FileHandler，并对输出消息的格式进行设置，将其添加到logger，然后将日志写入到指定的文件中</p>
+<p>输出到屏幕： logger中添加StreamHandler，可以将日志输出到屏幕上</p>
+<p>其他不同的 Handler 方式</p>
+<pre><code>StreamHandler：logging.StreamHandler；日志输出到流，可以是sys.stderr，sys.stdout或者文件
+FileHandler：logging.FileHandler；日志输出到文件
+BaseRotatingHandler：logging.handlers.BaseRotatingHandler；基本的日志回滚方式
+RotatingHandler：logging.handlers.RotatingHandler；日志回滚方式，支持日志文件最大数量和日志文件回滚
+TimeRotatingHandler：logging.handlers.TimeRotatingHandler；日志回滚方式，在一定时间区域内回滚日志文件
+SocketHandler：logging.handlers.SocketHandler；远程输出日志到TCP/IP sockets
+DatagramHandler：logging.handlers.DatagramHandler；远程输出日志到UDP sockets
+SMTPHandler：logging.handlers.SMTPHandler；远程输出日志到邮件地址
+SysLogHandler：logging.handlers.SysLogHandler；日志输出到syslog
+NTEventLogHandler：logging.handlers.NTEventLogHandler；远程输出日志到Windows NT/2000/XP的事件日志
+MemoryHandler：logging.handlers.MemoryHandler；日志输出到内存中的指定buffer
+HTTPHandler：logging.handlers.HTTPHandler；通过&quot;GET&quot;或者&quot;POST&quot;远程输出到HTTP服务器
+</code></pre>
+<p>同时输出达到屏幕和文件可参考[# ]</p>
+<h2 id="32-多模块输出logging-from-multiple-modules">3.2 多模块输出（<a href="https://docs.python.org/3/howto/logging.html#logging-from-multiple-modules">Logging from multiple modules</a>）</h2>
+<p><strong>例子1：</strong> 最简单例子解释使用模式</p>
+<pre><code class="language-python"># myapp.py
+import logging
+import mylib
+
+def main():
+    logging.basicConfig(filename='myapp.log', level=logging.INFO)
+    logging.info('Started')
+    mylib.do_something()
+    logging.info('Finished')
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<pre><code class="language-python"># mylib.py
+import logging
+
+def do_something():
+    logging.info('Doing something')
+</code></pre>
+<pre><code class="language-cmd">输出
+&gt;&gt;&gt; 
+INFO:root:Started
+INFO:root:Doing something
+INFO:root:Finished
+</code></pre>
+<p><strong>例子2：</strong> 多模块追踪信息来源<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></p>
+<pre><code class="language-python"># mainModule.py
+
+import logging
+import subModule
+logger = logging.getLogger(&quot;mainModule&quot;) # 主模块定义了logger'mainModule'，在python解释器进程其他模块里都可以使用logger对象，不需要反复的定义和配置各个模块的logger
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler(&quot;log.txt&quot;)
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+ 
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+ 
+logger.addHandler(handler)
+logger.addHandler(console)
+ 
+ 
+logger.info(&quot;creating an instance of subModule.subModuleClass&quot;)
+a = subModule.SubModuleClass()
+logger.info(&quot;calling subModule.subModuleClass.doSomething&quot;)
+a.doSomething()
+logger.info(&quot;done with  subModule.subModuleClass.doSomething&quot;)
+logger.info(&quot;calling subModule.some_function&quot;)
+subModule.som_function()
+logger.info(&quot;done with subModule.some_function&quot;)
+</code></pre>
+<pre><code class="language-python">import logging
+ 
+module_logger = logging.getLogger(&quot;mainModule.sub&quot;) # 任意以'mainModule'开头的logger都是它的子logger
+class SubModuleClass(object):
+    def __init__(self):
+        self.logger = logging.getLogger(&quot;mainModule.sub.module&quot;)
+        self.logger.info(&quot;creating an instance in SubModuleClass&quot;)
+    def doSomething(self):
+        self.logger.info(&quot;do something in SubModule&quot;)
+        a = []
+        a.append(1)
+        self.logger.debug(&quot;list a = &quot; + str(a))
+        self.logger.info(&quot;finish something in SubModuleClass&quot;)
+ 
+def som_function():
+    module_logger.info(&quot;call function some_function&quot;)
+</code></pre>
+<pre><code class="language-cmd">输出
+&gt;&gt;&gt;
+2016-10-09 20:25:42,276 - mainModule - INFO - creating an instance of subModule.subModuleClass
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - creating an instance in SubModuleClass
+2016-10-09 20:25:42,279 - mainModule - INFO - calling subModule.subModuleClass.doSomething
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - do something in SubModule
+2016-10-09 20:25:42,279 - mainModule.sub.module - INFO - finish something in SubModuleClass
+2016-10-09 20:25:42,279 - mainModule - INFO - done with  subModule.subModuleClass.doSomething
+2016-10-09 20:25:42,279 - mainModule - INFO - calling subModule.some_function
+2016-10-09 20:25:42,279 - mainModule.sub - INFO - call function some_function
+2016-10-09 20:25:42,279 - mainModule - INFO - done with subModule.some_function
+</code></pre>
+<h2 id="33-logging-记录-traceback-信息">3.3 Logging 记录 Traceback 信息</h2>
+<p>Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback.改部分摘自参考文章3。</p>
+<pre><code class="language-python">import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.INFO)
+handler = logging.FileHandler(&quot;log.txt&quot;)
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+ 
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+ 
+logger.addHandler(handler)
+logger.addHandler(console)
+ 
+logger.info(&quot;Start print log&quot;)
+logger.debug(&quot;Do something&quot;)
+logger.warning(&quot;Something maybe fail.&quot;)
+try:
+    open(&quot;sklearn.txt&quot;,&quot;rb&quot;)
+except (SystemExit,KeyboardInterrupt):
+    raise
+except Exception:
+    logger.error(&quot;Faild to open sklearn.txt from logger.error&quot;,exc_info = True) # 方法1
+    logger.exception(&quot;Failed to open sklearn.txt from logger.exception&quot;) # 方法2
+ 
+logger.info(&quot;Finish&quot;)
+</code></pre>
+<pre><code>Start print log
+Something maybe fail.
+Faild to open sklearn.txt from logger.error
+Traceback (most recent call last):
+  File &quot;G:\zhb7627\Code\Eclipse WorkSpace\PythonTest\test.py&quot;, line 23, in &lt;module&gt;
+    open(&quot;sklearn.txt&quot;,&quot;rb&quot;)
+IOError: [Errno 2] No such file or directory: 'sklearn.txt'
+Finish
+</code></pre>
+<h2 id="34-输出进度信息">3.4 输出进度信息</h2>
+<pre><code class="language-python">logging.info(&quot;Operating progress: {:.1f}%, {} &quot;.format(num/cycle_No*100, &quot;&gt;&quot; * (num // 2)))
+</code></pre>
+<p>https://zhuanlan.zhihu.com/p/56095714</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://docs.python.org/3/library/logging.html#logging-levels">1. Logging Levels</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://docs.python.org/3/library/logging.html#logrecord-attributes">2. logrecord-attributes</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/pansaky/article/details/90710751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162322535616780269881668%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=162322535616780269881668&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-8-90710751.first_rank_v2_pc_rank_v29&amp;utm_term=python+%E6%97%A5%E5%BF%97&amp;spm=1018.2226.3001.4187">3.python 日志 logging模块(详细解析)</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a href="https://cuiqingcai.com/6080.html">4. Python 中 logging 模块的基本用法</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#1-%E7%AE%80%E4%BB%8B-python-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E6%A8%A1%E5%9D%97">1. 简介 Python 日志记录模块</a>
+<ul>
+<li><a href="#11-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7">1.1 日志记录的重要性</a></li>
+<li><a href="#12-logging%E6%A8%A1%E5%9D%97%E4%BC%98%E7%82%B9">1.2 Logging模块优点</a></li>
+<li><a href="#13-%E5%B8%B8%E7%94%A8%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97%E6%AF%94%E8%BE%83">1.3 常用日志模块比较</a></li>
+</ul>
+</li>
+<li><a href="#2-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">2. Logging 模块组成和工作流</a>
+<ul>
+<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a></li>
+<li><a href="#22-logging-%E5%B7%A5%E4%BD%9C%E6%B5%81">2.2 Logging 工作流</a></li>
+<li><a href="#23-logging-%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81">2.3 Logging 配置工作流</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%951loggingbasicconfig">方法1：logging.basicConfig()</a></li>
+<li><a href="#%E6%96%B9%E6%B3%952%E7%9B%B4%E6%8E%A5-python-%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95">方法2：直接 Python 代码调用配置方法</a></li>
+<li><a href="#%E6%96%B9%E6%B3%953%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9fileconfig">方法3：创建配置文件，从文件中读取配置内容（<code>fileConfig()</code> ）</a></li>
+<li><a href="#%E6%96%B9%E6%B3%954%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%AD%97%E5%85%B8yaml-json%E4%BB%8E%E5%AD%97%E5%85%B8%E4%B8%AD%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9dictconfig">方法4：创建配置文件字典(YAML, JSON)，从字典中读取配置内容（<code>dictConfig()</code>）</a></li>
+</ul>
+</li>
+<li><a href="#24-%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%8B%E5%AD%90">2.4 简单的例子</a></li>
+</ul>
+</li>
+<li><a href="#3-logging-%E6%A8%A1%E5%9D%97%E7%94%A8%E6%B3%95">3. Logging 模块用法</a>
+<ul>
+<li><a href="#31-%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E5%B1%8F%E5%B9%95">3.1 日志写入到文件和屏幕</a></li>
+<li><a href="#32-%E5%A4%9A%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BAlogging-from-multiple-modules">3.2 多模块输出（Logging from multiple modules）</a></li>
+<li><a href="#33-logging-%E8%AE%B0%E5%BD%95-traceback-%E4%BF%A1%E6%81%AF">3.3 Logging 记录 Traceback 信息</a></li>
+<li><a href="#34-%E8%BE%93%E5%87%BA%E8%BF%9B%E5%BA%A6%E4%BF%A1%E6%81%AF">3.4 输出进度信息</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>
