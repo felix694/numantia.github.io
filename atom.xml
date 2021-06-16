@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-06-15T13:31:18.904Z</updated>
+    <updated>2021-06-16T01:47:34.923Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -10,6 +10,299 @@
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 云杉的速记</rights>
+    <entry>
+        <title type="html"><![CDATA[Python print() 常见用法]]></title>
+        <id>https://numantia.github.io/post/python-print/</id>
+        <link href="https://numantia.github.io/post/python-print/">
+        </link>
+        <updated>2021-06-16T04:00:00.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-python">print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+</code></pre>
+<ul>
+<li>objects -- 复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。</li>
+<li>sep -- 用来间隔多个对象，默认值是一个空格。</li>
+<li>end -- 用来设定以什么结尾。默认值是换行符 \n，我们可以换成其他字符串。</li>
+<li>file -- 要写入的文件对象。</li>
+<li>flush -- 输出是否被缓存通常决定于 file，但如果 flush 关键字参数为 True，流会被强制刷新</li>
+</ul>
+<p><strong>例子1：输出字符串</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;aaa&quot;&quot;bbb&quot;)
+aaabbb
+&gt;&gt;&gt; print(&quot;aaa&quot;,&quot;bbb&quot;)
+aaa bbb
+&gt;&gt;&gt; 
+ 
+&gt;&gt;&gt; print(&quot;www&quot;,&quot;runoob&quot;,&quot;com&quot;,sep=&quot;.&quot;)  # 设置间隔符
+www.runoob.com
+</code></pre>
+<p><strong>例子2：实现 Loading 效果</strong></p>
+<pre><code class="language-python">import time
+
+print(&quot;Loading&quot;,end = &quot;&quot;) # 结尾不换行
+for i in range(20):
+    print(&quot;.&quot;,end = '',flush = True) #结尾不换行，缓存输出
+    time.sleep(0.5)
+
+#运行结果
+Loading......
+</code></pre>
+<p><strong>例子3：Python format 格式化函数<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></strong></p>
+<pre><code class="language-python">&gt;&gt;&gt;&quot;{} {}&quot;.format(&quot;hello&quot;, &quot;world&quot;)    # 不设置指定位置，按默认顺序
+'hello world'
+ 
+&gt;&gt;&gt; &quot;{0} {1}&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置
+'hello world'
+ 
+&gt;&gt;&gt; &quot;{1} {0} {1}&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置
+'world hello world'
+</code></pre>
+<pre><code class="language-python"># 设置参数
+print(&quot;网站名：{name}, 地址 {url}&quot;.format(name=&quot;菜鸟教程&quot;, url=&quot;www.runoob.com&quot;))
+ 
+# 通过字典设置参数
+site = {&quot;name&quot;: &quot;菜鸟教程&quot;, &quot;url&quot;: &quot;www.runoob.com&quot;}
+print(&quot;网站名：{name}, 地址 {url}&quot;.format(site))
+ 
+# 通过列表索引设置参数
+my_list = ['菜鸟教程', 'www.runoob.com']
+print(&quot;网站名：{0[0]}, 地址 {0[1]}&quot;.format(my_list))  # &quot;0&quot; 是必须的
+</code></pre>
+<p><strong>例子4：.format() 格式化输出</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;{:.2f}&quot;.format(3.1415926))
+3.14
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数字</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">输出</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">3.1415926</td>
+<td style="text-align:left">{:.2f}</td>
+<td style="text-align:left">3.14</td>
+<td style="text-align:left">保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">3.1415926</td>
+<td style="text-align:left">{:+.2f}</td>
+<td style="text-align:left">+3.14</td>
+<td style="text-align:left">带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">{:+.2f}</td>
+<td style="text-align:left">-1.00</td>
+<td style="text-align:left">带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">2.71828</td>
+<td style="text-align:left">{:.0f}</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">不带小数</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">{:0&gt;2d}</td>
+<td style="text-align:left">05</td>
+<td style="text-align:left">数字补零 (填充左边, 宽度为2)</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">{:x&lt;4d}</td>
+<td style="text-align:left">5xxx</td>
+<td style="text-align:left">数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">{:x&lt;4d}</td>
+<td style="text-align:left">10xx</td>
+<td style="text-align:left">数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td style="text-align:left">1000000</td>
+<td style="text-align:left">{:,}</td>
+<td style="text-align:left">1,000,000</td>
+<td style="text-align:left">以逗号分隔的数字格式</td>
+</tr>
+<tr>
+<td style="text-align:left">0.25</td>
+<td style="text-align:left">{:.2%}</td>
+<td style="text-align:left">25.00%</td>
+<td style="text-align:left">百分比格式</td>
+</tr>
+<tr>
+<td style="text-align:left">1000000000</td>
+<td style="text-align:left">{:.2e}</td>
+<td style="text-align:left">1.00e+09</td>
+<td style="text-align:left">指数记法</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:&gt;10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">右对齐 (默认, 宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:&lt;10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">左对齐 (宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:^10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">中间对齐 (宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left"><code>'{:b}'.format(11) '{:d}'.format(11) '{:o}'.format(11) '{:x}'.format(11) '{:#x}'.format(11) '{:#X}'.format(11)</code></td>
+<td style="text-align:left"><code>1011 11 13 b 0xb 0XB</code></td>
+<td style="text-align:left">进制</td>
+</tr>
+</tbody>
+</table>
+<p><strong>^</strong>, <strong>&lt;</strong>, <strong>&gt;</strong> 分别是居中、左对齐、右对齐，后面带宽度， <strong>:</strong> 号后面带填充的字符，只能是一个字符，不指定则默认是用空格填充。</p>
+<p><strong>+</strong> 表示在正数前显示 <strong>+</strong>，负数前显示 <strong>-</strong>； （空格）表示在正数前加空格</p>
+<p>b、d、o、x 分别是二进制、十进制、八进制、十六进制。</p>
+<p><strong>例子5： % 符号格式化输出<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></strong></p>
+<pre><code class="language-python">&gt;&gt;&gt;pi = 3.141592653  
+&gt;&gt;&gt; print('%10.3f' % pi) #字段宽10，精度3  
+     3.142  
+&gt;&gt;&gt; print(&quot;pi = %.*f&quot; % (3,pi)) #用*从后面的元组中读取字段宽度或精度  
+pi = 3.142  
+&gt;&gt;&gt; print('%010.3f' % pi) #用0填充空白  
+000003.142  
+&gt;&gt;&gt; print('%-10.3f' % pi) #左对齐  
+3.142       
+&gt;&gt;&gt; print('%+f' % pi) #显示正负号  
++3.141593
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符  号</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%c</td>
+<td style="text-align:left">格式化字符及其ASCII码</td>
+</tr>
+<tr>
+<td style="text-align:left">%s</td>
+<td style="text-align:left">格式化字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">%d</td>
+<td style="text-align:left">格式化整数</td>
+</tr>
+<tr>
+<td style="text-align:left">%u</td>
+<td style="text-align:left">格式化无符号整型</td>
+</tr>
+<tr>
+<td style="text-align:left">%o</td>
+<td style="text-align:left">格式化无符号八进制数</td>
+</tr>
+<tr>
+<td style="text-align:left">%x</td>
+<td style="text-align:left">格式化无符号十六进制数</td>
+</tr>
+<tr>
+<td style="text-align:left">%X</td>
+<td style="text-align:left">格式化无符号十六进制数（大写）</td>
+</tr>
+<tr>
+<td style="text-align:left">%f</td>
+<td style="text-align:left">格式化浮点数字，可指定小数点后的精度</td>
+</tr>
+<tr>
+<td style="text-align:left">%e</td>
+<td style="text-align:left">用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%E</td>
+<td style="text-align:left">作用同%e，用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%g</td>
+<td style="text-align:left">%f和%e的简写</td>
+</tr>
+<tr>
+<td style="text-align:left">%G</td>
+<td style="text-align:left">%f 和 %E 的简写</td>
+</tr>
+<tr>
+<td style="text-align:left">%p</td>
+<td style="text-align:left">用十六进制数格式化变量的地址</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">定义宽度或者小数点精度</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">用做左对齐</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">在正数前面显示加号( + )</td>
+</tr>
+<tr>
+<td style="text-align:left"><sp></td>
+<td style="text-align:left">在正数前面显示空格</td>
+</tr>
+<tr>
+<td style="text-align:left">#</td>
+<td style="text-align:left">在八进制数前面显示零('0')，在十六进制前面显示'0x'或者'0X'(取决于用的是'x'还是'X')</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">显示的数字前面填充'0'而不是默认的空格</td>
+</tr>
+<tr>
+<td style="text-align:left">%</td>
+<td style="text-align:left">'%%'输出一个单一的'%'</td>
+</tr>
+<tr>
+<td style="text-align:left">(var)</td>
+<td style="text-align:left">映射变量(字典参数)</td>
+</tr>
+<tr>
+<td style="text-align:left">m.n.</td>
+<td style="text-align:left">m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
+</tr>
+</tbody>
+</table>
+<p>例子6：<a href="https://blog.csdn.net/qq_44168690/article/details/104116406">Python中print的骚操作(倒计时、转圈显示、进度条)</a></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://www.runoob.com/python/att-string-format.html">1. Python format 格式化函数</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://www.runoob.com/w3cnote/python3-print-func-b.html">2. Python3 print 函数用法总结</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Python 日志模块 logging]]></title>
         <id>https://numantia.github.io/post/python-modules-logging/</id>
@@ -26,7 +319,12 @@
 </li>
 <li><a href="#2-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">2. Logging 模块组成和工作流</a>
 <ul>
-<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a></li>
+<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a>
+<ul>
+<li><a href="#211-logging-%E6%A8%A1%E5%9D%97%E7%B1%BB">2.1.1 Logging 模块类</a></li>
+<li><a href="#212-logging-%E6%A8%A1%E5%9D%97%E5%B1%82%E7%BA%A7%E5%87%BD%E6%95%B0">2.1.2 Logging 模块层级函数</a></li>
+</ul>
+</li>
 <li><a href="#22-logging-%E5%B7%A5%E4%BD%9C%E6%B5%81">2.2 Logging 工作流</a></li>
 <li><a href="#23-logging-%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81">2.3 Logging 配置工作流</a>
 <ul>
@@ -60,6 +358,54 @@
 <ol>
 <li>
 <p>方便日志按重要程度分级管理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+</li>
+<li>
+<p>方便日志信息管理（额外日志信息的记录，如时间、运行模块信息）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+</li>
+</ol>
+<h2 id="13-常用日志模块比较">1.3 常用日志模块比较</h2>
+<img src="https://numantia.github.io/post-images/log-recording-modules-comparison.jpg" alt="log-recording-modules-comparison" style="zoom:80%;float:center;" />
+<p>​                                                                     图片摘自<a href="https://zhuanlan.zhihu.com/p/339961421">python输出日志</a></p>
+<ul>
+<li>print : 更加使用程序快速打印，不在乎日志格式，只想更快看到结果 ，一般用于程序的某个片段或者单点进行调试输出 。</li>
+<li>pprint: 对元组，列表，字典数据打印更加直观友好，若输出的是这种格式，可以优先考虑pprint .</li>
+<li>logging :对实现一个系统或框架时比较合适 ，且对日志需求有更高要求，可以优先考虑logging</li>
+<li>loguru ：对实现一个系统或框架也比较合适 ，但是更加轻量化，不需要配置 ，若对日志需求要求不高，可优先考虑loguru</li>
+</ul>
+<h1 id="2-logging-模块组成和工作流">2. Logging 模块组成和工作流</h1>
+<h2 id="21-logging-模块组成">2.1 Logging 模块组成</h2>
+<ul>
+<li>Logger：即 Logger Main Class，日志记录时创建的对象，我们可以调用Logger的方法传入日志模板和信息，来生成一条条日志记录，称作 Log Record。</li>
+<li>Log Record：就代指生成的一条条日志记录。</li>
+<li>Handler：处理日志记录的类，它可以将 Log Record 输出到指定的日志位置和存储形式等。</li>
+<li>Formatter：生成的 Log Record 也是对象，输出日志文本的话，就需要有一个格式化的过程，那么这个过程就由 Formatter 来完成，返回的就是日志字符串，然后传回给 Handler 来处理。</li>
+<li>Filter：保存前过滤，保存想要的日志，如只保存某个级别的日志，或只保存包含某个关键字的日志等，那么这个过滤过程就交给 Filter 来完成。</li>
+</ul>
+<p>以上就是整个 logging 模块的基本架构和对象功能<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，下面对Logging模块的对象及方法做简要的组成说明，详细参考[<a href="https://docs.python.org/3/library/logging.html#module-logging"><code>logging</code></a> — Logging facility for Python]</p>
+<h3 id="211-logging-模块类">2.1.1 Logging 模块类</h3>
+<pre><code class="language-bash">&gt;&gt;&gt; dir(logging.Logger)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_log', 'addFilter', 'addHandler', 'callHandlers', 'critical', 'debug', 'error', 'exception', 'fatal', 'filter', 'findCaller', 'getChild', 'getEffectiveLevel', 'handle', 'hasHandlers', 'info', 'isEnabledFor', 'log', 'makeRecord', 'manager', 'removeFilter', 'removeHandler', 'root', 'setLevel', 'warn', 'warning']
+&gt;&gt;&gt; dir(logging.Handler)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'acquire', 'addFilter', 'close', 'createLock', 'emit', 'filter', 'flush', 'format', 'get_name', 'handle', 'handleError', 'name', 'release', 'removeFilter', 'setFormatter', 'setLevel', 'set_name']
+&gt;&gt;&gt; dir(logging.Formatter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'converter', 'default_msec_format', 'default_time_format', 'format', 'formatException', 'formatMessage', 'formatStack', 'formatTime', 'usesTime']
+&gt;&gt;&gt; dir(logging.Filter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'filter']
+</code></pre>
+<h3 id="212-logging-模块层级函数">2.1.2 Logging 模块层级函数</h3>
+<p><code>logging.getLogger(name=None)</code></p>
+<p><code>logging.getLoggerClass()</code></p>
+<p><code>logging.debug(msg, *args, **kwargs)</code></p>
+<p><code>logging.info(msg, *args, **kwargs)</code></p>
+<p><code>logging.warning(msg, *args, **kwargs)</code></p>
+<p><code>logging.error(msg, *args, **kwargs)</code></p>
+<p><code>logging.critical(msg, *args, **kwargs)</code></p>
+<p><code>logging.exception(msg, *args, **kwargs)</code></p>
+<p><code>logging.basicConfig(**kwargs)</code></p>
+<p><strong>Logging Level</strong></p>
+<pre><code class="language-python">logger = logging.getLogger('simple_example')
+logger.setLevel(logging.DEBUG)
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -90,9 +436,9 @@
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>方便日志信息管理（额外日志信息的记录，如时间、运行模块信息）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p><strong>LogRecord attributes</strong></p>
+<pre><code class="language-python">formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -209,45 +555,6 @@
 </tr>
 </tbody>
 </table>
-</li>
-</ol>
-<h2 id="13-常用日志模块比较">1.3 常用日志模块比较</h2>
-<img src="https://numantia.github.io/post-images/log-recording-modules-comparison.jpg" alt="log-recording-modules-comparison" style="zoom:80%;float:center;" />
-<p>​                                                                     图片摘自<a href="https://zhuanlan.zhihu.com/p/339961421">python输出日志</a></p>
-<ul>
-<li>print : 更加使用程序快速打印，不在乎日志格式，只想更快看到结果 ，一般用于程序的某个片段或者单点进行调试输出 。</li>
-<li>pprint: 对元组，列表，字典数据打印更加直观友好，若输出的是这种格式，可以优先考虑pprint .</li>
-<li>logging :对实现一个系统或框架时比较合适 ，且对日志需求有更高要求，可以优先考虑logging</li>
-<li>loguru ：对实现一个系统或框架也比较合适 ，但是更加轻量化，不需要配置 ，若对日志需求要求不高，可优先考虑loguru</li>
-</ul>
-<h1 id="2-logging-模块组成和工作流">2. Logging 模块组成和工作流</h1>
-<h2 id="21-logging-模块组成">2.1 Logging 模块组成</h2>
-<ul>
-<li>Logger：即 Logger Main Class，日志记录时创建的对象，我们可以调用Logger的方法传入日志模板和信息，来生成一条条日志记录，称作 Log Record。</li>
-<li>Log Record：就代指生成的一条条日志记录。</li>
-<li>Handler：处理日志记录的类，它可以将 Log Record 输出到指定的日志位置和存储形式等。</li>
-<li>Formatter：生成的 Log Record 也是对象，输出日志文本的话，就需要有一个格式化的过程，那么这个过程就由 Formatter 来完成，返回的就是日志字符串，然后传回给 Handler 来处理。</li>
-<li>Filter：保存前过滤，保存想要的日志，如只保存某个级别的日志，或只保存包含某个关键字的日志等，那么这个过滤过程就交给 Filter 来完成。</li>
-</ul>
-<p>以上就是整个 logging 模块的基本架构和对象功能<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，下面对Logging模块的对象及方法做简要的组成说明，详细参考https://docs.python.org/3/library/logging.html#module-level-functions</p>
-<p><strong>Logging 模块层级类</strong></p>
-<pre><code class="language-bash">&gt;&gt;&gt; dir(logging.Handler)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'acquire', 'addFilter', 'close', 'createLock', 'emit', 'filter', 'flush', 'format', 'get_name', 'handle', 'handleError', 'name', 'release', 'removeFilter', 'setFormatter', 'setLevel', 'set_name']
-&gt;&gt;&gt; dir(logging.Formatter)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'converter', 'default_msec_format', 'default_time_format', 'format', 'formatException', 'formatMessage', 'formatStack', 'formatTime', 'usesTime']
-&gt;&gt;&gt; dir(logging.Filter)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'filter']
-</code></pre>
-<p><strong>Logging 模块层级函数</strong></p>
-<p><code>logging.getLogger(name=None)</code></p>
-<p><code>logging.getLoggerClass()</code></p>
-<p><code>logging.debug(msg, *args, **kwargs)</code></p>
-<p><code>logging.info(msg, *args, **kwargs)</code></p>
-<p><code>logging.warning(msg, *args, **kwargs)</code></p>
-<p><code>logging.error(msg, *args, **kwargs)</code></p>
-<p><code>logging.critical(msg, *args, **kwargs)</code></p>
-<p><code>logging.exception(msg, *args, **kwargs)</code></p>
-<p><code>logging.basicConfig(**kwargs)</code></p>
 <h2 id="22-logging-工作流">2.2 Logging 工作流</h2>
 <img src="https://numantia.github.io/post-images/logging_flow.png" alt="logging_flow.png" style="zoom:80%;" />
 <p>​                                                                  图片摘自官网<a href="https://docs.python.org/3/howto/logging.html#logging-flow">logging-basic-tutorial</a></p>
@@ -286,7 +593,7 @@ logging.info('logging info')
 
 </code></pre>
 <h3 id="方法2直接-python-代码调用配置方法">方法2：直接 Python 代码调用配置方法</h3>
-<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/image-20210615161943846.png" alt="image-20210615161943846" loading="lazy"></figure>
+<img src="https://numantia.github.io/post-images/image-20210615161943846.png" alt="image-20210615161943846" style="zoom:80%;" />
 <pre><code class="language-python">import logging
 
 # create logger
@@ -513,7 +820,7 @@ NTEventLogHandler：logging.handlers.NTEventLogHandler；远程输出日志到Wi
 MemoryHandler：logging.handlers.MemoryHandler；日志输出到内存中的指定buffer
 HTTPHandler：logging.handlers.HTTPHandler；通过&quot;GET&quot;或者&quot;POST&quot;远程输出到HTTP服务器
 </code></pre>
-<p>同时输出达到屏幕和文件可参考[# ]</p>
+<p>同时输出达到屏幕和文件可参考下一节。</p>
 <h2 id="32-多模块输出logging-from-multiple-modules">3.2 多模块输出（<a href="https://docs.python.org/3/howto/logging.html#logging-from-multiple-modules">Logging from multiple modules</a>）</h2>
 <p><strong>例子1：</strong> 最简单例子解释使用模式</p>
 <pre><code class="language-python"># myapp.py
@@ -600,7 +907,7 @@ def som_function():
 2016-10-09 20:25:42,279 - mainModule - INFO - done with subModule.some_function
 </code></pre>
 <h2 id="33-logging-记录-traceback-信息">3.3 Logging 记录 Traceback 信息</h2>
-<p>Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback.改部分摘自参考文章3。</p>
+<p>Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback.改部分摘自参考文章<sup class="footnote-ref"><a href="#fn3" id="fnref3:1">[3:1]</a></sup>。</p>
 <pre><code class="language-python">import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.INFO)
@@ -648,7 +955,7 @@ Finish
 </li>
 <li id="fn2" class="footnote-item"><p><a href="https://docs.python.org/3/library/logging.html#logrecord-attributes">2. logrecord-attributes</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/pansaky/article/details/90710751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162322535616780269881668%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=162322535616780269881668&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-8-90710751.first_rank_v2_pc_rank_v29&amp;utm_term=python+%E6%97%A5%E5%BF%97&amp;spm=1018.2226.3001.4187">3.python 日志 logging模块(详细解析)</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/pansaky/article/details/90710751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162322535616780269881668%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=162322535616780269881668&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-8-90710751.first_rank_v2_pc_rank_v29&amp;utm_term=python+%E6%97%A5%E5%BF%97&amp;spm=1018.2226.3001.4187">3.python 日志 logging模块(详细解析)</a> <a href="#fnref3" class="footnote-backref">↩︎</a> <a href="#fnref3:1" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn4" class="footnote-item"><p><a href="https://cuiqingcai.com/6080.html">4. Python 中 logging 模块的基本用法</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
 </li>
@@ -1536,7 +1843,7 @@ $ which python  # 默认 python 的位置
 $ ls -l /usr/bin/python*  # 了解软链接
 </code></pre>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-3006411"><label class="task-list-item-label" for="task-item-3006411"> 软链接说明</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-6209113"><label class="task-list-item-label" for="task-item-6209113"> 软链接说明</label></li>
 </ul>
 <p><strong>步骤 2：</strong> 安装目标版本 Python</p>
 <ol>
@@ -1955,13 +2262,6 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
         <title type="html"><![CDATA[传感器选型与安装系列文章04：案例2-搭建船舶柴油机热工参数监测系统]]></title>
         <id>https://numantia.github.io/post/sensor-selection-guide04/</id>
         <link href="https://numantia.github.io/post/sensor-selection-guide04/">
-        </link>
-        <updated>2021-04-13T18:09:44.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[传感器选型与安装系列文章05：关于传感器展望-物联网、边缘、无线]]></title>
-        <id>https://numantia.github.io/post/sensor-selection-guide05/</id>
-        <link href="https://numantia.github.io/post/sensor-selection-guide05/">
         </link>
         <updated>2021-04-13T18:09:44.000Z</updated>
     </entry>

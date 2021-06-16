@@ -1,0 +1,598 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python print() 常见用法 - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python print() 常见用法 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="print(*objects, sep=&#39; &#39;, end=&#39;\n&#39;, file=sys.stdout, flush=False)
+
+
+objects -- 复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。
+sep -- 用..." />
+  <meta property="og:title" content="Python print() 常见用法 - 云杉的速记">
+  <meta property="og:description" content="print(*objects, sep=&#39; &#39;, end=&#39;\n&#39;, file=sys.stdout, flush=False)
+
+
+objects -- 复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。
+sep -- 用..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-print/" />
+  <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python print() 常见用法 - 云杉的速记">
+  <meta name="twitter:description" content="print(*objects, sep=&#39; &#39;, end=&#39;\n&#39;, file=sys.stdout, flush=False)
+
+
+objects -- 复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。
+sep -- 用...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-print/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python print() 常见用法
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-06-16 · 6 min read</div>
+          
+            <a href="https://numantia.github.io/tag/0DAFs6mL5/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Log
+            </a>
+          
+            <a href="https://numantia.github.io/tag/Jz486linNg/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Print()
+            </a>
+          
+            <a href="https://numantia.github.io/tag/yb9oDDOMVp/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              CheetSheet
+            </a>
+          
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <pre><code class="language-python">print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+</code></pre>
+<ul>
+<li>objects -- 复数，表示可以一次输出多个对象。输出多个对象时，需要用 , 分隔。</li>
+<li>sep -- 用来间隔多个对象，默认值是一个空格。</li>
+<li>end -- 用来设定以什么结尾。默认值是换行符 \n，我们可以换成其他字符串。</li>
+<li>file -- 要写入的文件对象。</li>
+<li>flush -- 输出是否被缓存通常决定于 file，但如果 flush 关键字参数为 True，流会被强制刷新</li>
+</ul>
+<p><strong>例子1：输出字符串</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;aaa&quot;&quot;bbb&quot;)
+aaabbb
+&gt;&gt;&gt; print(&quot;aaa&quot;,&quot;bbb&quot;)
+aaa bbb
+&gt;&gt;&gt; 
+ 
+&gt;&gt;&gt; print(&quot;www&quot;,&quot;runoob&quot;,&quot;com&quot;,sep=&quot;.&quot;)  # 设置间隔符
+www.runoob.com
+</code></pre>
+<p><strong>例子2：实现 Loading 效果</strong></p>
+<pre><code class="language-python">import time
+
+print(&quot;Loading&quot;,end = &quot;&quot;) # 结尾不换行
+for i in range(20):
+    print(&quot;.&quot;,end = '',flush = True) #结尾不换行，缓存输出
+    time.sleep(0.5)
+
+#运行结果
+Loading......
+</code></pre>
+<p><strong>例子3：Python format 格式化函数<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></strong></p>
+<pre><code class="language-python">&gt;&gt;&gt;&quot;{} {}&quot;.format(&quot;hello&quot;, &quot;world&quot;)    # 不设置指定位置，按默认顺序
+'hello world'
+ 
+&gt;&gt;&gt; &quot;{0} {1}&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置
+'hello world'
+ 
+&gt;&gt;&gt; &quot;{1} {0} {1}&quot;.format(&quot;hello&quot;, &quot;world&quot;)  # 设置指定位置
+'world hello world'
+</code></pre>
+<pre><code class="language-python"># 设置参数
+print(&quot;网站名：{name}, 地址 {url}&quot;.format(name=&quot;菜鸟教程&quot;, url=&quot;www.runoob.com&quot;))
+ 
+# 通过字典设置参数
+site = {&quot;name&quot;: &quot;菜鸟教程&quot;, &quot;url&quot;: &quot;www.runoob.com&quot;}
+print(&quot;网站名：{name}, 地址 {url}&quot;.format(site))
+ 
+# 通过列表索引设置参数
+my_list = ['菜鸟教程', 'www.runoob.com']
+print(&quot;网站名：{0[0]}, 地址 {0[1]}&quot;.format(my_list))  # &quot;0&quot; 是必须的
+</code></pre>
+<p><strong>例子4：.format() 格式化输出</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; print(&quot;{:.2f}&quot;.format(3.1415926))
+3.14
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数字</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">输出</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">3.1415926</td>
+<td style="text-align:left">{:.2f}</td>
+<td style="text-align:left">3.14</td>
+<td style="text-align:left">保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">3.1415926</td>
+<td style="text-align:left">{:+.2f}</td>
+<td style="text-align:left">+3.14</td>
+<td style="text-align:left">带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">{:+.2f}</td>
+<td style="text-align:left">-1.00</td>
+<td style="text-align:left">带符号保留小数点后两位</td>
+</tr>
+<tr>
+<td style="text-align:left">2.71828</td>
+<td style="text-align:left">{:.0f}</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">不带小数</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">{:0&gt;2d}</td>
+<td style="text-align:left">05</td>
+<td style="text-align:left">数字补零 (填充左边, 宽度为2)</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">{:x&lt;4d}</td>
+<td style="text-align:left">5xxx</td>
+<td style="text-align:left">数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">{:x&lt;4d}</td>
+<td style="text-align:left">10xx</td>
+<td style="text-align:left">数字补x (填充右边, 宽度为4)</td>
+</tr>
+<tr>
+<td style="text-align:left">1000000</td>
+<td style="text-align:left">{:,}</td>
+<td style="text-align:left">1,000,000</td>
+<td style="text-align:left">以逗号分隔的数字格式</td>
+</tr>
+<tr>
+<td style="text-align:left">0.25</td>
+<td style="text-align:left">{:.2%}</td>
+<td style="text-align:left">25.00%</td>
+<td style="text-align:left">百分比格式</td>
+</tr>
+<tr>
+<td style="text-align:left">1000000000</td>
+<td style="text-align:left">{:.2e}</td>
+<td style="text-align:left">1.00e+09</td>
+<td style="text-align:left">指数记法</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:&gt;10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">右对齐 (默认, 宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:&lt;10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">左对齐 (宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left">{:^10d}</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">中间对齐 (宽度为10)</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left"><code>'{:b}'.format(11) '{:d}'.format(11) '{:o}'.format(11) '{:x}'.format(11) '{:#x}'.format(11) '{:#X}'.format(11)</code></td>
+<td style="text-align:left"><code>1011 11 13 b 0xb 0XB</code></td>
+<td style="text-align:left">进制</td>
+</tr>
+</tbody>
+</table>
+<p><strong>^</strong>, <strong>&lt;</strong>, <strong>&gt;</strong> 分别是居中、左对齐、右对齐，后面带宽度， <strong>:</strong> 号后面带填充的字符，只能是一个字符，不指定则默认是用空格填充。</p>
+<p><strong>+</strong> 表示在正数前显示 <strong>+</strong>，负数前显示 <strong>-</strong>； （空格）表示在正数前加空格</p>
+<p>b、d、o、x 分别是二进制、十进制、八进制、十六进制。</p>
+<p><strong>例子5： % 符号格式化输出<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></strong></p>
+<pre><code class="language-python">&gt;&gt;&gt;pi = 3.141592653  
+&gt;&gt;&gt; print('%10.3f' % pi) #字段宽10，精度3  
+     3.142  
+&gt;&gt;&gt; print(&quot;pi = %.*f&quot; % (3,pi)) #用*从后面的元组中读取字段宽度或精度  
+pi = 3.142  
+&gt;&gt;&gt; print('%010.3f' % pi) #用0填充空白  
+000003.142  
+&gt;&gt;&gt; print('%-10.3f' % pi) #左对齐  
+3.142       
+&gt;&gt;&gt; print('%+f' % pi) #显示正负号  
++3.141593
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符  号</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%c</td>
+<td style="text-align:left">格式化字符及其ASCII码</td>
+</tr>
+<tr>
+<td style="text-align:left">%s</td>
+<td style="text-align:left">格式化字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">%d</td>
+<td style="text-align:left">格式化整数</td>
+</tr>
+<tr>
+<td style="text-align:left">%u</td>
+<td style="text-align:left">格式化无符号整型</td>
+</tr>
+<tr>
+<td style="text-align:left">%o</td>
+<td style="text-align:left">格式化无符号八进制数</td>
+</tr>
+<tr>
+<td style="text-align:left">%x</td>
+<td style="text-align:left">格式化无符号十六进制数</td>
+</tr>
+<tr>
+<td style="text-align:left">%X</td>
+<td style="text-align:left">格式化无符号十六进制数（大写）</td>
+</tr>
+<tr>
+<td style="text-align:left">%f</td>
+<td style="text-align:left">格式化浮点数字，可指定小数点后的精度</td>
+</tr>
+<tr>
+<td style="text-align:left">%e</td>
+<td style="text-align:left">用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%E</td>
+<td style="text-align:left">作用同%e，用科学计数法格式化浮点数</td>
+</tr>
+<tr>
+<td style="text-align:left">%g</td>
+<td style="text-align:left">%f和%e的简写</td>
+</tr>
+<tr>
+<td style="text-align:left">%G</td>
+<td style="text-align:left">%f 和 %E 的简写</td>
+</tr>
+<tr>
+<td style="text-align:left">%p</td>
+<td style="text-align:left">用十六进制数格式化变量的地址</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">定义宽度或者小数点精度</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">用做左对齐</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">在正数前面显示加号( + )</td>
+</tr>
+<tr>
+<td style="text-align:left"><sp></td>
+<td style="text-align:left">在正数前面显示空格</td>
+</tr>
+<tr>
+<td style="text-align:left">#</td>
+<td style="text-align:left">在八进制数前面显示零('0')，在十六进制前面显示'0x'或者'0X'(取决于用的是'x'还是'X')</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">显示的数字前面填充'0'而不是默认的空格</td>
+</tr>
+<tr>
+<td style="text-align:left">%</td>
+<td style="text-align:left">'%%'输出一个单一的'%'</td>
+</tr>
+<tr>
+<td style="text-align:left">(var)</td>
+<td style="text-align:left">映射变量(字典参数)</td>
+</tr>
+<tr>
+<td style="text-align:left">m.n.</td>
+<td style="text-align:left">m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
+</tr>
+</tbody>
+</table>
+<p>例子6：<a href="https://blog.csdn.net/qq_44168690/article/details/104116406">Python中print的骚操作(倒计时、转圈显示、进度条)</a></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://www.runoob.com/python/att-string-format.html">1. Python format 格式化函数</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a href="https://www.runoob.com/w3cnote/python3-print-func-b.html">2. Python3 print 函数用法总结</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>

@@ -25,8 +25,8 @@
 2. Logging 模块组成和工作流
 
 2.1 Logging 模块组成
-2.2 Logging 工作流
-..." />
+
+2.1.1 Logging 模..." />
   <meta property="og:title" content="Python 日志模块 logging - 云杉的速记">
   <meta property="og:description" content="
 1. 简介 Python 日志记录模块
@@ -39,8 +39,8 @@
 2. Logging 模块组成和工作流
 
 2.1 Logging 模块组成
-2.2 Logging 工作流
-..." />
+
+2.1.1 Logging 模..." />
   <meta property="og:type" content="articles">
   <meta property="og:url" content="https://numantia.github.io/post/python-modules-logging/" />
   <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
@@ -58,8 +58,8 @@
 2. Logging 模块组成和工作流
 
 2.1 Logging 模块组成
-2.2 Logging 工作流
-...">
+
+2.1.1 Logging 模...">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://numantia.github.io/post/python-modules-logging/">
 
@@ -87,7 +87,7 @@
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-06-15 · 19 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-06-15 · 20 min read</div>
           
             <a href="https://numantia.github.io/tag/E57SzuC8o/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -111,7 +111,12 @@
 </li>
 <li><a href="#2-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">2. Logging 模块组成和工作流</a>
 <ul>
-<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a></li>
+<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a>
+<ul>
+<li><a href="#211-logging-%E6%A8%A1%E5%9D%97%E7%B1%BB">2.1.1 Logging 模块类</a></li>
+<li><a href="#212-logging-%E6%A8%A1%E5%9D%97%E5%B1%82%E7%BA%A7%E5%87%BD%E6%95%B0">2.1.2 Logging 模块层级函数</a></li>
+</ul>
+</li>
 <li><a href="#22-logging-%E5%B7%A5%E4%BD%9C%E6%B5%81">2.2 Logging 工作流</a></li>
 <li><a href="#23-logging-%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81">2.3 Logging 配置工作流</a>
 <ul>
@@ -145,6 +150,54 @@
 <ol>
 <li>
 <p>方便日志按重要程度分级管理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+</li>
+<li>
+<p>方便日志信息管理（额外日志信息的记录，如时间、运行模块信息）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+</li>
+</ol>
+<h2 id="13-常用日志模块比较">1.3 常用日志模块比较</h2>
+<img src="https://numantia.github.io/post-images/log-recording-modules-comparison.jpg" alt="log-recording-modules-comparison" style="zoom:80%;float:center;" />
+<p>​                                                                     图片摘自<a href="https://zhuanlan.zhihu.com/p/339961421">python输出日志</a></p>
+<ul>
+<li>print : 更加使用程序快速打印，不在乎日志格式，只想更快看到结果 ，一般用于程序的某个片段或者单点进行调试输出 。</li>
+<li>pprint: 对元组，列表，字典数据打印更加直观友好，若输出的是这种格式，可以优先考虑pprint .</li>
+<li>logging :对实现一个系统或框架时比较合适 ，且对日志需求有更高要求，可以优先考虑logging</li>
+<li>loguru ：对实现一个系统或框架也比较合适 ，但是更加轻量化，不需要配置 ，若对日志需求要求不高，可优先考虑loguru</li>
+</ul>
+<h1 id="2-logging-模块组成和工作流">2. Logging 模块组成和工作流</h1>
+<h2 id="21-logging-模块组成">2.1 Logging 模块组成</h2>
+<ul>
+<li>Logger：即 Logger Main Class，日志记录时创建的对象，我们可以调用Logger的方法传入日志模板和信息，来生成一条条日志记录，称作 Log Record。</li>
+<li>Log Record：就代指生成的一条条日志记录。</li>
+<li>Handler：处理日志记录的类，它可以将 Log Record 输出到指定的日志位置和存储形式等。</li>
+<li>Formatter：生成的 Log Record 也是对象，输出日志文本的话，就需要有一个格式化的过程，那么这个过程就由 Formatter 来完成，返回的就是日志字符串，然后传回给 Handler 来处理。</li>
+<li>Filter：保存前过滤，保存想要的日志，如只保存某个级别的日志，或只保存包含某个关键字的日志等，那么这个过滤过程就交给 Filter 来完成。</li>
+</ul>
+<p>以上就是整个 logging 模块的基本架构和对象功能<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，下面对Logging模块的对象及方法做简要的组成说明，详细参考[<a href="https://docs.python.org/3/library/logging.html#module-logging"><code>logging</code></a> — Logging facility for Python]</p>
+<h3 id="211-logging-模块类">2.1.1 Logging 模块类</h3>
+<pre><code class="language-bash">&gt;&gt;&gt; dir(logging.Logger)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_log', 'addFilter', 'addHandler', 'callHandlers', 'critical', 'debug', 'error', 'exception', 'fatal', 'filter', 'findCaller', 'getChild', 'getEffectiveLevel', 'handle', 'hasHandlers', 'info', 'isEnabledFor', 'log', 'makeRecord', 'manager', 'removeFilter', 'removeHandler', 'root', 'setLevel', 'warn', 'warning']
+&gt;&gt;&gt; dir(logging.Handler)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'acquire', 'addFilter', 'close', 'createLock', 'emit', 'filter', 'flush', 'format', 'get_name', 'handle', 'handleError', 'name', 'release', 'removeFilter', 'setFormatter', 'setLevel', 'set_name']
+&gt;&gt;&gt; dir(logging.Formatter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'converter', 'default_msec_format', 'default_time_format', 'format', 'formatException', 'formatMessage', 'formatStack', 'formatTime', 'usesTime']
+&gt;&gt;&gt; dir(logging.Filter)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'filter']
+</code></pre>
+<h3 id="212-logging-模块层级函数">2.1.2 Logging 模块层级函数</h3>
+<p><code>logging.getLogger(name=None)</code></p>
+<p><code>logging.getLoggerClass()</code></p>
+<p><code>logging.debug(msg, *args, **kwargs)</code></p>
+<p><code>logging.info(msg, *args, **kwargs)</code></p>
+<p><code>logging.warning(msg, *args, **kwargs)</code></p>
+<p><code>logging.error(msg, *args, **kwargs)</code></p>
+<p><code>logging.critical(msg, *args, **kwargs)</code></p>
+<p><code>logging.exception(msg, *args, **kwargs)</code></p>
+<p><code>logging.basicConfig(**kwargs)</code></p>
+<p><strong>Logging Level</strong></p>
+<pre><code class="language-python">logger = logging.getLogger('simple_example')
+logger.setLevel(logging.DEBUG)
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -175,9 +228,9 @@
 </tr>
 </tbody>
 </table>
-</li>
-<li>
-<p>方便日志信息管理（额外日志信息的记录，如时间、运行模块信息）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p>
+<p><strong>LogRecord attributes</strong></p>
+<pre><code class="language-python">formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+</code></pre>
 <table>
 <thead>
 <tr>
@@ -294,45 +347,6 @@
 </tr>
 </tbody>
 </table>
-</li>
-</ol>
-<h2 id="13-常用日志模块比较">1.3 常用日志模块比较</h2>
-<img src="https://numantia.github.io/post-images/log-recording-modules-comparison.jpg" alt="log-recording-modules-comparison" style="zoom:80%;float:center;" />
-<p>​                                                                     图片摘自<a href="https://zhuanlan.zhihu.com/p/339961421">python输出日志</a></p>
-<ul>
-<li>print : 更加使用程序快速打印，不在乎日志格式，只想更快看到结果 ，一般用于程序的某个片段或者单点进行调试输出 。</li>
-<li>pprint: 对元组，列表，字典数据打印更加直观友好，若输出的是这种格式，可以优先考虑pprint .</li>
-<li>logging :对实现一个系统或框架时比较合适 ，且对日志需求有更高要求，可以优先考虑logging</li>
-<li>loguru ：对实现一个系统或框架也比较合适 ，但是更加轻量化，不需要配置 ，若对日志需求要求不高，可优先考虑loguru</li>
-</ul>
-<h1 id="2-logging-模块组成和工作流">2. Logging 模块组成和工作流</h1>
-<h2 id="21-logging-模块组成">2.1 Logging 模块组成</h2>
-<ul>
-<li>Logger：即 Logger Main Class，日志记录时创建的对象，我们可以调用Logger的方法传入日志模板和信息，来生成一条条日志记录，称作 Log Record。</li>
-<li>Log Record：就代指生成的一条条日志记录。</li>
-<li>Handler：处理日志记录的类，它可以将 Log Record 输出到指定的日志位置和存储形式等。</li>
-<li>Formatter：生成的 Log Record 也是对象，输出日志文本的话，就需要有一个格式化的过程，那么这个过程就由 Formatter 来完成，返回的就是日志字符串，然后传回给 Handler 来处理。</li>
-<li>Filter：保存前过滤，保存想要的日志，如只保存某个级别的日志，或只保存包含某个关键字的日志等，那么这个过滤过程就交给 Filter 来完成。</li>
-</ul>
-<p>以上就是整个 logging 模块的基本架构和对象功能<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，下面对Logging模块的对象及方法做简要的组成说明，详细参考https://docs.python.org/3/library/logging.html#module-level-functions</p>
-<p><strong>Logging 模块层级类</strong></p>
-<pre><code class="language-bash">&gt;&gt;&gt; dir(logging.Handler)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'acquire', 'addFilter', 'close', 'createLock', 'emit', 'filter', 'flush', 'format', 'get_name', 'handle', 'handleError', 'name', 'release', 'removeFilter', 'setFormatter', 'setLevel', 'set_name']
-&gt;&gt;&gt; dir(logging.Formatter)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'converter', 'default_msec_format', 'default_time_format', 'format', 'formatException', 'formatMessage', 'formatStack', 'formatTime', 'usesTime']
-&gt;&gt;&gt; dir(logging.Filter)
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'filter']
-</code></pre>
-<p><strong>Logging 模块层级函数</strong></p>
-<p><code>logging.getLogger(name=None)</code></p>
-<p><code>logging.getLoggerClass()</code></p>
-<p><code>logging.debug(msg, *args, **kwargs)</code></p>
-<p><code>logging.info(msg, *args, **kwargs)</code></p>
-<p><code>logging.warning(msg, *args, **kwargs)</code></p>
-<p><code>logging.error(msg, *args, **kwargs)</code></p>
-<p><code>logging.critical(msg, *args, **kwargs)</code></p>
-<p><code>logging.exception(msg, *args, **kwargs)</code></p>
-<p><code>logging.basicConfig(**kwargs)</code></p>
 <h2 id="22-logging-工作流">2.2 Logging 工作流</h2>
 <img src="https://numantia.github.io/post-images/logging_flow.png" alt="logging_flow.png" style="zoom:80%;" />
 <p>​                                                                  图片摘自官网<a href="https://docs.python.org/3/howto/logging.html#logging-flow">logging-basic-tutorial</a></p>
@@ -371,7 +385,7 @@ logging.info('logging info')
 
 </code></pre>
 <h3 id="方法2直接-python-代码调用配置方法">方法2：直接 Python 代码调用配置方法</h3>
-<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/image-20210615161943846.png" alt="image-20210615161943846" loading="lazy"></figure>
+<img src="https://numantia.github.io/post-images/image-20210615161943846.png" alt="image-20210615161943846" style="zoom:80%;" />
 <pre><code class="language-python">import logging
 
 # create logger
@@ -598,7 +612,7 @@ NTEventLogHandler：logging.handlers.NTEventLogHandler；远程输出日志到Wi
 MemoryHandler：logging.handlers.MemoryHandler；日志输出到内存中的指定buffer
 HTTPHandler：logging.handlers.HTTPHandler；通过&quot;GET&quot;或者&quot;POST&quot;远程输出到HTTP服务器
 </code></pre>
-<p>同时输出达到屏幕和文件可参考[# ]</p>
+<p>同时输出达到屏幕和文件可参考下一节。</p>
 <h2 id="32-多模块输出logging-from-multiple-modules">3.2 多模块输出（<a href="https://docs.python.org/3/howto/logging.html#logging-from-multiple-modules">Logging from multiple modules</a>）</h2>
 <p><strong>例子1：</strong> 最简单例子解释使用模式</p>
 <pre><code class="language-python"># myapp.py
@@ -685,7 +699,7 @@ def som_function():
 2016-10-09 20:25:42,279 - mainModule - INFO - done with subModule.some_function
 </code></pre>
 <h2 id="33-logging-记录-traceback-信息">3.3 Logging 记录 Traceback 信息</h2>
-<p>Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback.改部分摘自参考文章3。</p>
+<p>Python中的traceback模块被用于跟踪异常返回信息，可以在logging中记录下traceback.改部分摘自参考文章<sup class="footnote-ref"><a href="#fn3" id="fnref3:1">[3:1]</a></sup>。</p>
 <pre><code class="language-python">import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.INFO)
@@ -733,7 +747,7 @@ Finish
 </li>
 <li id="fn2" class="footnote-item"><p><a href="https://docs.python.org/3/library/logging.html#logrecord-attributes">2. logrecord-attributes</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/pansaky/article/details/90710751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162322535616780269881668%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=162322535616780269881668&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-8-90710751.first_rank_v2_pc_rank_v29&amp;utm_term=python+%E6%97%A5%E5%BF%97&amp;spm=1018.2226.3001.4187">3.python 日志 logging模块(详细解析)</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+<li id="fn3" class="footnote-item"><p><a href="https://blog.csdn.net/pansaky/article/details/90710751?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162322535616780269881668%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=162322535616780269881668&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-8-90710751.first_rank_v2_pc_rank_v29&amp;utm_term=python+%E6%97%A5%E5%BF%97&amp;spm=1018.2226.3001.4187">3.python 日志 logging模块(详细解析)</a> <a href="#fnref3" class="footnote-backref">↩︎</a> <a href="#fnref3:1" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn4" class="footnote-item"><p><a href="https://cuiqingcai.com/6080.html">4. Python 中 logging 模块的基本用法</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
 </li>
@@ -791,7 +805,12 @@ Finish
 </li>
 <li><a href="#2-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%B5%81">2. Logging 模块组成和工作流</a>
 <ul>
-<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a></li>
+<li><a href="#21-logging-%E6%A8%A1%E5%9D%97%E7%BB%84%E6%88%90">2.1 Logging 模块组成</a>
+<ul>
+<li><a href="#211-logging-%E6%A8%A1%E5%9D%97%E7%B1%BB">2.1.1 Logging 模块类</a></li>
+<li><a href="#212-logging-%E6%A8%A1%E5%9D%97%E5%B1%82%E7%BA%A7%E5%87%BD%E6%95%B0">2.1.2 Logging 模块层级函数</a></li>
+</ul>
+</li>
 <li><a href="#22-logging-%E5%B7%A5%E4%BD%9C%E6%B5%81">2.2 Logging 工作流</a></li>
 <li><a href="#23-logging-%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E6%B5%81">2.3 Logging 配置工作流</a>
 <ul>
