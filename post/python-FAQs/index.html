@@ -66,7 +66,7 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2021-06-04 · 19 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2021-06-04 · 16 min read</div>
           
             <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -105,22 +105,12 @@ UnboundLocalError： local variable &#39;xxx&#39; referenced b...">
 <li><a href="#2-string-%E5%88%87%E7%89%87%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%86%E5%BA%8F%E5%9F%BA%E6%95%B0%E8%BE%93%E5%87%BA">2. String 切片逆序输出，逆序基数输出</a></li>
 </ul>
 </li>
-<li><a href="#list">List</a>
-<ul>
-<li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
-<li><a href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84">2. 初始化一维数组+二维数组</a></li>
-<li><a href="#3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</a></li>
-<li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
-<li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
-<li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
-<li><a href="#6-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">6. List 判断空与非空</a></li>
-</ul>
-</li>
 <li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
 <ul>
 <li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
 <li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
 <li><a href="#3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</a></li>
+<li><a href="#4-unicodedecodeerror-utf-8-codec-cant-decode-byte-oxc1-in-position-0">4. UnicodeDecodeError: ‘utf-8’ codec can't decode byte oxc1 in position 0</a></li>
 </ul>
 </li>
 <li><a href="#numpy">Numpy</a>
@@ -253,103 +243,6 @@ TypeError: 'str' object is not callable
 <h2 id="2-string-切片逆序输出逆序基数输出">2. String 切片逆序输出，逆序基数输出</h2>
 <p>name[::-1],没有写数字，默认为0，两个冒号表示从头到尾，以-1为间隔输出，即逆序输出全部</p>
 <p>name[::-2]，以-1为间隔输出，即逆序输出奇数下标元素</p>
-<h1 id="list">List</h1>
-<h2 id="1-list-comprehension-双循环">1. List Comprehension - 双循环</h2>
-<pre><code class="language-python">ntest=['a','b']
-ltest=[[1,2],[4,5,6]]
-data=[(k,v) for k,l in zip(ntest,ltest) for v in l] 
-</code></pre>
-<p>https://blog.csdn.net/leavemetomorrow/article/details/90641362</p>
-<h2 id="2-初始化一维数组二维数组">2. 初始化一维数组+二维数组</h2>
-<pre><code class="language-python"># 一维数组
-a = [None] * n # 方法1
-a = [None for i in range(n)] # 方法2
-
-&gt;&gt;&gt; [None, None, None, None, None]
-
-# 二维数组
-a = [list()] * 5 # 浅拷贝方法，所有List会同步变化
-a[0].append(1)  # 方法1
-&gt;&gt;&gt; [[1], [1], [1], [1], [1]]
-
-a = [list() for i in range(5)] # 所有List独立
-a[0].append(1)  # 方法2
-&gt;&gt;&gt; [[1], [], [], [], []]
-</code></pre>
-<h2 id="3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-python">&gt;&gt;&gt; a=[[1,2,3],[4,5,6]]
-&gt;&gt;&gt; a[0]    #取一行
-[1, 2, 3]
-&gt;&gt;&gt; a[:,0]  #尝试用数组的方法读取一列失败
-TypeError: list indices must be integers or slices, not tuple
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>列表存储不同类型数据，列表元素大小相同或者不同，不支持读取一列</p>
-<p><strong>解决方法1</strong>：列表解析的方法</p>
-<pre><code class="language-python">&gt;&gt;&gt; b=[x[0] for x in a]
-&gt;&gt;&gt; print(b)
-</code></pre>
-<p><strong>解决方法2</strong>:  转化为数组直接读取</p>
-<pre><code class="language-python">&gt;&gt;&gt; import numpy as np
-&gt;&gt;&gt; a=np.array([[1,2,3],[4,5,6]])
-&gt;&gt;&gt; a[:,0]
-array([1, 4])
-</code></pre>
-<h2 id="4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-python">m1=[]
-for i in range(10):
-	m1[i]=1
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>空数组无法直接确定位置，因为内存中尚未分配</p>
-<p>**解决方法1：**使用append方法</p>
-<pre><code class="language-python">m1.append(1）
-</code></pre>
-<p>**解决方法2：**先生成一个定长的list</p>
-<pre><code class="language-python">m1=[0]*len(data)
-m1[1]=1
-</code></pre>
-<h2 id="5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-powershell">&gt;&gt;&gt; str = &quot;ABCDEF&quot;
-&gt;&gt;&gt; list = [1, 2 ,3 ,4 ,5,6 ]
-&gt;&gt;&gt; list(str)
-
-TypeError: 'list' object is not callable
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>callable() 是python 的内置函数，用来检查对象是否可被调用</p>
-<p>变量list和函数list重名，所以函数在使用list函数时，发现list是一个定义好的列表，而列表是不能把被调用的，因此抛出一个类型错误</p>
-<h2 id="6-python-实现两个列表里元素对应相乘">6. Python 实现两个列表里元素对应相乘</h2>
-<p>问题描述</p>
-<pre><code class="language-powershell">&gt;&gt;&gt; list1 = [1,2,3]
-&gt;&gt;&gt; list2 = [4,5,6]
-&gt;&gt;&gt; list1*list2
-
-TypeError: can't multiply sequence by non-int of type 'list'
-</code></pre>
-<p>解决方法1 ： Map函数</p>
-<pre><code class="language-python">List1 = [1,2,3,4]
-List2 = [5,6,7,8]
-List3 = map(lambda a,b:a*b,zip(List1,List2))
-print List3
-</code></pre>
-<p>解决方法2: np.multiply</p>
-<pre><code class="language-python">List1 = [1,2,3]
-List2 = [5,6,7]
-List3 = np.multiply(np.array(List1),np.array(List2))
-print List3.tolist()
-</code></pre>
-<h2 id="6-list-判断空与非空">6. List 判断空与非空</h2>
-<pre><code class="language-python"># 一、二维通用
-list = []
-if list:
-    print('非空')
-if not list:
-    print('空')
-</code></pre>
 <h1 id="文件读写">文件读写</h1>
 <h2 id="1-导出-csv-存在空白行隔行空行">1. 导出 csv 存在空白行/隔行空行</h2>
 <pre><code class="language-python">with open(test.csv,'w',newline='') as f:
@@ -378,6 +271,10 @@ print('world')
 <p><a href="https://blog.csdn.net/shuiyixin/article/details/90370387?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control">文章</a> 指出有三个原因造成该错误，第一是缺乏访问权限，第二是路径为<strong>文件夹名</strong>，而非文件名，第三为改文件打开。这里补充一个原因，该文件夹默认添加到云盘（Onedrive，Icloud，坚果云等）的同步文件夹中，同步操作时该文件无添加权限。</p>
 <p><strong>解决方法</strong></p>
 <p>关闭同步软件</p>
+<h2 id="4-unicodedecodeerror-utf-8-codec-cant-decode-byte-oxc1-in-position-0">4. UnicodeDecodeError: ‘utf-8’ codec can't decode byte oxc1 in position 0</h2>
+<p>对于<strong>中文的文本文件常容易因为编码的问题而读取失败</strong>，正如上图所示。遇到这样的编码问题该如何处置呢？解决办法有两种情况：</p>
+<p>1）当原始文件txt或csv的数据不是uft8格式时，需要另存为utf8格式编码；</p>
+<p>2）如果原始的数据文件就是uft8格式，为了正常读入，需要将read_csv函数的参数encoding设置为utf-8</p>
 <h1 id="numpy">Numpy</h1>
 <h2 id="1-numpy-获取对应数字索引值">1. numpy 获取对应数字索引值</h2>
 <pre><code class="language-python">q=np.arange(0,16,1)
@@ -704,22 +601,12 @@ a['price'] =[1, 1, 1, 1, 1]
 <li><a href="#2-string-%E5%88%87%E7%89%87%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%86%E5%BA%8F%E5%9F%BA%E6%95%B0%E8%BE%93%E5%87%BA">2. String 切片逆序输出，逆序基数输出</a></li>
 </ul>
 </li>
-<li><a href="#list">List</a>
-<ul>
-<li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
-<li><a href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84">2. 初始化一维数组+二维数组</a></li>
-<li><a href="#3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</a></li>
-<li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
-<li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
-<li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
-<li><a href="#6-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">6. List 判断空与非空</a></li>
-</ul>
-</li>
 <li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
 <ul>
 <li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
 <li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
 <li><a href="#3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</a></li>
+<li><a href="#4-unicodedecodeerror-utf-8-codec-cant-decode-byte-oxc1-in-position-0">4. UnicodeDecodeError: ‘utf-8’ codec can't decode byte oxc1 in position 0</a></li>
 </ul>
 </li>
 <li><a href="#numpy">Numpy</a>
