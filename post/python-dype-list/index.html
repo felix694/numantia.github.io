@@ -101,6 +101,7 @@ FAQs
 <li><a href="#7-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">7. List 判断空与非空</a></li>
 <li><a href="#8-listappend-%E8%BE%93%E5%87%BA%E4%B8%BAnone">8. List.append() 输出为None</a></li>
 <li><a href="#9-list-%E5%90%88%E5%B9%B6%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E4%B8%BA%E7%BB%B4%E6%95%B0">9. List 合并，判断列表为维数</a></li>
+<li><a href="#10-float-%E5%9E%8B%E5%88%97%E8%A1%A8%E8%BD%AC%E5%8C%96%E4%B8%BA-int-%E5%9E%8B%E5%88%97%E8%A1%A8">10. Float 型列表转化为 Int 型列表</a></li>
 </ul>
 </li>
 <li><a href="#creating-a-list-in-python">Creating a List in Python</a>
@@ -302,6 +303,26 @@ result :
 (1, 2, 2)
 3 # 3维
 </code></pre>
+<h2 id="10-float-型列表转化为-int-型列表">10. Float 型列表转化为 Int 型列表</h2>
+<p><strong>方法1:</strong> 使用map方法</p>
+<pre><code class="language-python">&gt;&gt;&gt; list = [1.3, 2.3, 4, 5]　　　#带有float型的列表　
+&gt;&gt;&gt; int_list = map(int,list)　　#使用map转换
+&gt;&gt;&gt; print int_list　　　　　　　　
+[1, 2, 4, 5]
+</code></pre>
+<p>**方法2：**使用for循环</p>
+<pre><code class="language-python">list1 =  [1.3,2.3,4,5]
+lista = []
+for i in list1:
+     i =int(i)
+     lista.append(i)
+print lista
+
+[1, 2, 4, 5]
+</code></pre>
+<blockquote>
+<p>参考<a href="https://www.cnblogs.com/xuchunlin/p/6305709.html">文章</a></p>
+</blockquote>
 <h1 id="creating-a-list-in-python">Creating a List in Python</h1>
 <h2 id="definition">Definition:</h2>
 <p><em>A list is an ordered set of objects in Python, combine multiple data types in one list.</em></p>
@@ -532,6 +553,7 @@ print(middle_element([5, 2, -10, -4, 4, 5]))
 <li><a href="#7-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">7. List 判断空与非空</a></li>
 <li><a href="#8-listappend-%E8%BE%93%E5%87%BA%E4%B8%BAnone">8. List.append() 输出为None</a></li>
 <li><a href="#9-list-%E5%90%88%E5%B9%B6%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E4%B8%BA%E7%BB%B4%E6%95%B0">9. List 合并，判断列表为维数</a></li>
+<li><a href="#10-float-%E5%9E%8B%E5%88%97%E8%A1%A8%E8%BD%AC%E5%8C%96%E4%B8%BA-int-%E5%9E%8B%E5%88%97%E8%A1%A8">10. Float 型列表转化为 Int 型列表</a></li>
 </ul>
 </li>
 <li><a href="#creating-a-list-in-python">Creating a List in Python</a>
