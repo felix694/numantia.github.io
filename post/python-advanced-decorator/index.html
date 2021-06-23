@@ -1,0 +1,711 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python 装饰器用法 - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python 装饰器用法 - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="
+为什么要用装饰器
+装饰器机制分析
+装饰器入门
+
+1. 对带参数的函数进行装饰
+2. 函数参数数量不确定
+3. 装饰器带参数
+4. functools.wraps - 还原函数原信息
+5. 实现带参数和不带参数的装饰器自适应
+6. 类装饰器..." />
+  <meta property="og:title" content="Python 装饰器用法 - 云杉的速记">
+  <meta property="og:description" content="
+为什么要用装饰器
+装饰器机制分析
+装饰器入门
+
+1. 对带参数的函数进行装饰
+2. 函数参数数量不确定
+3. 装饰器带参数
+4. functools.wraps - 还原函数原信息
+5. 实现带参数和不带参数的装饰器自适应
+6. 类装饰器..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-advanced-decorator/" />
+  <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python 装饰器用法 - 云杉的速记">
+  <meta name="twitter:description" content="
+为什么要用装饰器
+装饰器机制分析
+装饰器入门
+
+1. 对带参数的函数进行装饰
+2. 函数参数数量不确定
+3. 装饰器带参数
+4. functools.wraps - 还原函数原信息
+5. 实现带参数和不带参数的装饰器自适应
+6. 类装饰器...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-advanced-decorator/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python 装饰器用法
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-06-23 · 12 min read</div>
+          
+            <a href="https://numantia.github.io/tag/nlIVTepXy/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              装饰器
+            </a>
+          
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p><ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8">为什么要用装饰器</a></li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90">装饰器机制分析</a></li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E5%85%A5%E9%97%A8">装饰器入门</a>
+<ul>
+<li><a href="#1-%E5%AF%B9%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%A3%85%E9%A5%B0">1. 对带参数的函数进行装饰</a></li>
+<li><a href="#2-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F%E4%B8%8D%E7%A1%AE%E5%AE%9A">2. 函数参数数量不确定</a></li>
+<li><a href="#3-%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B8%A6%E5%8F%82%E6%95%B0">3. 装饰器带参数</a></li>
+<li><a href="#4-functoolswraps-%E8%BF%98%E5%8E%9F%E5%87%BD%E6%95%B0%E5%8E%9F%E4%BF%A1%E6%81%AF">4. functools.wraps - 还原函数原信息</a></li>
+<li><a href="#5-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%95%B0%E5%92%8C%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E8%87%AA%E9%80%82%E5%BA%94">5. 实现带参数和不带参数的装饰器自适应</a></li>
+<li><a href="#6-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8">6. 类装饰器</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">装饰器应用场景</a>
+<ul>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5">类型检查</a></li>
+<li><a href="#%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81">用户验证</a></li>
+<li><a href="#%E8%BE%93%E5%85%A5%E5%90%88%E7%90%86%E6%80%A7%E6%A3%80%E6%9F%A5">输入合理性检查</a></li>
+<li><a href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96">输出格式化</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7">异常捕获</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86">日志管理</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E8%A3%85%E9%A5%B0%E5%99%A8">缓存装饰器</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>[toc]</p>
+<pre><code class="language-python">@dec
+def func():
+    pass
+</code></pre>
+<p>装饰器（Decorator）为装饰对象的器件，既可以装饰[函数](1. 对带参数的函数进行装饰)，又可以装饰[类](6. 类装饰器)。可以在不修改代码条件下，为装饰对象添加新的功能或者帮助输出。装饰器的典型应用场景有<a href="#%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5">类型检查</a>、<a href="#%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81">用户验证</a>、<a href="#%E8%BE%93%E5%85%A5%E5%90%88%E7%90%86%E6%80%A7%E6%A3%80%E6%9F%A5">输入合理性检查</a>、<a href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96">输出格式化</a>、<a href="#%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7">异常捕获</a>、<a href="#%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86">日志管理</a>。</p>
+<h1 id="为什么要用装饰器">为什么要用装饰器</h1>
+<p>在<a href="https://github.com/micheles/decorator/blob/master/docs/documentation.md">官方文档</a>中，Python 2.4 引入的<code>decorators</code> , 具有重要优势：</p>
+<blockquote>
+<ul>
+<li>decorators help reducing boilerplate code;  减少样板代码</li>
+<li>decorators help separation of concerns;  分离关注点</li>
+<li>decorators enhance readability and maintenability; 增强可读性和可维护性</li>
+<li>decorators are explicit. 显示的装饰器</li>
+</ul>
+</blockquote>
+<ol>
+<li>
+<p><a href="mailto:michele.simionato@gmail.com"> michele.simionato</a> 开发的 <code>decorator</code> 模块，简化了<code>decorators</code>的使用，并附上了许多经典案例。</p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/arvin-feng/p/11108799.html">Python 装饰器用法实例总结</a>第二节有简单的例子，解释符合开放封闭原则，降低多函数重复代码量和频繁改动，将非核心的日志记录功能和函数分离开，有利于保证核心业务代码的简洁和易理解性。</p>
+</li>
+<li>
+<p><a href="https://www.liujiangblog.com/course/python/39">Python 装饰器</a> 中经过用户验证场景不同解决方案的更迭来说明装饰器的优势。</p>
+</li>
+</ol>
+<blockquote>
+<p>使用装饰器@outer，也是仅需对基础平台的代码进行拓展，就可以实现在其他部门调用函数 API 之前都进行认证操作，在操作结束后保存日志，并且其他业务部门无需对他们自己的代码做任何修改，调用方式也不用变。</p>
+</blockquote>
+<h1 id="装饰器机制分析">装饰器机制分析</h1>
+<p>本节摘自<a href="https://www.liujiangblog.com/course/python/39">Python 装饰器</a> ，在其基础上补充更为直观的图示和流程图说明，文字描述可以详细查看原文章。</p>
+<pre><code class="language-python">def outer(func):
+    def inner():
+        print(&quot;认证成功！&quot;)
+        result = func()
+        print(&quot;日志添加成功&quot;)
+        return result
+    return inner
+
+@outer
+def f1():
+    print(&quot;业务部门1数据接口......&quot;)
+
+r = f1()
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/decorator-mechanism.png" alt="decorator-mechanism" loading="lazy"></figure>
+<p>​													                装饰器工作机制</p>
+<figure data-type="image" tabindex="2"><img src="https://numantia.github.io/post-images/decorator-mechanism2.png" alt="decorator-mechanism2" loading="lazy"></figure>
+<p>​															装饰器工作流程图</p>
+<pre><code class="language-python"># 验证 inner 函数返回给 f1，即 f1 对象内存指向 inner内存
+
+def outer(func):
+    print(&quot;传入实参内存地址：%d&quot; %id(func))
+    def inner():
+        print(&quot;认证成功！&quot;)
+        result = func()
+        print(&quot;日志添加成功&quot;)
+        return result
+    print(&quot;Outer 内部函数 inner 内存地址：%d&quot; %id(inner))
+    return inner
+
+@outer
+def f1():
+    print(&quot;业务部门1数据接口......&quot;)
+
+print(&quot;装饰后 f1 函数内存地址：%d&quot; %id(f1))
+r = f1()
+
+&gt;&gt;&gt; 输出结果
+传入实参内存地址：32354376
+Outer 内部函数 inner 内存地址：32372632
+装饰后 f1 函数内存地址：32372632
+认证成功！
+业务部门1数据接口......
+日志添加成功
+</code></pre>
+<h1 id="装饰器入门">装饰器入门</h1>
+<p>本节摘自<a href="https://www.cnblogs.com/arvin-feng/p/11108799.html">Python装饰器用法实例总结</a></p>
+<h2 id="1-对带参数的函数进行装饰">1. 对带参数的函数进行装饰</h2>
+<p>内层函数进行改动传入我们的两个参数a和b，等价于use_logging(bar)(1,2)</p>
+<pre><code class="language-python">def use_logging(func):
+  def _deco(a,b):
+    print(&quot;%s is running&quot; % func.__name__)
+    func(a,b)
+  return _deco
+@use_logging
+def bar(a,b):
+  print('i am bar:%s'%(a+b))
+bar(1,2)
+</code></pre>
+<h2 id="2-函数参数数量不确定">2. 函数参数数量不确定</h2>
+<p>使用python的变长参数 *args和**kwargs 解决不定参数问题</p>
+<pre><code class="language-python">def use_logging(func):
+  def _deco(*args,**kwargs):
+    print(&quot;%s is running&quot; % func.__name__)
+    func(*args,**kwargs)
+  return _deco
+@use_logging
+def bar(a,b):
+  print('i am bar:%s'%(a+b))
+@use_logging
+def foo(a,b,c):
+  print('i am bar:%s'%(a+b+c))
+bar(1,2)
+foo(1,2,3)
+</code></pre>
+<h2 id="3-装饰器带参数">3. 装饰器带参数</h2>
+<pre><code class="language-python">#! /usr/bin/env python
+# -*- coding:utf-8 -*-
+# __author__ = &quot;TKQ&quot;
+def use_logging(level):
+  def _deco(func):
+    def __deco(*args, **kwargs):
+      if level == &quot;warn&quot;:
+        print &quot;%s is running&quot; % func.__name__
+      return func(*args, **kwargs)
+    return __deco
+  return _deco
+@use_logging(level=&quot;warn&quot;)
+def bar(a,b):
+  print('i am bar:%s'%(a+b))
+bar(1,3)
+# 等价于use_logging(level=&quot;warn&quot;)(bar)(1,3)
+</code></pre>
+<h2 id="4-functoolswraps-还原函数原信息">4. functools.wraps - 还原函数原信息</h2>
+<p>使用装饰器极大地复用了代码，但是他有一个缺点就是原函数的元信息不见了，比如函数的docstring、<strong>name</strong>、参数列表</p>
+<pre><code class="language-python">def use_logging(func):
+  def _deco(*args,**kwargs):
+    print(&quot;%s is running&quot; % func.__name__)
+    func(*args,**kwargs)
+  return _deco
+@use_logging
+def bar():
+  print('i am bar')
+  print(bar.__name__)
+bar()
+#bar is running
+#i am bar
+#_deco
+#函数名变为_deco而不是bar，这个情况在使用反射的特性的时候就会造成问题。因此引入了functools.wraps解决这个问题。
+</code></pre>
+<pre><code class="language-python"># 使用functools.wraps:
+import functools
+def use_logging(func):
+  @functools.wraps(func)
+  def _deco(*args,**kwargs):
+    print(&quot;%s is running&quot; % func.__name__)
+    func(*args,**kwargs)
+  return _deco
+@use_logging
+def bar():
+  print('i am bar')
+  print(bar.__name__)
+bar()
+#result:
+#bar is running
+#i am bar
+#bar ,这个结果是我们想要的。OK啦！
+</code></pre>
+<h2 id="5-实现带参数和不带参数的装饰器自适应">5. 实现带参数和不带参数的装饰器自适应</h2>
+<pre><code class="language-python">import functools
+def use_logging(arg):
+  if callable(arg):#判断参入的参数是否是函数，不带参数的装饰器调用这个分支
+    @functools.wraps(arg)
+    def _deco(*args,**kwargs):
+      print(&quot;%s is running&quot; % arg.__name__)
+      arg(*args,**kwargs)
+    return _deco
+  else:#带参数的装饰器调用这个分支
+    def _deco(func):
+      @functools.wraps(func)
+      def __deco(*args, **kwargs):
+        if arg == &quot;warn&quot;:
+          print &quot;warn%s is running&quot; % func.__name__
+        return func(*args, **kwargs)
+      return __deco
+    return _deco
+@use_logging(&quot;warn&quot;)
+# @use_logging
+def bar():
+  print('i am bar')
+  print(bar.__name__)
+bar()
+</code></pre>
+<h2 id="6-类装饰器">6. 类装饰器</h2>
+<p>使用类装饰器可以实现带参数装饰器的效果，但实现的更加优雅简洁,而且可以通过继承来灵活的扩展.</p>
+<pre><code class="language-python">class loging(object):
+  def __init__(self,level=&quot;warn&quot;):
+    self.level = level
+  def __call__(self,func):
+    @functools.wraps(func)
+    def _deco(*args, **kwargs):
+      if self.level == &quot;warn&quot;:
+        self.notify(func)
+      return func(*args, **kwargs)
+    return _deco
+  def notify(self,func):
+    # logit只打日志，不做别的
+    print &quot;%s is running&quot; % func.__name__
+@loging(level=&quot;warn&quot;)  #执行__call__方法
+def bar(a,b):
+  print('i am bar:%s'%(a+b))
+bar(1,3)
+</code></pre>
+<p><strong>继承扩展类装饰器</strong></p>
+<pre><code class="language-python">class email_loging(Loging):
+  '''
+  	一个loging的实现版本，可以在函数调用时发送email给管理员
+  	__init__ ：不再接收被装饰函数，而是接收传入参数。
+	__call__ ：接收被装饰函数，实现装饰逻辑。
+  '''
+  def __init__(self, email='admin@myproject.com', *args, **kwargs):
+    self.email = email
+    super(email_loging, self).__init__(*args, **kwargs)
+  def notify(self,func):
+    # 发送一封email到self.email
+    print &quot;%s is running&quot; % func.__name__
+    print &quot;sending email to %s&quot; %self.email
+@email_loging(level=&quot;warn&quot;)
+def bar(a,b):
+  print('i am bar:%s'%(a+b))
+bar(1,3)
+arvin_feng
+</code></pre>
+<h1 id="装饰器应用场景">装饰器应用场景</h1>
+<p>该节摘抄记录自文章<a href="http://c.biancheng.net/view/5410.html">Python装饰器的应用场景</a>，文章<a href="https://www.cnblogs.com/superhin/p/11454823.html">Python装饰器的应用场景</a></p>
+<h2 id="类型检查">类型检查</h2>
+<pre><code class="language-python">from functools import wraps
+def require_ints(func):
+  @wraps(func) # 将func的信息复制给inner
+  def inner(*args, **kwargs):
+    for arg list(args) + list(kwargs.values()):
+      if not isinstance(arg, int:
+        raise TypeError(&quot;{} 只接受int类型参数&quot;.format(func.__name__)
+    return func(*args, **kwargs)
+  return inner
+</code></pre>
+<h2 id="用户验证">用户验证</h2>
+<p>定义了装饰器 authenticate，函数 post_comment() 则表示发表用户对某篇文章的评论，每次调用这个函数前，都会先检查用户是否处于登录状态，如果是登录状态，则允许这项操作；如果没有登录，则不允许。</p>
+<pre><code class="language-python">import functools
+
+def authenticate(func):
+    @functools.wraps(func)
+    # @functools.wraps(func) 也是一个装饰器，
+    # 不使用它，则 post_comment.__name__ 的值为 wrapper。
+    # 使用它之后，则 post_comment.__name__ 的值依然为 post_comment。
+    def wrapper(*args, **kwargs):
+        request = args[0]
+        # 如果用户处于登录状态
+        if check_user_logged_in(request):
+            # 执行函数 post_comment()
+            return func(*args, **kwargs)  
+        else:
+            raise Exception('Authentication failed')
+    return wrapper
+   
+@authenticate
+def post_comment(request, ...)
+    ...
+</code></pre>
+<h2 id="输入合理性检查">输入合理性检查</h2>
+<p>在大型公司的机器学习框架中，调用机器集群进行模型训练前，往往会用装饰器对其输入（往往是很长的 json 文件）进行合理性检查。这样就可以</p>
+<ol>
+<li>大大避免输入不正确对机器造成的巨大开销。其实在工作中，很多情况下都会出现输入不合理的现象。因为我们调用的训练模型往往很复杂，输入的文件有成千上万行，很多时候确实也很难发现。</li>
+<li>如果没有输入的合理性检查，很容易出现“模型训练了好几个小时后，系统却报错说输入的一个参数不对，成果付之一炬”的现象。这样的“惨案”，大大减缓了开发效率，也对机器资源造成了巨大浪费。</li>
+</ol>
+<pre><code class="language-python">import functools
+
+def validation_check(input):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        ... # 检查输入是否合法
+   
+@validation_check
+def neural_network_training(param1, param2, ...):
+    ...
+</code></pre>
+<h2 id="输出格式化">输出格式化</h2>
+<pre><code class="language-python">import json
+from functools import wraps
+
+def json_output(func):  # 将原本func返回的字典格式转为返回json字符串格式
+    @wrap(func)
+    def inner(*args, **kwargs):
+        return json.dumps(func(*args, **kwargs))
+    return inner
+</code></pre>
+<h2 id="异常捕获">异常捕获</h2>
+<pre><code class="language-python">import json
+from functools import wraps
+
+class Error1(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+    def __str__(self):
+        return self.msg
+        
+
+def json_output(func):
+    @wrap(func)
+    def inner(*args, **kwargs):
+        try:
+            result = func(*args, **kwargs)
+        except Error1 as ex:
+            result = {&quot;status&quot;: &quot;error&quot;, &quot;msg&quot;: str(ex)}
+        return json.dumps(result)
+    return inner
+
+# 使用方法
+@json_ouput
+def error():
+    raise Error1(&quot;该条异常会被捕获并按JSON格式输出&quot;)
+</code></pre>
+<h2 id="日志管理">日志管理</h2>
+<p>测试函数耗时，装饰器方式秉持开放封闭原则，无需调增函数体内部，而是通过外部封装方式，减少耦合。</p>
+<pre><code class="language-python">import time
+import logging
+from functools import wraps
+
+def logged(func):
+    @wraps(func)
+    def inner(*args, **kwargs):  # *args可以装饰函数也可以装饰类
+        start = time.time()
+        result = func(*args, **kwargs)
+        exec_time = time.time() - start
+        logger = logging.getLoger(&quot;func.logged&quot;)
+        logger.warning(&quot;{} 调用时间:{:.2} 执行时间:{:.2}s 结果:{}&quot;.format(func.__name__, start, exec_time, result)
+
+def calculate_similarity(items):
+    ...
+</code></pre>
+<h2 id="缓存装饰器">缓存装饰器</h2>
+<p>关于缓存装饰器的用法，其实十分常见，这里以 <a href="http://c.biancheng.net/python/">Python</a> 内置的 LRU cache 为例来说明。LRU cache，在 Python 中的表示形式是 @lru_cache。@lru_cache 会缓存进程中的函数参数和结果，当缓存满了以后，会删除最近最久未使用的数据。</p>
+<p>正确使用缓存装饰器，往往能极大地提高程序运行效率。举个例子，大型公司服务器端的代码中往往存在很多关于设备的检查，比如使用的设备是安卓还是 iPhone，版本号是多少。这其中的一个原因，就是一些新的功能，往往只在某些特定的手机系统或版本上才有。这样一来，我们通常使用缓存装饰器来包裹这些检查函数，避免其被反复调用，进而提高程序运行效率，比如写成下面这样：</p>
+<pre><code class="language-python">@lru_cache
+def check(param1, param2, ...) # 检查用户设备类型，版本号等等
+    ...
+</code></pre>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8">为什么要用装饰器</a></li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90">装饰器机制分析</a></li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E5%85%A5%E9%97%A8">装饰器入门</a>
+<ul>
+<li><a href="#1-%E5%AF%B9%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E8%A3%85%E9%A5%B0">1. 对带参数的函数进行装饰</a></li>
+<li><a href="#2-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F%E4%B8%8D%E7%A1%AE%E5%AE%9A">2. 函数参数数量不确定</a></li>
+<li><a href="#3-%E8%A3%85%E9%A5%B0%E5%99%A8%E5%B8%A6%E5%8F%82%E6%95%B0">3. 装饰器带参数</a></li>
+<li><a href="#4-functoolswraps-%E8%BF%98%E5%8E%9F%E5%87%BD%E6%95%B0%E5%8E%9F%E4%BF%A1%E6%81%AF">4. functools.wraps - 还原函数原信息</a></li>
+<li><a href="#5-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E5%8F%82%E6%95%B0%E5%92%8C%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E8%87%AA%E9%80%82%E5%BA%94">5. 实现带参数和不带参数的装饰器自适应</a></li>
+<li><a href="#6-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8">6. 类装饰器</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">装饰器应用场景</a>
+<ul>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5">类型检查</a></li>
+<li><a href="#%E7%94%A8%E6%88%B7%E9%AA%8C%E8%AF%81">用户验证</a></li>
+<li><a href="#%E8%BE%93%E5%85%A5%E5%90%88%E7%90%86%E6%80%A7%E6%A3%80%E6%9F%A5">输入合理性检查</a></li>
+<li><a href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F%E5%8C%96">输出格式化</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7">异常捕获</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86">日志管理</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E8%A3%85%E9%A5%B0%E5%99%A8">缓存装饰器</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>
