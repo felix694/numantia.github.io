@@ -1,0 +1,780 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python 数据类型之 list - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python 数据类型之 list - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="[toc]
+
+FAQs
+
+1. List Comprehension - 双循环
+2. 初始化一维数组+二维数组
+3. TypeError: list indices must be integers or slices, not tupl..." />
+  <meta property="og:title" content="Python 数据类型之 list - 云杉的速记">
+  <meta property="og:description" content="[toc]
+
+FAQs
+
+1. List Comprehension - 双循环
+2. 初始化一维数组+二维数组
+3. TypeError: list indices must be integers or slices, not tupl..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-dtype-list/" />
+  <meta property="og:image" content="https://numantia.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python 数据类型之 list - 云杉的速记">
+  <meta name="twitter:description" content="[toc]
+
+FAQs
+
+1. List Comprehension - 双循环
+2. 初始化一维数组+二维数组
+3. TypeError: list indices must be integers or slices, not tupl...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-dtype-list/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python 数据类型之 list
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-06-18 · 11 min read</div>
+          
+            <a href="https://numantia.github.io/tag/K2KqVHSIG/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              data type
+            </a>
+          
+            <a href="https://numantia.github.io/tag/47qdrG2fl-/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              list
+            </a>
+          
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>[toc]</p>
+<p><ul class="markdownIt-TOC">
+<li><a href="#faqs">FAQs</a>
+<ul>
+<li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
+<li><a href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84">2. 初始化一维数组+二维数组</a></li>
+<li><a href="#3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</a></li>
+<li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
+<li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
+<li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
+<li><a href="#7-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">7. List 判断空与非空</a></li>
+<li><a href="#8-listappend-%E8%BE%93%E5%87%BA%E4%B8%BAnone">8. List.append() 输出为None</a></li>
+<li><a href="#9-list-%E5%90%88%E5%B9%B6%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E4%B8%BA%E7%BB%B4%E6%95%B0">9. List 合并，判断列表为维数</a></li>
+<li><a href="#10-float-%E5%9E%8B%E5%88%97%E8%A1%A8%E8%BD%AC%E5%8C%96%E4%B8%BA-int-%E5%9E%8B%E5%88%97%E8%A1%A8">10. Float 型列表转化为 Int 型列表</a></li>
+</ul>
+</li>
+<li><a href="#creating-a-list-in-python">Creating a List in Python</a>
+<ul>
+<li><a href="#definition">Definition:</a></li>
+<li><a href="#benifits">Benifits:</a></li>
+<li><a href="#key-points">Key points:</a>
+<ul>
+<li><a href="#ziplist1list2">zip(list1,list2)</a></li>
+<li><a href="#list-modifying-operation">List modifying operation</a></li>
+<li><a href="#range">Range()</a></li>
+<li><a href="#project-01gradebook">Project 01—Gradebook</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#modifying-python-lists">Modifying python lists</a>
+<ul>
+<li><a href="#definition-2">Definition:</a></li>
+<li><a href="#benifits-2">Benifits:</a></li>
+<li><a href="#key-points-2">Key points:</a>
+<ul>
+<li><a href="#get-the-length-of-a-list-len">Get the length of a list <strong>len()</strong></a></li>
+<li><a href="#select-subsets-of-a-list-called-slicing-1">Select subsets of a list (called <em><strong>slicing</strong></em>)  [ ] [-1] [:]</a></li>
+<li><a href="#count-the-number-of-times-that-an-element-appears-in-a-list-letterscounti">Count the number of times that an element appears in a list <strong>letters.count('i')</strong></a></li>
+<li><a href="#sort-a-list-of-items-sort-sorted">Sort a list of items ****.sort()   sorted(<strong>)</strong></a></li>
+<li><a href="#project-01-lens-slice">Project 01 — Len's Slice</a></li>
+<li><a href="#project-02-list-aggregate">Project 02 —List Aggregate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a>
+<ul>
+<li><a href="#add"><strong>ADD</strong></a></li>
+<li><a href="#modify"><strong>MODIFY</strong></a></li>
+<li><a href="#del"><strong>DEL</strong></a></li>
+<li><a href="#aggeregate-function"><strong>Aggeregate function</strong></a></li>
+<li><a href="#sort"><strong>Sort</strong></a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="faqs">FAQs</h1>
+<h2 id="1-list-comprehension-双循环">1. List Comprehension - 双循环</h2>
+<pre><code class="language-python">ntest=['a','b']
+ltest=[[1,2],[4,5,6]]
+data=[(k,v) for k,l in zip(ntest,ltest) for v in l] 
+</code></pre>
+<p>https://blog.csdn.net/leavemetomorrow/article/details/90641362</p>
+<h2 id="2-初始化一维数组二维数组">2. 初始化一维数组+二维数组</h2>
+<pre><code class="language-python"># 一维数组
+a = [None] * n # 方法1
+a = [None for i in range(n)] # 方法2
+
+&gt;&gt;&gt; [None, None, None, None, None]
+
+# 二维数组
+a = [list()] * 5 # 浅拷贝方法，所有List会同步变化
+a[0].append(1)  # 方法1
+&gt;&gt;&gt; [[1], [1], [1], [1], [1]]
+
+a = [list() for i in range(5)] # 所有List独立
+a[0].append(1)  # 方法2
+&gt;&gt;&gt; [[1], [], [], [], []]
+</code></pre>
+<h2 id="3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; a=[[1,2,3],[4,5,6]]
+&gt;&gt;&gt; a[0]    #取一行
+[1, 2, 3]
+&gt;&gt;&gt; a[:,0]  #尝试用数组的方法读取一列失败
+TypeError: list indices must be integers or slices, not tuple
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>列表存储不同类型数据，列表元素大小相同或者不同，不支持读取一列</p>
+<p><strong>解决方法1</strong>：列表解析的方法</p>
+<pre><code class="language-python">&gt;&gt;&gt; b=[x[0] for x in a]
+&gt;&gt;&gt; print(b)
+</code></pre>
+<p><strong>解决方法2</strong>:  转化为数组直接读取</p>
+<pre><code class="language-python">&gt;&gt;&gt; import numpy as np
+&gt;&gt;&gt; a=np.array([[1,2,3],[4,5,6]])
+&gt;&gt;&gt; a[:,0]
+array([1, 4])
+</code></pre>
+<h2 id="4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">m1=[]
+for i in range(10):
+	m1[i]=1
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>空数组无法直接确定位置，因为内存中尚未分配</p>
+<p>**解决方法1：**使用append方法</p>
+<pre><code class="language-python">m1.append(1）
+</code></pre>
+<p>**解决方法2：**先生成一个定长的list</p>
+<pre><code class="language-python">m1=[0]*len(data)
+m1[1]=1
+</code></pre>
+<h2 id="5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-powershell">&gt;&gt;&gt; str = &quot;ABCDEF&quot;
+&gt;&gt;&gt; list = [1, 2 ,3 ,4 ,5,6 ]
+&gt;&gt;&gt; list(str)
+
+TypeError: 'list' object is not callable
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>callable() 是python 的内置函数，用来检查对象是否可被调用</p>
+<p>变量list和函数list重名，所以函数在使用list函数时，发现list是一个定义好的列表，而列表是不能把被调用的，因此抛出一个类型错误</p>
+<h2 id="6-python-实现两个列表里元素对应相乘">6. Python 实现两个列表里元素对应相乘</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-powershell">&gt;&gt;&gt; list1 = [1,2,3]
+&gt;&gt;&gt; list2 = [4,5,6]
+&gt;&gt;&gt; list1*list2
+
+TypeError: can't multiply sequence by non-int of type 'list'
+</code></pre>
+<p><strong>解决方法1 ： Map函数</strong></p>
+<pre><code class="language-python">List1 = [1,2,3,4]
+List2 = [5,6,7,8]
+List3 = map(lambda a,b:a*b,zip(List1,List2))
+print List3
+</code></pre>
+<p><strong>解决方法2: np.multiply</strong></p>
+<pre><code class="language-python">List1 = [1,2,3]
+List2 = [5,6,7]
+List3 = np.multiply(np.array(List1),np.array(List2))
+print List3.tolist()
+</code></pre>
+<h2 id="7-list-判断空与非空">7. List 判断空与非空</h2>
+<pre><code class="language-python"># 一、二维通用
+list = []
+if list:
+    print('非空')
+if not list:
+    print('空')
+</code></pre>
+<h2 id="8-listappend-输出为none">8. List.append() 输出为None</h2>
+<p><strong>问题描述</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = []
+&gt;&gt;&gt; a =  a.append(1)
+&gt;&gt;&gt; print(a)
+None
+</code></pre>
+<p><strong>产生原因</strong></p>
+<p>append 方法不是返回一个列表，而只是修改原来的列表，所以如果用 <strong>等式</strong> 输出的话，返回是<code>None</code></p>
+<p><strong>解决方法</strong></p>
+<pre><code class="language-python">&gt;&gt;&gt; a = []
+&gt;&gt;&gt; a.append(1)
+&gt;&gt;&gt; print(a)
+1
+</code></pre>
+<h2 id="9-list-合并判断列表为维数">9. List 合并，判断列表为维数</h2>
+<pre><code class="language-python"># 两个列表交叉合并
+a=[1,2,3,4,5]
+b=[2,3,4,5,6]
+c=[]
+for x,y in zip(a,b):
+    c.append([x,y])
+print(c)
+
+result ： [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]
+
+# 二维列表的合并
+a=[1,2,3,4,5]
+b=[2,3,4,5,6]
+c = [a,b]
+d = []
+for x,y in zip(*c):
+    d.append([x,y])
+print(d)
+
+result ： [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]
+
+# 
+import numpy as np
+a=[0.1,0.2, 0.1, 0.1, 0.1, 0.1]
+b=[[0.1, 0.1], [0.2, 0.1], [0.1, 0.1]]
+c=[[[0.1,0.5], [0.1,0.8]]]
+
+L1=np.array(a)
+print(L1.shape)
+print(len(L1.shape))
+L=np.array(b)
+print(L.shape)
+print(len(L.shape))
+L2=np.array(c)
+print(L2.shape)
+print(len(L2.shape))
+
+result :
+(6,)
+1 # 1维
+(3, 2)
+2 # 2维
+(1, 2, 2)
+3 # 3维
+</code></pre>
+<h2 id="10-float-型列表转化为-int-型列表">10. Float 型列表转化为 Int 型列表</h2>
+<p><strong>方法1:</strong> 使用map方法</p>
+<pre><code class="language-python">&gt;&gt;&gt; list = [1.3, 2.3, 4, 5]　　　#带有float型的列表　
+&gt;&gt;&gt; int_list = map(int,list)　　#使用map转换
+&gt;&gt;&gt; print int_list　　　　　　　　
+[1, 2, 4, 5]
+</code></pre>
+<p>**方法2：**使用for循环</p>
+<pre><code class="language-python">list1 =  [1.3,2.3,4,5]
+lista = []
+for i in list1:
+     i =int(i)
+     lista.append(i)
+print lista
+
+[1, 2, 4, 5]
+</code></pre>
+<blockquote>
+<p>参考<a href="https://www.cnblogs.com/xuchunlin/p/6305709.html">文章</a></p>
+</blockquote>
+<h1 id="creating-a-list-in-python">Creating a List in Python</h1>
+<h2 id="definition">Definition:</h2>
+<p><em>A list is an ordered set of objects in Python, combine multiple data types in one list.</em></p>
+<h2 id="benifits">Benifits:</h2>
+<h2 id="key-points">Key points:</h2>
+<ul>
+<li>heights = [61,<mark>space</mark> 70, 67, 64]  # To insert space between two element is recommended</li>
+</ul>
+<h3 id="ziplist1list2">zip(list1,list2)</h3>
+<p>takes two (or more) lists as inputs and returns an object that contains a list of pairs.</p>
+<pre><code class="language-python">names_and_heights = zip(names, heights)
+print(names_and_heights)
+because it will return the location of this object in memory. Output would look something like this:
+
+&lt;zip object at 0x7f1631e86b48&gt;
+
+To see the nested lists, you can convert the zip object to a list first:
+
+print(list(names_and_heights))
+returns:
+
+[('Jenny', 61), ('Alexus', 70), ('Sam', 67), ('Grace', 65)]
+</code></pre>
+<h3 id="list-modifying-operation">List modifying operation</h3>
+<pre><code class="language-python">#  add one item to a list
+***.append()
+def append_sum(lst):
+  lst.append(lst[-1] + lst[-2])
+  lst.append(lst[-1] + lst[-2])
+  lst.append(lst[-1] + lst[-2])
+  return lst
+# Add multiple items to a list
++
+gradebook + [(&quot;visual arts&quot;, 93)]
+</code></pre>
+<h3 id="range">Range()</h3>
+<pre><code class="language-python">my_range = range(10)
+&gt;&gt;&gt; print(my_range)
+range(0, 10)
+
+&gt;&gt;&gt; print(list(my_range))
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+my_range3 = range(1, 100, 10)
+before 100 在100之间不包括100
+</code></pre>
+<h3 id="project-01gradebook">Project 01—Gradebook</h3>
+<pre><code class="language-python">last_semester_gradebook = [(&quot;politics&quot;, 80), (&quot;latin&quot;, 96), (&quot;dance&quot;, 97), (&quot;architecture&quot;, 65)]
+subjects = [&quot;physics&quot;, &quot;calculus&quot;, &quot;poetry&quot;, &quot;history&quot;]
+grades = [98, 97, 85, 88]
+subjects.append(&quot;computer science&quot;)
+grades.append(100)
+gradebook=list(zip(subjects, grades))
+gradebook + [(&quot;visual arts&quot;, 93)]
+full_gradebook = gradebook + last_semester_gradebook
+print (full_gradebook)
+</code></pre>
+<h1 id="modifying-python-lists">Modifying python lists</h1>
+<h2 id="definition-2">Definition:</h2>
+<p><em>How to work with existing lists of data</em></p>
+<h2 id="benifits-2">Benifits:</h2>
+<h2 id="key-points-2">Key points:</h2>
+<h3 id="get-the-length-of-a-list-len">Get the length of a list <strong>len()</strong></h3>
+<h3 id="select-subsets-of-a-list-called-slicing-1">Select subsets of a list (called <em><strong>slicing</strong></em>)  [ ] [-1] [:]</h3>
+<pre><code class="language-python">shopping_list = ['eggs', 'butter', 'milk', 'cucumbers', 'juice', 'cereal']
+print(shopping_list[len(shopping_list)-1])
+# the last term of list
+print(shopping_list[-1])
+# 6 not included in the list 
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+sublist = letters[1:6]
+print(sublist)
+
+['b', 'c', 'd', 'e', 'f']
+
+suitcase = ['shirt', 'shirt', 'pants', 'pants', 'pajamas', 'books']
+start = suitcase[:3]
+end = suitcase[-2:]
+</code></pre>
+<h3 id="count-the-number-of-times-that-an-element-appears-in-a-list-letterscounti">Count the number of times that an element appears in a list <strong>letters.count('i')</strong></h3>
+<h3 id="sort-a-list-of-items-sort-sorted">Sort a list of items ****.sort()   sorted(<strong>)</strong></h3>
+<pre><code class="language-python"># sort and sorted have different usuage
+
+# Sort return &quot;none&quot;,after sort(),list will change itself
+sorted_names = names.sort()
+print(sorted_names)
+
+lst.sort()
+return lst
+
+# sorted return sorted_list and have no change to original list
+sorted_names = sorted(names)
+</code></pre>
+<h3 id="project-01-lens-slice">Project 01 — Len's Slice</h3>
+<pre><code class="language-python">toppings =['pepperoni', 'pineapple', 'cheese', 'sausage', 'olives','anchovies', 'mushrooms', ]
+prices= [2,6,1,3,2,7,2]
+num_pizzas = len(toppings)
+print (&quot;We sell &quot;+ str(num_pizzas) + &quot; different kinds of pizza!&quot;)
+
+pizzas = list(zip(prices, toppings))
+
+pizzas.sort()
+print (pizzas)
+cheapest_pizza = pizzas[0]
+priciest_pizza = pizzas[-1]
+print (&quot;I will have your MOST EXPENSIVE pizza!&quot;)
+three_cheapest = pizzas[:3]
+print(three_cheapest)
+
+num_two_dollar_slices=prices.count(2)
+print (num_two_dollar_slices)
+</code></pre>
+<h3 id="project-02-list-aggregate">Project 02 —List Aggregate</h3>
+<pre><code class="language-python"># Double index
+def double_index(lst,index):
+  if index &lt;= len(lst)-1:
+    lst[index]=lst[index]*2
+    return lst
+  else:
+    return lst
+  
+print(double_index([3, 8, -10, 12], 2))
+# Remove middle
+def remove_middle(lst, start, end): 
+  lst=lst[:start]+lst[end+1:]
+  return lst
+
+print(remove_middle([4, 8, 15, 16, 23, 42], 1, 3))
+
+#More than N
+def more_than_n (lst, item, n):
+  if lst.count(item)&gt;n:
+    return True
+  else:
+    return False
+
+print(more_than_n([2, 4, 6, 2, 3, 2, 1, 2], 2, 3))
+
+# More Frequent Item
+def more_frequent_item (lst,item1,item2):
+  if lst.count(item1) &gt;= lst.count(item2):
+    return item1
+  else:
+    return item2
+print(more_frequent_item([2, 3, 3, 2, 3, 2, 3, 2, 3], 2, 3))
+
+# Middle Item
+def middle_element(lst):
+  if len(lst) % 2 == 0:
+    sum = lst[int(len(lst)/2)] + lst[int(len(lst)/2) - 1]
+    return sum / 2
+  else:
+    return lst[int(len(lst)/2)]
+
+print(middle_element([5, 2, -10, -4, 4, 5]))
+</code></pre>
+<h1 id="summary">Summary</h1>
+<h2 id="add"><strong>ADD</strong></h2>
+<p>list.append(data)</p>
+<p>list1.extend(list2)</p>
+<p>liat1.insert(index,data)</p>
+<h2 id="modify"><strong>MODIFY</strong></h2>
+<p>list[index] = data</p>
+<h2 id="del"><strong>DEL</strong></h2>
+<p>del list[index]     # unrecommended</p>
+<p>list.remove[data]  Delete specified element of first appearance in the list</p>
+<p>list.pop()    delete the final one element</p>
+<p>list.pop(index)  delete element at specific location</p>
+<p>list.clear  delete the whole of list</p>
+<h2 id="aggeregate-function"><strong>Aggeregate function</strong></h2>
+<p>list.count(data)</p>
+<p>len(list)</p>
+<h2 id="sort"><strong>Sort</strong></h2>
+<p>list.sort(reverse = true)    descending sort</p>
+<p>list.reverse()    reverse the order</p>
+<p>sorted()</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#faqs">FAQs</a>
+<ul>
+<li><a href="#1-list-comprehension-%E5%8F%8C%E5%BE%AA%E7%8E%AF">1. List Comprehension - 双循环</a></li>
+<li><a href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84">2. 初始化一维数组+二维数组</a></li>
+<li><a href="#3-typeerror-list-indices-must-be-integers-or-slices-not-tuple">3. TypeError: list indices must be integers or slices, not tuple</a></li>
+<li><a href="#4-indexerror-list-assignment-index-out-of-range">4. IndexError: list assignment index out of range</a></li>
+<li><a href="#5-typeerror-list-object-is-not-callable">5. TypeError: 'list' object is not callable</a></li>
+<li><a href="#6-python-%E5%AE%9E%E7%8E%B0%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8C%E5%85%83%E7%B4%A0%E5%AF%B9%E5%BA%94%E7%9B%B8%E4%B9%98">6. Python 实现两个列表里元素对应相乘</a></li>
+<li><a href="#7-list-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">7. List 判断空与非空</a></li>
+<li><a href="#8-listappend-%E8%BE%93%E5%87%BA%E4%B8%BAnone">8. List.append() 输出为None</a></li>
+<li><a href="#9-list-%E5%90%88%E5%B9%B6%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E4%B8%BA%E7%BB%B4%E6%95%B0">9. List 合并，判断列表为维数</a></li>
+<li><a href="#10-float-%E5%9E%8B%E5%88%97%E8%A1%A8%E8%BD%AC%E5%8C%96%E4%B8%BA-int-%E5%9E%8B%E5%88%97%E8%A1%A8">10. Float 型列表转化为 Int 型列表</a></li>
+</ul>
+</li>
+<li><a href="#creating-a-list-in-python">Creating a List in Python</a>
+<ul>
+<li><a href="#definition">Definition:</a></li>
+<li><a href="#benifits">Benifits:</a></li>
+<li><a href="#key-points">Key points:</a>
+<ul>
+<li><a href="#ziplist1list2">zip(list1,list2)</a></li>
+<li><a href="#list-modifying-operation">List modifying operation</a></li>
+<li><a href="#range">Range()</a></li>
+<li><a href="#project-01gradebook">Project 01—Gradebook</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#modifying-python-lists">Modifying python lists</a>
+<ul>
+<li><a href="#definition-2">Definition:</a></li>
+<li><a href="#benifits-2">Benifits:</a></li>
+<li><a href="#key-points-2">Key points:</a>
+<ul>
+<li><a href="#get-the-length-of-a-list-len">Get the length of a list <strong>len()</strong></a></li>
+<li><a href="#select-subsets-of-a-list-called-slicing-1">Select subsets of a list (called <em><strong>slicing</strong></em>)  [ ] [-1] [:]</a></li>
+<li><a href="#count-the-number-of-times-that-an-element-appears-in-a-list-letterscounti">Count the number of times that an element appears in a list <strong>letters.count('i')</strong></a></li>
+<li><a href="#sort-a-list-of-items-sort-sorted">Sort a list of items ****.sort()   sorted(<strong>)</strong></a></li>
+<li><a href="#project-01-lens-slice">Project 01 — Len's Slice</a></li>
+<li><a href="#project-02-list-aggregate">Project 02 —List Aggregate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a>
+<ul>
+<li><a href="#add"><strong>ADD</strong></a></li>
+<li><a href="#modify"><strong>MODIFY</strong></a></li>
+<li><a href="#del"><strong>DEL</strong></a></li>
+<li><a href="#aggeregate-function"><strong>Aggeregate function</strong></a></li>
+<li><a href="#sort"><strong>Sort</strong></a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>
