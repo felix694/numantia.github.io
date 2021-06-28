@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-06-24T09:06:48.402Z</updated>
+    <updated>2021-06-28T05:15:48.368Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -11,7 +11,273 @@
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 云杉的速记</rights>
     <entry>
-        <title type="html"><![CDATA[Python 数据类型之 dict]]></title>
+        <title type="html"><![CDATA[VS Code 快捷键和用法]]></title>
+        <id>https://numantia.github.io/post/vscode-keyboard-shorcut/</id>
+        <link href="https://numantia.github.io/post/vscode-keyboard-shorcut/">
+        </link>
+        <updated>2021-06-25T04:00:44.000Z</updated>
+        <content type="html"><![CDATA[<p>[toc]</p>
+<p><ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%9F%BA%E7%A1%80%E7%BC%96%E8%BE%91-basic-editing">基础编辑 Basic editing</a></li>
+<li><a href="#%E5%AF%BC%E8%88%AA-navigation">导航 Navigation</a></li>
+<li><a href="#%E6%90%9C%E7%B4%A2%E5%92%8C%E6%9B%BF%E6%8D%A2-search-and-replace">搜索和替换 Search and replace</a></li>
+<li><a href="#%E5%A4%9A%E5%85%89%E6%A0%87%E5%92%8C%E9%80%89%E6%8B%A9-multi-cursor-and-selection">多光标和选择 Multi-cursor and selection</a></li>
+<li><a href="#%E4%B8%B0%E5%AF%8C%E7%9A%84%E8%AF%AD%E8%A8%80%E7%BC%96%E8%BE%91-rich-languages-editing">丰富的语言编辑 Rich languages editing</a></li>
+<li><a href="#%E7%BC%96%E8%BE%91%E5%99%A8%E7%AE%A1%E7%90%86-editor-management">编辑器管理 Editor management</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86-file-management">文件管理 File management</a></li>
+<li><a href="#%E6%98%BE%E7%A4%BA-display">显示 Display</a></li>
+<li><a href="#%E8%B0%83%E8%AF%95-debug">调试 Debug</a></li>
+<li><a href="#%E9%9B%86%E6%88%90%E7%BB%88%E7%AB%AF-integrated-terminal">集成终端 Integrated terminal</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>本篇文章用作个人快捷键备忘，不求全面，若您本意是想找到特定快捷键，可以点击 <code>菜单栏 &gt; help &gt; Keyboard Shortcuts Reference</code> , Window常用快捷键可以点击该<a href="https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf">链接</a>，若想查看中文版本，该篇<a href="https://blog.csdn.net/p358278505/article/details/74221214">博文</a>有详细说明。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl + Shift + P，F1</td>
+<td style="text-align:left">显示命令面板 Show Command Palette</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + P</td>
+<td style="text-align:left">快速打开 Quick Open</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + Shift + N</td>
+<td style="text-align:left">新窗口/实例 New window/instance</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + Shift + W</td>
+<td style="text-align:left">关闭窗口/实例 Close window/instance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基础编辑-basic-editing">基础编辑 Basic editing</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+X</td>
+<td style="text-align:left">剪切行（空选定） Cut line (empty selection)</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+C</td>
+<td style="text-align:left">复制行（空选定）Copy line (empty selection)</td>
+</tr>
+<tr>
+<td style="text-align:left">Shift+Alt + ↓ / ↑</td>
+<td style="text-align:left">向上/向下复制行 Copy line up/down</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+K</td>
+<td style="text-align:left">删除行 Delete line</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Enter</td>
+<td style="text-align:left">在下面插入行 Insert line below</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+Enter</td>
+<td style="text-align:left">在上面插入行 Insert line above</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+[</td>
+<td style="text-align:left">折叠（折叠）区域 Fold (collapse) region</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+]</td>
+<td style="text-align:left">展开（未折叠）区域 Unfold (uncollapse) region</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K Ctrl+[</td>
+<td style="text-align:left">折叠（未折叠）所有子区域 Fold (collapse) all subregions</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K Ctrl+]</td>
+<td style="text-align:left">展开（未折叠）所有子区域 Unfold (uncollapse) all subregions</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K Ctrl+0</td>
+<td style="text-align:left">折叠（折叠）所有区域 Fold (collapse) all regions</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K Ctrl+J</td>
+<td style="text-align:left">展开（未折叠）所有区域 Unfold (uncollapse) all regions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="导航-navigation">导航 Navigation</h2>
+<h2 id="搜索和替换-search-and-replace">搜索和替换 Search and replace</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl + F</td>
+<td style="text-align:left">查找 Find</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + H</td>
+<td style="text-align:left">替换 Replace</td>
+</tr>
+<tr>
+<td style="text-align:left">F3 / Shift + F3</td>
+<td style="text-align:left">查找下一个/上一个 Find next/previous</td>
+</tr>
+<tr>
+<td style="text-align:left">Alt + Enter</td>
+<td style="text-align:left">选择查找匹配的所有出现 Select all occurences of Find match</td>
+</tr>
+</tbody>
+</table>
+<h2 id="多光标和选择-multi-cursor-and-selection">多光标和选择 Multi-cursor and selection</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Alt +单击</td>
+<td style="text-align:left">插入光标 Insert cursor</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + I</td>
+<td style="text-align:left">选择当前行 Select current line</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + Shift + L</td>
+<td style="text-align:left">选择当前选择的所有出现 Select all occurrences of current selection</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl + F2</td>
+<td style="text-align:left">选择当前字的所有出现 Select all occurrences of current word</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Shift + Alt + →</td>
+<td style="text-align:left">展开选择 Expand selection</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Shift + Alt + ←</td>
+<td style="text-align:left">缩小选择 Shrink selection</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="丰富的语言编辑-rich-languages-editing">丰富的语言编辑 Rich languages editing</h2>
+<h2 id="编辑器管理-editor-management">编辑器管理 Editor management</h2>
+<h2 id="文件管理-file-management">文件管理 File management</h2>
+<h2 id="显示-display">显示 Display</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">F11</td>
+<td style="text-align:left">切换全屏 Toggle full screen</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+V</td>
+<td style="text-align:left">切换Markdown预览 Toggle Markdown preview</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K V</td>
+<td style="text-align:left">从旁边打开Markdown预览 Open Markdown preview to the side</td>
+</tr>
+</tbody>
+</table>
+<h2 id="调试-debug">调试 Debug</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">F9</td>
+<td style="text-align:left">切换断点 Toggle breakpoint</td>
+</tr>
+<tr>
+<td style="text-align:left">F5</td>
+<td style="text-align:left">开始/继续 Start/Continue</td>
+</tr>
+<tr>
+<td style="text-align:left">Shift+F5</td>
+<td style="text-align:left">停止 Stop</td>
+</tr>
+<tr>
+<td style="text-align:left">F11 / Shift+F11</td>
+<td style="text-align:left">下一步/上一步 Step into/out</td>
+</tr>
+<tr>
+<td style="text-align:left">F10</td>
+<td style="text-align:left">跳过 Step over</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+K Ctrl+I</td>
+<td style="text-align:left">显示悬停 Show hover</td>
+</tr>
+</tbody>
+</table>
+<h2 id="集成终端-integrated-terminal">集成终端 Integrated terminal</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按 Press</th>
+<th style="text-align:left">功能 Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+`</td>
+<td style="text-align:left">显示集成终端 Show integrated terminal</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+C</td>
+<td style="text-align:left">复制选定 Copy selection</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+V</td>
+<td style="text-align:left">粘贴到活动端子 Paste into active terminal</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python 数据类型之 dict（讲解+案例+FAQs）]]></title>
         <id>https://numantia.github.io/post/python-dtype-dict/</id>
         <link href="https://numantia.github.io/post/python-dtype-dict/">
         </link>
@@ -679,7 +945,7 @@ def check(param1, param2, ...) # 检查用户设备类型，版本号等等
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Python 数据类型之 list]]></title>
+        <title type="html"><![CDATA[Python 数据类型之 list（讲解+案例+FAQs）]]></title>
         <id>https://numantia.github.io/post/python-dtype-list/</id>
         <link href="https://numantia.github.io/post/python-dtype-list/">
         </link>
@@ -2855,340 +3121,6 @@ class initDemo():
 <li><a href="https://blog.csdn.net/modabao/article/details/89193990">Python3.用json作为配置文件</a></li>
 </ol>
  <a href="#fnref1" class="footnote-backref">↩︎</a></li>
-</ol>
-</section>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[一文读懂 Python 开发环境配置]]></title>
-        <id>https://numantia.github.io/post/python-devenv-configuration/</id>
-        <link href="https://numantia.github.io/post/python-devenv-configuration/">
-        </link>
-        <updated>2021-05-18T04:09:44.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#python-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">Python 多版本管理</a>
-<ul>
-<li><a href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82">1. 多版本使用需求</a></li>
-<li><a href="#2-windows-%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">2. Windows 下多版本管理[^1]</a></li>
-<li><a href="#3-linux-%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86-%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%AF%B9%E7%85%A7%E8%A1%A8">3. Linux 系统下多版本管理[^2]  - 建立一个对照表</a></li>
-</ul>
-</li>
-<li><a href="#python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Python 虚拟环境配置</a>
-<ul>
-<li><a href="#1-%E5%8E%9F%E7%90%86%E5%92%8C%E9%85%8D%E7%BD%AE%E9%9C%80%E6%B1%82">1. 原理和配置需求</a>
-<ul>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">操作系统的环境变量</a></li>
-<li><a href="#%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E8%BF%90%E8%A1%8C%E5%92%8C-path-%E4%BF%AE%E6%94%B9">虚拟环境运行和 PATH 修改</a></li>
-<li><a href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%85%B3%E7%B3%BB">Python解释器和虚拟环境关系</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%AE%89%E8%A3%85-%E9%85%8D%E7%BD%AE">2.  安装 &amp; 配置</a>
-<ul>
-<li><a href="#%E4%BD%BF%E7%94%A8-virtualenv-%E7%AE%A1%E7%90%86">使用 Virtualenv 管理[^3]</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-venv-%E7%AE%A1%E7%90%86">使用 venv 管理</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-pipenv-%E7%AE%A1%E7%90%86">使用 pipenv 管理</a></li>
-</ul>
-</li>
-<li><a href="#3-%E6%BF%80%E6%B4%BB-%E9%80%80%E5%87%BA">3. 激活 &amp; 退出</a></li>
-<li><a href="#4-anaconda-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86">4. Anaconda 虚拟环境管理</a></li>
-<li><a href="#5-%E4%B8%8E%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E9%85%8D%E5%90%88">5. 与开发工具配合</a>
-<ul>
-<li><a href="#visual-studio-code">Visual Studio Code</a></li>
-<li><a href="#pycharm">Pycharm</a></li>
-</ul>
-</li>
-<li><a href="#6-python-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2">6. Python 开发环境部署</a></li>
-<li><a href="#vs-code%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E8%BF%87%E7%A8%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">VS Code开发环境使用过程常见问题</a></li>
-<li><a href="#1-%E5%90%8C%E7%BA%A7%E7%9B%AE%E5%BD%95%E6%A8%A1%E5%9D%97%E8%B0%83%E7%94%A8">1. 同级目录模块调用</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<p>[toc]</p>
-<p>持续更新...</p>
-<h1 id="python-多版本管理">Python 多版本管理</h1>
-<h2 id="1-多版本使用需求">1. 多版本使用需求</h2>
-<p>场景1：如果我们想在python3上运行2.x版本的代码，就需要对代码进行大量的修改，产生不必要的工作量。</p>
-<h2 id="2-windows-下多版本管理">2. Windows 下多版本管理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
-<p><strong>步骤 1：</strong><a href="https://www.python.org/downloads/windows/">官网</a> （速度慢）或者<a href="http://npm.taobao.org/mirrors/python/">国内镜像</a>（速度快）下载Python 对应版本；</p>
-<p><strong>步骤 2：</strong> 点击可执行文件安装 Python，注意<strong>选择“Add python.exe to Path”</strong>；</p>
-<p><strong>步骤 3：</strong> 打开 CMD，查看当前电脑下有哪些 Python 版本和安装位置；</p>
-<pre><code class="language-bash">&gt; where python 
-C:\Users\***\AppData\Local\Programs\Python\Python39\python.exe
-C:\Users\***\AppData\Local\Programs\Python\Python37\python.exe
-
-&gt; python --version  # 查看默认版本 或者python -V
-Python 3.9.4
-</code></pre>
-<p>打开 python 的文件路径，或者右键 python 快捷方式打开 “打开文件位置” 找到 Python 的安装位置；</p>
-<figure data-type="image" tabindex="1"><img src="https://numantia.github.io/post-images/python_filepath.png" alt="python_filepath" loading="lazy"></figure>
-<p><strong>步骤 4 ：</strong> 打开任意版本的 Python，并执行脚本命令；</p>
-<p>​	方法1： 修改环境变量，将目标版本的 Python 路径添加到环境变量中，调用参数打开对应版本。</p>
-<pre><code class="language-bash">&gt; py -3.9 # 快速启动 python 3.9
-&gt; py -3.7 # 快速启动 python 3.7
-
-&gt; py -3.9 -V # 查看详细版本 
-
-&gt; py -3.7 helloworld.py # 打开 python 2 脚本
-</code></pre>
-<p>​	方法2：复制一份重命名为python39.exe。注意是复制一份重命名，而不是直接重命名。</p>
-<figure data-type="image" tabindex="2"><img src="https://numantia.github.io/post-images/python-rename.png" alt="python-rename" loading="lazy"></figure>
-<p><strong>步骤 5 ：</strong> 多版本共存对应版本的 pip 管理；</p>
-<pre><code class="language-bash"># 多版本共存查看 pip 版本
-&gt; python -m pip -V / pip -V # 查看默认 pip 版本
-pip 21.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python39\lib\site-packages\pip (python 3.9)
-&gt; py -3.7 -m pip -V
-pip 20.1.1 from C:\Users\***\AppData\Local\Programs\Python\Python37\lib\site-packages\pip (python 3.7)
-
-# 卸载pip
-&gt; python -m pip uninstall pip setuptools
-
-# 多版本共存升级pip
-&gt; python -m pip install --upgrade pip
-&gt; py -3.7 -m pip install --upgrade pip # python 3.7 的pip更新
-若更新好，重新运行命令，发现
-Requirement already satisfied: pip in c:\users\octob\appdata\local\programs\python\python37\lib\site-packages (21.1.1)
-
-# 多版本共存如何 pip 安装
-&gt; pip install requests # 默认 python 关联的 pip 命令安装，安装在python3.9（默认）下
-&gt; py -3.7 -m pip install requests # python3.7 关联 pip 命令安装，安装在python3.7下
-
-&gt; python -m pip list # 查看 list ，安装在C:\Users\***\AppData\Local\Programs\Python\Python39\Lib\site-packages
-&gt; python -m pip list --outdated  # 检查哪些包需要更新
-</code></pre>
-<h2 id="3-linux-系统下多版本管理-建立一个对照表">3. Linux 系统下多版本管理<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>  - 建立一个对照表</h2>
-<figure data-type="image" tabindex="3"><img src="https://numantia.github.io/post-images/linux_python.png" alt="linux_python" loading="lazy"></figure>
-<p><strong>步骤 1：</strong> 查看 Linux 默认安装的 Python 位置</p>
-<pre><code class="language-bash">$ whereis python # 多版本 python 安装位置
-$ which python  # 默认 python 的位置
-$ ls -l /usr/bin/python*  # 了解软链接
-</code></pre>
-<ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox" id="task-item-9200059"><label class="task-list-item-label" for="task-item-9200059"> 软链接说明</label></li>
-</ul>
-<p><strong>步骤 2：</strong> 安装目标版本 Python</p>
-<ol>
-<li><a href="https://www.python.org/downloads/windows/">官网</a> （速度慢）或者<a href="http://npm.taobao.org/mirrors/python/">国内镜像</a>（速度快）下载Python 对应版本；</li>
-<li>解压；</li>
-<li>准备编译环境；</li>
-<li>编译安装；</li>
-</ol>
-<pre><code class="language-bash">
-$ wget http://python.org/ftp/python/2.7/Python-2.7.tar.bz2
-
-$ tar -zxvf Python-3.6.5.tgz
-$ yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel $ readline-devel tk-devel gcc make
-
-# 编译安装(进入 Python-3.6.5 目录)
-$ ./configure --prefix=/root/training/Python-3.6.5
-$ make &amp;&amp; make install
-</code></pre>
-<p><strong>步骤 3：</strong> 多版本 Python 管理</p>
-<pre><code class="language-bash">$ sudo rm /usr/bin/python
-
-$ python
-~bash: /usr/bin/python: No such file or directory # 删除后没有对应
-
-$ ln -s /usr/bin/python2.7 /usr/bin/python  # 建立软链接
-$ # 建立目标对应链接
-
-$ python
-
-$ python3
-</code></pre>
-<p><strong>步骤 4：</strong> 多版本 Pip 管理</p>
-<ol>
-<li>创建软链接；</li>
-<li>配置环境变量</li>
-</ol>
-<pre><code class="language-bash"># 安装pip前需要前置安装setuptools
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26
-$ tar -zxvf setuptools-19.6.tar.gz
-$ cd setuptools-19.6
-$ sudo python3 setup.py build
-$ sudo python3 setup.py install
-
-# 安装pip
-$ wget --no-check-certificate  https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb
-$ tar -zxvf pip-8.0.2.tar.gz
-$ cd pip-8.0.2
-$ sudo python3 setup.py build
-$ sudo python3 setup.py install
-
-# 检查
-$ pip -V
-
-# 不同版本 pip 下载包
-$ pip install numpy
-$ pip3 install numpy
-
-# 配置环境变量(直接使用pip，easy——install, 制订pip安装路径)
-$ vi ~/.bash_profile
-export PYTHON_HOME=/root/training/Python-3.6.5
-export PATH=$PYTHON_HOME/bin:$PATH
-
-保存退出（:wq）
-$ source ~/.bash_profile
-$ echo $PYTHON_HOME
-</code></pre>
-<h1 id="python-虚拟环境配置">Python 虚拟环境配置</h1>
-<h2 id="1-原理和配置需求">1. 原理和配置需求</h2>
-<p>虚拟环境并不是什么新技术，主要是利用了操作系统中环境变量以及进程间环境隔离的特性</p>
-<h3 id="操作系统的环境变量">操作系统的环境变量</h3>
-<p>可以为程序提供信息和做信息交换介质，进程可以共享操作系统中的环境变量，也可以为进程指定环境变量，其中 PATH 是很重要的环境变量，用于为操作系统和程序提供可执行文件的访问路径，例如写一个程序 a.exe，存放在 D:\MyProgram 中，在命令行中执行 a.exe ，会得到提示“ 无法找到程序 a.exe”，为了让系统找到，可以将 D:\MyProgram 路径加入到 PATH 环境变量中，当输入 a.exe 时，操作系统就会从 PATH 所提供的路径中逐个查找，这时就可以找到了。Linux 和 MacOS 具有相似的特性，甚至比 Windows 的功能更丰富。</p>
-<h3 id="虚拟环境运行和-path-修改">虚拟环境运行和 PATH 修改</h3>
-<p>Python 虚拟环境就是利用这个特性构建的，在激活虚拟环境之时，激活脚本会将当前命令行程序的 PATH 修改为虚拟环境的，这样执行命令就会在被修改的 PATH 中查找，从而避免了原本 PATH 可以找到的命令，从而实现了 Python 环境的隔离。</p>
-<h3 id="python解释器和虚拟环境关系">Python解释器和虚拟环境关系</h3>
-<img src="https://numantia.github.io/post-images/Python环境.png" alt="Python环境" style="zoom:80%;" />
-<ul>
-<li>一个操作系统下，可以有多个<code>“操作系统级别的” Python解释器</code>；</li>
-<li>每个Python解释器有一个指向自己的pip工具，两者<code>一一对应</code>；</li>
-<li>通过virtualenv可以虚拟任何一个“操作系统级别的”Python解释器成为一个“虚拟级别”的解释器；</li>
-<li>每个“虚拟级别”的解释器又拥有自己独立的<code>pip工具和site-packages</code>。</li>
-</ul>
-<h2 id="2-安装-配置">2.  安装 &amp; 配置</h2>
-<h3 id="使用-virtualenv-管理">使用 Virtualenv 管理<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></h3>
-<p>要点：</p>
-<ol>
-<li>python3.3 之前，只能通过 virtualenv 创建虚拟环境</li>
-<li>virtualenv 可以指定 python解析器版本，但必须是在本地已安装。</li>
-</ol>
-<pre><code class="language-bash">&gt; pip install virtualenv # 默认 Python 位置安装 virtualenv
-&gt; virtualenv --no-site-packages myvenv # 创建在当前目录
---no-site-packages: 复制主环境中安装的第三方包
--p: 用于指定 Python 解析器，就是安装好的 Python 应用程序，默认为当前环境中的 Python
-–no-pip：不需要安装 pip，默认为安装
-–clear：如果创建虚拟环境的目录已经有了其他虚拟环境，清楚重建
-</code></pre>
-<h3 id="使用-venv-管理">使用 venv 管理</h3>
-<p>要点：</p>
-<ol>
-<li>因为 venv 是依附于一个 Python 解析器创建的，所以不需要指定 Python 解释器版本</li>
-<li>python 3.3 以后版本，可以通过自带模块 venv 创建虚拟环境</li>
-</ol>
-<pre><code class="language-bash">&gt; python -m venv myvenv
-–without-pip: 不需要安装 pip，默认为安装
-–clear：如果创建虚拟环境的目录已经有了其他虚拟环境，清楚重建
-
-</code></pre>
-<h3 id="使用-pipenv-管理">使用 <a href="https://pipenv.pypa.io/en/latest/">pipenv</a> 管理</h3>
-<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。能够自动为项目创建和管理虚拟环境。 pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并且在使用pipenv添加或删除包时，自动维护 Pipfile 文件，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息，避免构建错误。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。详细使用方法，可参考这篇文章<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>。</p>
-<pre><code class="language-bash"># 下载
-$ pip install pipenv
-# 创建环境并安装
-$ cd myproject
-$ pipenv install # 创建环境
-$ pipenv install requests # 或者直接安装库
-# 如果不存在pipfile,会生成一个pipfile，并且如果有的库添加会自动编辑该文件，不会我们手动更新requirements.txt文件了。
-# 激活
-$ pipenv shell
-$ python --version
-</code></pre>
-<h2 id="3-激活-退出">3. 激活 &amp; 退出</h2>
-<p>通过 virtualenv 和 模块 venv 创建的虚拟环境，激活方式是一样的，即运行激活脚本</p>
-<ul>
-<li>Windows 系统中，激活脚本路径是 <code>&lt;myvenv&gt;\Scripts\activate.bat</code>，如果是 powershell 命令行，脚本换成 <code>Activate.ps1</code> , 注意将 <code>&lt;myvenv&gt;</code> 换成你自己的虚拟环境目录</li>
-<li>Linux 系统中，激活脚本路径是 <code>&lt;myvenv&gt;/bin/activate</code>，默认脚本没有执行权限，要么设置脚本为可执行，要么用 <code>source</code> 命令执行，例如<code>source myvenv/bin/activate</code></li>
-</ul>
-<p>检验是否已激活</p>
-<pre><code class="language-bash">$ echo $PATH # linux 下
-&gt; echo %PATH% # window 下
-</code></pre>
-<p>退出虚拟环境很简单，只需要执行 <code>deactivate</code> 命令就行</p>
-<p>linux:</p>
-<pre><code class="language-bash">$ deactivate
-</code></pre>
-<p>Windows 10:</p>
-<pre><code class="language-powershell">&gt; .\Scripts\deactivate.bat
-</code></pre>
-<h2 id="4-anaconda-虚拟环境管理">4. Anaconda 虚拟环境管理</h2>
-<p>conda可以直接创建不同python版本的虚拟环境。前面讲的virtualenv只是指定创建不同python版本的虚拟环境，前提是你的电脑上已经安装了不同版本的python,与conda相比没有conda灵活。</p>
-<pre><code class="language-powershell"># 查看 Python 环境
-conda info --env
-
-# 创建一个python3.5的环境，我们把它命名为python35
-conda create --name python35 python=3.5 # 安装
-conda create --name python35 python=3.5 # numpy scipy #创建环境并安装包
-conda create --name python37 --clone python37 # 克隆方式闯将环境
-
-# 激活环境并在环境中安装必要包( mac/linux 系统中需命令首加上 source)
-conda activate python35 # 物理路径在D:\Anaconda\envs
-conda deactivate python35
-conda/pip install numpy
-
-# 迁移环境
-conda list --explictit &gt; bio-env.txt
-
-conda env export &gt; py36.yaml
-conda env create -f py36.yaml # conda 安装的
-pip freeze &gt; requirements.txt
-pip install -r requirements.txt # pip 安装的
-
-
-pip install -r requirements.txt -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
-
-# 删除 python35 
-conda remove -n python35 --all
-
-# help
-conda --help
-</code></pre>
-<p>详细命令见<a href="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3aaf8cfc-c8b0-48b6-b4fb-9db9e95bc7b5/conda-cheatsheet.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210519%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20210519T051849Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=3f9275c79f2f55c1f98d7bac479d54e78eec0e2a73bb385a842e887f45aafb29&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22conda-cheatsheet.pdf%22">conda Cheet Sheet</a></p>
-<h2 id="5-与开发工具配合">5. 与开发工具配合</h2>
-<h3 id="visual-studio-code">Visual Studio Code</h3>
-<p>按下 Ctrl+Shift+P, 在弹出的命令窗口中输入 “解析器”，然后在下拉列表中选择 “Python:选择解析器”，这里会缓存一些已经创建好的解析器，如果没有想要的，可以选择 “Enter interpreter path” 来选择解析器路径，即已经创建好的虚拟环境脚本文件夹中的 Python 程序，就可以创建一个新的解析器。</p>
-<h3 id="pycharm">Pycharm</h3>
-<p>创建项目时，在项目创建对话框中，可以创建或者选择已经已有的解析器</p>
-<img src="https://numantia.github.io/post-images/pycharm配置python环境.png" alt="选择 Python 解析器" style="zoom:80%;" />
-<p>其他参考<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup><sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup></p>
-<h2 id="6-python-开发环境部署">6. Python 开发环境部署</h2>
-<p><strong>此部分拷贝自<a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">Python 虚拟环境 看这一篇就够了</a></strong></p>
-<p>之所以在开发时选择虚拟环境，除了避免库之间的冲突，还有重要的原因时方便部署，因为虚拟环境时独立的，仅包含了项目相关的依赖库，所以部署的效率更高，风险更小</p>
-<p>一般部署流程是：</p>
-<ol>
-<li>开发完成后，使用 <code>pip freeze &gt; requirements.txt</code> 命令将项目的库依赖导出，作为代码的一部分</li>
-<li>将代码上传到服务器</li>
-<li>在服务器上创建一个虚拟环境</li>
-<li>激活虚拟环境，执行 <code>pip install -r requirements.txt</code>，安装项目依赖</li>
-</ol>
-<p>怎么运行项目，需要看项目的具体情况</p>
-<ul>
-<li>Web 项目 Web 项目一般使用 Django、Flask 的 Web 开发的提供 Web 服务的项目，部署时需要一个 Web 容器，作为程序的运行环境，容器的配置中都有一个虚拟环境的设置，其实是指定 Python 解析器的路径，将其设置为虚拟环境的目录或者 Python 解析器就可以了，启动时就用使用虚拟环境，并与其他环境隔离。例如 uWSGI 配置文件中 home 参数是用来指定解析器的。</li>
-<li>服务类项目 服务类项目就是需要以服务的形式长时间运行的，例如之前介绍的 公交闹钟，或者一些定时爬虫之类的，对于 Linux 而言，当前主流的服务方式是 Systemd，是一种比 init 更先进的服务管理工具，在服务脚本中， 设置 ExecStart 执行命令为全路径的虚拟环境的 Python 解析器，服务启动时，使用独立的虚拟环境了。 Windows 服务，对于达成 EXE 包的，不需要配置虚拟环境，因为打包时已经考虑了环境问题了，如果时脚本运行的话，需要指定全路径的 Python 解析器</li>
-<li>单次运行项目 对于一些测试或者实验性质的项目，大多数情况下手动执行，只要在激活的虚拟环境下，或者用特定的 Python 解析器运行就好了，和在开发过程中运行区别不大</li>
-</ul>
-<h2 id="vs-code开发环境使用过程常见问题">VS Code开发环境使用过程常见问题</h2>
-<h2 id="1-同级目录模块调用">1. 同级目录模块调用</h2>
-<p>在 comb_analyser.py 下 想调用 config 下配置文件。</p>
-<figure data-type="image" tabindex="4"><img src="https://numantia.github.io/post-images/the-same-level-callback.png" alt="the-same-level-callback" loading="lazy"></figure>
-<p>方法1：在 comb_analyser.py 中添加 如下片段</p>
-<pre><code class="language-python">import sys,os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # __file__获取执行文件相对路径，整行为取上一级的上一级目录
-sys.path.append(BASE_DIR)
-</code></pre>
-<p>方法2：在setting.json中添加自动寻找路径（此方法测试不成功）</p>
-<pre><code class="language-json">    &quot;python.autoComplete.extraPaths&quot;: [
-        &quot;e:/engine-fault-diagnosis-signal_processing&quot;,
-        &quot;e:/engine-fault-diagnosis-signal_processing/config&quot;
-    ]
-</code></pre>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/manmanlu2006/article/details/91039484">1. python多版本安装</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p><a href="https://blog.csdn.net/weixin_38725737/article/details/81084153">2. Linux下多版本python与多版本pip以及对应安装库包管理</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p><a href="https://www.liujiangblog.com/course/python/6">3. virtualenv 虚拟环境</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/37581807">4. Pipenv：新一代Python项目环境与依赖管理工具</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn5" class="footnote-item"><p><a href="https://www.cnblogs.com/zingp/p/8525138.html"> 5. Pipenv——最好用的python虚拟环境和包管理工具</a> <a href="#fnref5" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn6" class="footnote-item"><p><a href="https://zhuanlan.zhihu.com/p/60647332">6. 最全的Python虚拟环境使用方法</a> <a href="#fnref6" class="footnote-backref">↩︎</a></p>
-</li>
-<li id="fn7" class="footnote-item"><p><a href="http://www.justdopython.com/2020/05/26/python-virtualenv/">7. Python 虚拟环境 看这一篇就够了</a> <a href="#fnref7" class="footnote-backref">↩︎</a></p>
-</li>
 </ol>
 </section>
 ]]></content>
