@@ -1,0 +1,695 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Python 代码检查工具 pylint - 云杉的速记</title>
+<link rel="shortcut icon" href="https://numantia.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://numantia.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://numantia.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python 代码检查工具 pylint - 云杉的速记 - Atom Feed" href="https://numantia.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="
+安装和配置
+
+1. 安装
+2. 检查是否安装
+3. 生成默认配置文件
+4. 查看帮助文件
+
+
+快速上手
+
+1. 测试单个文件
+2. 测试整个工程
+3. 生成报告样例
+4. 根据意见修改
+
+
+进阶知识
+
+1. 各异常处理方法（持续更新 ....." />
+  <meta property="og:title" content="Python 代码检查工具 pylint - 云杉的速记">
+  <meta property="og:description" content="
+安装和配置
+
+1. 安装
+2. 检查是否安装
+3. 生成默认配置文件
+4. 查看帮助文件
+
+
+快速上手
+
+1. 测试单个文件
+2. 测试整个工程
+3. 生成报告样例
+4. 根据意见修改
+
+
+进阶知识
+
+1. 各异常处理方法（持续更新 ....." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://numantia.github.io/post/python-modules-pylint/" />
+  <meta property="og:image" content="https://numantia.github.io/post-images/pylint-cover.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Python 代码检查工具 pylint - 云杉的速记">
+  <meta name="twitter:description" content="
+安装和配置
+
+1. 安装
+2. 检查是否安装
+3. 生成默认配置文件
+4. 查看帮助文件
+
+
+快速上手
+
+1. 测试单个文件
+2. 测试整个工程
+3. 生成报告样例
+4. 根据意见修改
+
+
+进阶知识
+
+1. 各异常处理方法（持续更新 .....">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://numantia.github.io/post/python-modules-pylint/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://numantia.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://numantia.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      云杉的速记
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Python 代码检查工具 pylint
+        </h1>
+        
+          <img src="https://numantia.github.io/post-images/pylint-cover.png" alt="Python 代码检查工具 pylint" class="block w-full mb-8">
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2021-06-29 · 11 min read</div>
+          
+            <a href="https://numantia.github.io/tag/3a3xrBVKq/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              pylint
+            </a>
+          
+            <a href="https://numantia.github.io/tag/JFtw7l6qGE/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              module
+            </a>
+          
+            <a href="https://numantia.github.io/tag/TsYGZu7UW/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p><ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE">安装和配置</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85">1. 安装</a></li>
+<li><a href="#2-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85">2. 检查是否安装</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">3. 生成默认配置文件</a></li>
+<li><a href="#4-%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E4%BB%B6">4. 查看帮助文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B">快速上手</a>
+<ul>
+<li><a href="#1-%E6%B5%8B%E8%AF%95%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6">1. 测试单个文件</a></li>
+<li><a href="#2-%E6%B5%8B%E8%AF%95%E6%95%B4%E4%B8%AA%E5%B7%A5%E7%A8%8B">2. 测试整个工程</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E6%8A%A5%E5%91%8A%E6%A0%B7%E4%BE%8B">3. 生成报告样例</a></li>
+<li><a href="#4-%E6%A0%B9%E6%8D%AE%E6%84%8F%E8%A7%81%E4%BF%AE%E6%94%B9">4. 根据意见修改</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86">进阶知识</a>
+<ul>
+<li><a href="#1-%E5%90%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0">1. 各异常处理方法（持续更新 ...）</a></li>
+<li><a href="#2-%E5%9C%A8%E4%B8%80%E4%B8%AApython%E7%A8%8B%E5%BA%8F%E4%B8%AD%E8%B0%83%E7%94%A8-pylint">2. 在一个Python程序中调用 pylint</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C">3. 配置高级操作</a></li>
+<li><a href="#4-%E5%B1%80%E9%83%A8%E5%85%B3%E9%97%AD%E6%9F%90%E5%91%8A%E8%AD%A6%E7%B1%BB%E5%9E%8B">4. 局部关闭某告警类型</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>[toc]</p>
+<h1 id="安装和配置">安装和配置</h1>
+<h2 id="1-安装">1. 安装</h2>
+<pre><code class="language-powershell">&gt; pip install pylint
+</code></pre>
+<p>若下载遇到问题，可以参考<a href="https://numantia.github.io/post/pip-software-source-management/">此篇</a>文章，更改软件源。</p>
+<h2 id="2-检查是否安装">2. 检查是否安装</h2>
+<pre><code class="language-powershell">&gt; pylint --version
+pylint 2.8.3
+astroid 2.5.6
+Python 3.7.9
+</code></pre>
+<h2 id="3-生成默认配置文件">3. 生成默认配置文件</h2>
+<pre><code>&gt;pylint --persistent=n --generate-rcfile &gt; pylint.conf
+No config file found, using default configuration
+</code></pre>
+<p>会在当前目录下，生成 pylint.conf 文件，该文件中的配置项都是 <em>pylint</em> 的默认配置。</p>
+<h2 id="4-查看帮助文件">4. 查看帮助文件</h2>
+<pre><code>&gt; pylint --help
+&gt; pylint --long-help (查看更多帮助)
+</code></pre>
+<h1 id="快速上手">快速上手</h1>
+<p>使用 simplecaesar.py python 脚本作为测试文件</p>
+<pre><code class="language-python"> 1  #!/usr/bin/env python3
+ 2
+ 3  import string;
+ 4
+ 5  shift = 3
+ 6  choice = input(&quot;would you like to encode or decode?&quot;)
+ 7  word = input(&quot;Please enter text&quot;)
+ 8  letters = string.ascii_letters + string.punctuation + string.digits
+ 9  encoded = ''
+10  if choice == &quot;encode&quot;:
+11      for letter in word:
+12          if letter == ' ':
+13              encoded = encoded + ' '
+14          else:
+15              x = letters.index(letter) + shift
+16              encoded = encoded + letters[x]
+17  if choice == &quot;decode&quot;:
+18      for letter in word:
+19          if letter == ' ':
+20              encoded = encoded + ' '
+21          else:
+22              x = letters.index(letter) - shift
+23              encoded = encoded + letters[x]
+24
+25  print(encoded)
+</code></pre>
+<h2 id="1-测试单个文件">1. 测试单个文件</h2>
+<pre><code class="language-powershell">&gt;pylint --rcfile=pylint.conf simplecaesar.py
+
+************* Module simplecaesar
+C:  1, 0: Missing module docstring (missing-docstring)
+W: 14,12: Unused import django (unused-import)
+</code></pre>
+<p>每次命令添加 <code>--rcfile</code> 选项会比较繁琐，重命名<code>pylint.conf</code>为<code>.pylintrc</code>，即不需要每次执行都带上<code>--rcfile</code>参数了。</p>
+<h2 id="2-测试整个工程">2. 测试整个工程</h2>
+<pre><code>&gt; pylint package_name(package_name为包名称,根目录下需添加init.py)
+</code></pre>
+<h2 id="3-生成报告样例">3. 生成报告样例</h2>
+<pre><code>&gt; pylint simplecaesar.py
+************* Module simplecaesar
+simplecaesar.py【模块名称】:3:0:【行号：列号】 W0301【W 代表检查级别， 303 为编号】: Unnecessary semicolon【详细消息】 (unnecessary-semicolon)【问题消息ID号, &lt;msg-id&gt;】
+simplecaesar.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+simplecaesar.py:5:0: C0103: Constant name &quot;shift&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:9:0: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:13:12: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 7.37/10
+</code></pre>
+<p>所有告警类别</p>
+<pre><code>Output:
+   Using the default text output, the message format is :
+  MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
+  There are 5 kind of message types :
+  * (C) convention, for programming standard violation [不符合编程规范]
+  * (R) refactor, for bad code smell [需重构]
+  * (W) warning, for python specific problems [警告]
+  * (E) error, for probable bugs in the code [错误]
+  * (F) fatal, if an error occurred which prevented pylint from doing
+  further processing.[致命错误]
+</code></pre>
+<p>可以通过 <code>pylint --help-msg &lt;msg-id&gt;</code> 获取更多告警帮助信息</p>
+<pre><code>&gt;pylint --help-msg trailing-whitespace
+:trailing-whitespace (C0303): *Trailing whitespace*
+  Used when there is whitespace between the end of a line and the newline. This
+  message belongs to the format checker.
+</code></pre>
+<h2 id="4-根据意见修改">4. 根据意见修改</h2>
+<p>根据意见，在第二行增加文档字符串，去除第三行；</p>
+<pre><code class="language-python"> 1  #!/usr/bin/env python3
+ 2  &quot;&quot;&quot;This script prompts a user to enter a message to encode or decode
+ 3  using a classic Caesar shift substitution (3 letter shift)&quot;&quot;&quot;
+ 4
+ 5  import string
+ 6
+ 7  shift = 3
+ 8  choice = input(&quot;would you like to encode or decode?&quot;)
+ 9  word = input(&quot;Please enter text&quot;)
+10  letters = string.ascii_letters + string.punctuation + string.digits
+11  encoded = ''
+12  if choice == &quot;encode&quot;:
+13      for letter in word:
+14          if letter == ' ':
+15              encoded = encoded + ' '
+16          else:
+17              x = letters.index(letter) + shift
+18              encoded = encoded + letters[x]
+19  if choice == &quot;decode&quot;:
+20      for letter in word:
+21          if letter == ' ':
+22              encoded = encoded + ' '
+23          else:
+24              x = letters.index(letter) - shift
+25              encoded = encoded + letters[x]
+26
+27  print(encoded)
+</code></pre>
+<pre><code class="language-powershell">robertk01 Desktop$ pylint simplecaesar.py
+************* Module simplecaesar
+simplecaesar.py:7:0: C0103: Constant name &quot;shift&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:11:0: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:15:12: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.42/10 (previous run: 7.37/10, +1.05)
+</code></pre>
+<p>比起上一版程序，评分提高 1.05，只剩下 <code>invalid-name</code> 信息。</p>
+<p>这是因为 Pylint 中遵从 <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>  对象命名规范，使用大写，小写以及分隔符来定义变量、函数和类名，Pylint 通过正则表达式验证， <code>(([A-Z_][A-Z1-9_]*)|(__.*__))$</code>。例子中，常数变量应该采用全大写，这和 Pylint 缺省的规范不一致。当然也可以通过自定义是常数为全小数 <code>[a-z_][a-z0-9_]{2,30}$</code>  。</p>
+<pre><code class="language-powershell">&gt; pylint --const-rgx='[a-z_][a-z0-9_]{2,30}$' simplecaesar.py
+-------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 8.42/10, +1.58)
+</code></pre>
+<h1 id="进阶知识">进阶知识</h1>
+<h2 id="1-各异常处理方法持续更新">1. 各异常处理方法（持续更新 ...）</h2>
+<h2 id="2-在一个python程序中调用-pylint">2. 在一个Python程序中调用 pylint</h2>
+<p>**方法1：**输出terminal</p>
+<pre><code class="language-python">import pylint.lint
+pylint_opts = ['--version']
+pylint.lint.Run(pylint_opts)
+</code></pre>
+<p><strong>方法2：</strong> 静默运行</p>
+<pre><code class="language-python">from pylint import epylint as lint
+(pylint_stdout, pylint_stderr) = lint.py_run('module_name.py', return_std=True)
+
+# 可在py_run() 第一个参数位置添加 pylint option
+from pylint import epylint as lint
+(pylint_stdout, pylint_stderr) = lint.py_run('module_name.py --disable C0114', return_std=True)
+</code></pre>
+<p>消息模板选项 <code>--msg-template=&quot;{path}:{line}: {category} ({msg_id}, {symbol}, {obj}) {msg}&quot;</code> 以及<code>--reports=n</code> 是<code>epylint</code> 模块隐式定义.</p>
+<h2 id="3-配置高级操作">3. 配置高级操作</h2>
+<p>使用[生成默认配置文件](#3. 生成默认配置文件)操作可以简化繁琐的配置过程，快速定义默认的全面的配置选项。你有两种方式使用配置文件，第一种使用<code>--rcfile</code>参数，第二种 pylint 按如下顺序搜索配置文件，选择第一个出现的。</p>
+<ol>
+<li><code>pylintrc</code> in the current working directory</li>
+<li><code>.pylintrc</code> in the current working directory</li>
+<li><code>pyproject.toml</code> in the current working directory, providing it has at least one <code>tool.pylint.</code> section.</li>
+<li><code>setup.cfg</code> in the current working directory, providing it has at least one <code>pylint.</code> section</li>
+<li>If the current working directory is in a Python package, Pylint searches up the hierarchy of Python packages until it finds a <code>pylintrc</code> file. This allows you to specify coding standards on a module-by-module basis. Of course, a directory is judged to be a Python package if it contains an <code>__init__.py</code> file.</li>
+<li>The file named by environment variable <code>PYLINTRC</code></li>
+</ol>
+<p>当然你可以在基础的配置上，手动调整一些配置，如下为常见的<a href="https://pylint.readthedocs.io/en/latest/user_guide/output.html">配置</a>:</p>
+<p><code>--ignore=&lt;file[,file...]&gt;</code> 	Files or directories to be skipped. They should be base names, not paths.</p>
+<p><code>--output=&lt;file&gt;</code>   Specify an output file， 输出到本地文件</p>
+<p><code>--output-format=&lt;format&gt;</code>	Select output format (text, json, custom).  <format> a comma-separated list of formats（多个格式，好像不能输出）. Possible values are: json, parseable, colorized and msvs (visual studio)</p>
+<p><code>--msg-template=&lt;template&gt;</code> 	Modify text output message template. the default format:{path}:{line}:{column}: {msg_id}: {msg} ({symbol}) The format string uses the <a href="https://docs.python.org/2/library/string.html#formatstrings">Python new format syntax</a> and the following fields are available :</p>
+<ul>
+<li>[path] relative path to the file</li>
+<li>[abspath] absolute path to the file</li>
+<li>[line] line number</li>
+<li>[column] column number</li>
+<li>[module] module name</li>
+<li>[obj] object within the module (if any)</li>
+<li>[msg] text of the message</li>
+<li>[msg_id] id the message code (eg. I0011)</li>
+<li>[symbol] symbolic name of the message (eg. locally-disabled)</li>
+<li>[C] one letter indication of the message category</li>
+<li>[category] fullname of the message category</li>
+</ul>
+<p><code>--list-msgs</code>	Generate pylint's messages.</p>
+<p><code>--list-msgs-enabled</code>	Display a list of what messages are enabled and disabled with the given configuration.</p>
+<p><code>--full-documentation</code>	Generate pylint's full documentation, in reST format.</p>
+<p>常用例子</p>
+<pre><code>pylint --output=pylint_test.json --output-format=json test.py
+pylint --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}'
+
+Visual Studio compatible format (former 'msvs' output format):{path}({line}): [{msg_id}{obj}] {msg}
+
+Parseable (Emacs and all, former 'parseable' output format) format: {path}:{line}: [{msg_id}({symbol}), {obj}] {msg}
+</code></pre>
+<h2 id="4-局部关闭某告警类型">4. 局部关闭某告警类型</h2>
+<pre><code class="language-python">&quot;&quot;&quot;pylint option block-disable&quot;&quot;&quot;
+
+__revision__ = None
+
+class Foo(object):
+    &quot;&quot;&quot;block-disable test&quot;&quot;&quot;
+
+    def __init__(self):
+        pass
+
+    def meth1(self, arg):
+        &quot;&quot;&quot;this issues a message&quot;&quot;&quot;
+        print(self)
+
+    def meth2(self, arg):
+        &quot;&quot;&quot;and this one not 关闭一个block的unused-argument错误&quot;&quot;&quot;
+        # pylint: disable=unused-argument
+        print(self\
+              + &quot;foo&quot;)
+
+    def meth3(self):
+        &quot;&quot;&quot;test one line disabling 关闭一行&quot;&quot;&quot;
+        # no error
+        print(self.bla) # pylint: disable=no-member
+        # error
+        print(self.blop)
+
+    def meth4(self):
+        &quot;&quot;&quot;test re-enabling 重使能&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        print(self.blop)
+        # pylint: enable=no-member
+        # error
+        print(self.blip)
+
+    def meth5(self):
+        &quot;&quot;&quot;test IF sub-block re-enabling&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        if self.blop:
+            # pylint: enable=no-member
+            # error
+            print(self.blip)
+        else:
+            # no error
+            print(self.blip)
+        # no error
+        print(self.blip)
+
+    def meth6(self):
+        &quot;&quot;&quot;test TRY/EXCEPT sub-block re-enabling&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        try:
+            # pylint: enable=no-member
+            # error
+            print(self.blip)
+        except UndefinedName: # pylint: disable=undefined-variable
+            # no error
+            print(self.blip)
+        # no error
+        print(self.blip)
+
+    def meth7(self):
+        &quot;&quot;&quot;test one line block opening disabling&quot;&quot;&quot;
+        if self.blop: # pylint: disable=no-member
+            # error
+            print(self.blip)
+        else:
+            # error
+            print(self.blip)
+        # error
+        print(self.blip)
+
+    def meth8(self):
+        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;
+        # error
+        print(self.blip)
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        print(self.blop)
+</code></pre>
+<ol>
+<li>
+<p><a href="https://pylint.readthedocs.io/en/latest/index.html">pylint 官网</a></p>
+</li>
+<li>
+<p><a href="https://pylint.readthedocs.io/en/latest/faq.html#faq">Pylint-FAQs</a></p>
+</li>
+</ol>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE">安装和配置</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85">1. 安装</a></li>
+<li><a href="#2-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85">2. 检查是否安装</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">3. 生成默认配置文件</a></li>
+<li><a href="#4-%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E4%BB%B6">4. 查看帮助文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B">快速上手</a>
+<ul>
+<li><a href="#1-%E6%B5%8B%E8%AF%95%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6">1. 测试单个文件</a></li>
+<li><a href="#2-%E6%B5%8B%E8%AF%95%E6%95%B4%E4%B8%AA%E5%B7%A5%E7%A8%8B">2. 测试整个工程</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E6%8A%A5%E5%91%8A%E6%A0%B7%E4%BE%8B">3. 生成报告样例</a></li>
+<li><a href="#4-%E6%A0%B9%E6%8D%AE%E6%84%8F%E8%A7%81%E4%BF%AE%E6%94%B9">4. 根据意见修改</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86">进阶知识</a>
+<ul>
+<li><a href="#1-%E5%90%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0">1. 各异常处理方法（持续更新 ...）</a></li>
+<li><a href="#2-%E5%9C%A8%E4%B8%80%E4%B8%AApython%E7%A8%8B%E5%BA%8F%E4%B8%AD%E8%B0%83%E7%94%A8-pylint">2. 在一个Python程序中调用 pylint</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C">3. 配置高级操作</a></li>
+<li><a href="#4-%E5%B1%80%E9%83%A8%E5%85%B3%E9%97%AD%E6%9F%90%E5%91%8A%E8%AD%A6%E7%B1%BB%E5%9E%8B">4. 局部关闭某告警类型</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://numantia.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://numantia.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: 'zz6kW7PiLGICjGSLpFNqAvqT-gzGzoHsz',
+    appKey: 'pj2hl2YhmhqNdXLjBV5oHGAl',
+    pageSize: 10,
+    notify: true,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '若您发现文中错误或希望进一步沟通，欢迎留下你的评论。',
+    visitor: true,
+    highlight: true,
+    recordIP: false,
+  })
+</script>
+  
+  
+</body>
+
+</html>

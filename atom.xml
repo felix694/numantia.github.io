@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://numantia.github.io</id>
     <title>云杉的速记</title>
-    <updated>2021-06-28T05:15:48.368Z</updated>
+    <updated>2021-06-29T03:55:26.031Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://numantia.github.io"/>
     <link rel="self" href="https://numantia.github.io/atom.xml"/>
@@ -10,6 +10,445 @@
     <logo>https://numantia.github.io/images/avatar.png</logo>
     <icon>https://numantia.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 云杉的速记</rights>
+    <entry>
+        <title type="html"><![CDATA[Python 代码检查工具 pylint]]></title>
+        <id>https://numantia.github.io/post/python-modules-pylint/</id>
+        <link href="https://numantia.github.io/post/python-modules-pylint/">
+        </link>
+        <updated>2021-06-29T04:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE">安装和配置</a>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85">1. 安装</a></li>
+<li><a href="#2-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85">2. 检查是否安装</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">3. 生成默认配置文件</a></li>
+<li><a href="#4-%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9%E6%96%87%E4%BB%B6">4. 查看帮助文件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B">快速上手</a>
+<ul>
+<li><a href="#1-%E6%B5%8B%E8%AF%95%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6">1. 测试单个文件</a></li>
+<li><a href="#2-%E6%B5%8B%E8%AF%95%E6%95%B4%E4%B8%AA%E5%B7%A5%E7%A8%8B">2. 测试整个工程</a></li>
+<li><a href="#3-%E7%94%9F%E6%88%90%E6%8A%A5%E5%91%8A%E6%A0%B7%E4%BE%8B">3. 生成报告样例</a></li>
+<li><a href="#4-%E6%A0%B9%E6%8D%AE%E6%84%8F%E8%A7%81%E4%BF%AE%E6%94%B9">4. 根据意见修改</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86">进阶知识</a>
+<ul>
+<li><a href="#1-%E5%90%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0">1. 各异常处理方法（持续更新 ...）</a></li>
+<li><a href="#2-%E5%9C%A8%E4%B8%80%E4%B8%AApython%E7%A8%8B%E5%BA%8F%E4%B8%AD%E8%B0%83%E7%94%A8-pylint">2. 在一个Python程序中调用 pylint</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C">3. 配置高级操作</a></li>
+<li><a href="#4-%E5%B1%80%E9%83%A8%E5%85%B3%E9%97%AD%E6%9F%90%E5%91%8A%E8%AD%A6%E7%B1%BB%E5%9E%8B">4. 局部关闭某告警类型</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<p>[toc]</p>
+<h1 id="安装和配置">安装和配置</h1>
+<h2 id="1-安装">1. 安装</h2>
+<pre><code class="language-powershell">&gt; pip install pylint
+</code></pre>
+<p>若下载遇到问题，可以参考<a href="https://numantia.github.io/post/pip-software-source-management/">此篇</a>文章，更改软件源。</p>
+<h2 id="2-检查是否安装">2. 检查是否安装</h2>
+<pre><code class="language-powershell">&gt; pylint --version
+pylint 2.8.3
+astroid 2.5.6
+Python 3.7.9
+</code></pre>
+<h2 id="3-生成默认配置文件">3. 生成默认配置文件</h2>
+<pre><code>&gt;pylint --persistent=n --generate-rcfile &gt; pylint.conf
+No config file found, using default configuration
+</code></pre>
+<p>会在当前目录下，生成 pylint.conf 文件，该文件中的配置项都是 <em>pylint</em> 的默认配置。</p>
+<h2 id="4-查看帮助文件">4. 查看帮助文件</h2>
+<pre><code>&gt; pylint --help
+&gt; pylint --long-help (查看更多帮助)
+</code></pre>
+<h1 id="快速上手">快速上手</h1>
+<p>使用 simplecaesar.py python 脚本作为测试文件</p>
+<pre><code class="language-python"> 1  #!/usr/bin/env python3
+ 2
+ 3  import string;
+ 4
+ 5  shift = 3
+ 6  choice = input(&quot;would you like to encode or decode?&quot;)
+ 7  word = input(&quot;Please enter text&quot;)
+ 8  letters = string.ascii_letters + string.punctuation + string.digits
+ 9  encoded = ''
+10  if choice == &quot;encode&quot;:
+11      for letter in word:
+12          if letter == ' ':
+13              encoded = encoded + ' '
+14          else:
+15              x = letters.index(letter) + shift
+16              encoded = encoded + letters[x]
+17  if choice == &quot;decode&quot;:
+18      for letter in word:
+19          if letter == ' ':
+20              encoded = encoded + ' '
+21          else:
+22              x = letters.index(letter) - shift
+23              encoded = encoded + letters[x]
+24
+25  print(encoded)
+</code></pre>
+<h2 id="1-测试单个文件">1. 测试单个文件</h2>
+<pre><code class="language-powershell">&gt;pylint --rcfile=pylint.conf simplecaesar.py
+
+************* Module simplecaesar
+C:  1, 0: Missing module docstring (missing-docstring)
+W: 14,12: Unused import django (unused-import)
+</code></pre>
+<p>每次命令添加 <code>--rcfile</code> 选项会比较繁琐，重命名<code>pylint.conf</code>为<code>.pylintrc</code>，即不需要每次执行都带上<code>--rcfile</code>参数了。</p>
+<h2 id="2-测试整个工程">2. 测试整个工程</h2>
+<pre><code>&gt; pylint package_name(package_name为包名称,根目录下需添加init.py)
+</code></pre>
+<h2 id="3-生成报告样例">3. 生成报告样例</h2>
+<pre><code>&gt; pylint simplecaesar.py
+************* Module simplecaesar
+simplecaesar.py【模块名称】:3:0:【行号：列号】 W0301【W 代表检查级别， 303 为编号】: Unnecessary semicolon【详细消息】 (unnecessary-semicolon)【问题消息ID号, &lt;msg-id&gt;】
+simplecaesar.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+simplecaesar.py:5:0: C0103: Constant name &quot;shift&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:9:0: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:13:12: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 7.37/10
+</code></pre>
+<p>所有告警类别</p>
+<pre><code>Output:
+   Using the default text output, the message format is :
+  MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
+  There are 5 kind of message types :
+  * (C) convention, for programming standard violation [不符合编程规范]
+  * (R) refactor, for bad code smell [需重构]
+  * (W) warning, for python specific problems [警告]
+  * (E) error, for probable bugs in the code [错误]
+  * (F) fatal, if an error occurred which prevented pylint from doing
+  further processing.[致命错误]
+</code></pre>
+<p>可以通过 <code>pylint --help-msg &lt;msg-id&gt;</code> 获取更多告警帮助信息</p>
+<pre><code>&gt;pylint --help-msg trailing-whitespace
+:trailing-whitespace (C0303): *Trailing whitespace*
+  Used when there is whitespace between the end of a line and the newline. This
+  message belongs to the format checker.
+</code></pre>
+<h2 id="4-根据意见修改">4. 根据意见修改</h2>
+<p>根据意见，在第二行增加文档字符串，去除第三行；</p>
+<pre><code class="language-python"> 1  #!/usr/bin/env python3
+ 2  &quot;&quot;&quot;This script prompts a user to enter a message to encode or decode
+ 3  using a classic Caesar shift substitution (3 letter shift)&quot;&quot;&quot;
+ 4
+ 5  import string
+ 6
+ 7  shift = 3
+ 8  choice = input(&quot;would you like to encode or decode?&quot;)
+ 9  word = input(&quot;Please enter text&quot;)
+10  letters = string.ascii_letters + string.punctuation + string.digits
+11  encoded = ''
+12  if choice == &quot;encode&quot;:
+13      for letter in word:
+14          if letter == ' ':
+15              encoded = encoded + ' '
+16          else:
+17              x = letters.index(letter) + shift
+18              encoded = encoded + letters[x]
+19  if choice == &quot;decode&quot;:
+20      for letter in word:
+21          if letter == ' ':
+22              encoded = encoded + ' '
+23          else:
+24              x = letters.index(letter) - shift
+25              encoded = encoded + letters[x]
+26
+27  print(encoded)
+</code></pre>
+<pre><code class="language-powershell">robertk01 Desktop$ pylint simplecaesar.py
+************* Module simplecaesar
+simplecaesar.py:7:0: C0103: Constant name &quot;shift&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:11:0: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+simplecaesar.py:15:12: C0103: Constant name &quot;encoded&quot; doesn't conform to UPPER_CASE naming style (invalid-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.42/10 (previous run: 7.37/10, +1.05)
+</code></pre>
+<p>比起上一版程序，评分提高 1.05，只剩下 <code>invalid-name</code> 信息。</p>
+<p>这是因为 Pylint 中遵从 <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>  对象命名规范，使用大写，小写以及分隔符来定义变量、函数和类名，Pylint 通过正则表达式验证， <code>(([A-Z_][A-Z1-9_]*)|(__.*__))$</code>。例子中，常数变量应该采用全大写，这和 Pylint 缺省的规范不一致。当然也可以通过自定义是常数为全小数 <code>[a-z_][a-z0-9_]{2,30}$</code>  。</p>
+<pre><code class="language-powershell">&gt; pylint --const-rgx='[a-z_][a-z0-9_]{2,30}$' simplecaesar.py
+-------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 8.42/10, +1.58)
+</code></pre>
+<h1 id="进阶知识">进阶知识</h1>
+<h2 id="1-各异常处理方法持续更新">1. 各异常处理方法（持续更新 ...）</h2>
+<h2 id="2-在一个python程序中调用-pylint">2. 在一个Python程序中调用 pylint</h2>
+<p>**方法1：**输出terminal</p>
+<pre><code class="language-python">import pylint.lint
+pylint_opts = ['--version']
+pylint.lint.Run(pylint_opts)
+</code></pre>
+<p><strong>方法2：</strong> 静默运行</p>
+<pre><code class="language-python">from pylint import epylint as lint
+(pylint_stdout, pylint_stderr) = lint.py_run('module_name.py', return_std=True)
+
+# 可在py_run() 第一个参数位置添加 pylint option
+from pylint import epylint as lint
+(pylint_stdout, pylint_stderr) = lint.py_run('module_name.py --disable C0114', return_std=True)
+</code></pre>
+<p>消息模板选项 <code>--msg-template=&quot;{path}:{line}: {category} ({msg_id}, {symbol}, {obj}) {msg}&quot;</code> 以及<code>--reports=n</code> 是<code>epylint</code> 模块隐式定义.</p>
+<h2 id="3-配置高级操作">3. 配置高级操作</h2>
+<p>使用[生成默认配置文件](#3. 生成默认配置文件)操作可以简化繁琐的配置过程，快速定义默认的全面的配置选项。你有两种方式使用配置文件，第一种使用<code>--rcfile</code>参数，第二种 pylint 按如下顺序搜索配置文件，选择第一个出现的。</p>
+<ol>
+<li><code>pylintrc</code> in the current working directory</li>
+<li><code>.pylintrc</code> in the current working directory</li>
+<li><code>pyproject.toml</code> in the current working directory, providing it has at least one <code>tool.pylint.</code> section.</li>
+<li><code>setup.cfg</code> in the current working directory, providing it has at least one <code>pylint.</code> section</li>
+<li>If the current working directory is in a Python package, Pylint searches up the hierarchy of Python packages until it finds a <code>pylintrc</code> file. This allows you to specify coding standards on a module-by-module basis. Of course, a directory is judged to be a Python package if it contains an <code>__init__.py</code> file.</li>
+<li>The file named by environment variable <code>PYLINTRC</code></li>
+</ol>
+<p>当然你可以在基础的配置上，手动调整一些配置，如下为常见的<a href="https://pylint.readthedocs.io/en/latest/user_guide/output.html">配置</a>:</p>
+<p><code>--ignore=&lt;file[,file...]&gt;</code> 	Files or directories to be skipped. They should be base names, not paths.</p>
+<p><code>--output=&lt;file&gt;</code>   Specify an output file， 输出到本地文件</p>
+<p><code>--output-format=&lt;format&gt;</code>	Select output format (text, json, custom).  <format> a comma-separated list of formats（多个格式，好像不能输出）. Possible values are: json, parseable, colorized and msvs (visual studio)</p>
+<p><code>--msg-template=&lt;template&gt;</code> 	Modify text output message template. the default format:{path}:{line}:{column}: {msg_id}: {msg} ({symbol}) The format string uses the <a href="https://docs.python.org/2/library/string.html#formatstrings">Python new format syntax</a> and the following fields are available :</p>
+<ul>
+<li>[path] relative path to the file</li>
+<li>[abspath] absolute path to the file</li>
+<li>[line] line number</li>
+<li>[column] column number</li>
+<li>[module] module name</li>
+<li>[obj] object within the module (if any)</li>
+<li>[msg] text of the message</li>
+<li>[msg_id] id the message code (eg. I0011)</li>
+<li>[symbol] symbolic name of the message (eg. locally-disabled)</li>
+<li>[C] one letter indication of the message category</li>
+<li>[category] fullname of the message category</li>
+</ul>
+<p><code>--list-msgs</code>	Generate pylint's messages.</p>
+<p><code>--list-msgs-enabled</code>	Display a list of what messages are enabled and disabled with the given configuration.</p>
+<p><code>--full-documentation</code>	Generate pylint's full documentation, in reST format.</p>
+<p>常用例子</p>
+<pre><code>pylint --output=pylint_test.json --output-format=json test.py
+pylint --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}'
+
+Visual Studio compatible format (former 'msvs' output format):{path}({line}): [{msg_id}{obj}] {msg}
+
+Parseable (Emacs and all, former 'parseable' output format) format: {path}:{line}: [{msg_id}({symbol}), {obj}] {msg}
+</code></pre>
+<h2 id="4-局部关闭某告警类型">4. 局部关闭某告警类型</h2>
+<pre><code class="language-python">&quot;&quot;&quot;pylint option block-disable&quot;&quot;&quot;
+
+__revision__ = None
+
+class Foo(object):
+    &quot;&quot;&quot;block-disable test&quot;&quot;&quot;
+
+    def __init__(self):
+        pass
+
+    def meth1(self, arg):
+        &quot;&quot;&quot;this issues a message&quot;&quot;&quot;
+        print(self)
+
+    def meth2(self, arg):
+        &quot;&quot;&quot;and this one not 关闭一个block的unused-argument错误&quot;&quot;&quot;
+        # pylint: disable=unused-argument
+        print(self\
+              + &quot;foo&quot;)
+
+    def meth3(self):
+        &quot;&quot;&quot;test one line disabling 关闭一行&quot;&quot;&quot;
+        # no error
+        print(self.bla) # pylint: disable=no-member
+        # error
+        print(self.blop)
+
+    def meth4(self):
+        &quot;&quot;&quot;test re-enabling 重使能&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        print(self.blop)
+        # pylint: enable=no-member
+        # error
+        print(self.blip)
+
+    def meth5(self):
+        &quot;&quot;&quot;test IF sub-block re-enabling&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        if self.blop:
+            # pylint: enable=no-member
+            # error
+            print(self.blip)
+        else:
+            # no error
+            print(self.blip)
+        # no error
+        print(self.blip)
+
+    def meth6(self):
+        &quot;&quot;&quot;test TRY/EXCEPT sub-block re-enabling&quot;&quot;&quot;
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        try:
+            # pylint: enable=no-member
+            # error
+            print(self.blip)
+        except UndefinedName: # pylint: disable=undefined-variable
+            # no error
+            print(self.blip)
+        # no error
+        print(self.blip)
+
+    def meth7(self):
+        &quot;&quot;&quot;test one line block opening disabling&quot;&quot;&quot;
+        if self.blop: # pylint: disable=no-member
+            # error
+            print(self.blip)
+        else:
+            # error
+            print(self.blip)
+        # error
+        print(self.blip)
+
+    def meth8(self):
+        &quot;&quot;&quot;test late disabling&quot;&quot;&quot;
+        # error
+        print(self.blip)
+        # pylint: disable=no-member
+        # no error
+        print(self.bla)
+        print(self.blop)
+</code></pre>
+<ol>
+<li>
+<p><a href="https://pylint.readthedocs.io/en/latest/index.html">pylint 官网</a></p>
+</li>
+<li>
+<p><a href="https://pylint.readthedocs.io/en/latest/faq.html#faq">Pylint-FAQs</a></p>
+</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[简单使用 Jupyter Notebook：案例+快速查表]]></title>
+        <id>https://numantia.github.io/post/introduction-to-jupyter/</id>
+        <link href="https://numantia.github.io/post/introduction-to-jupyter/">
+        </link>
+        <updated>2021-06-28T04:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>案例1：在Anaconda虚拟环境运行Jupyter Notebook</strong></p>
+<ol>
+<li>创建名称为 myenv 的虚拟环境，并指定 python 版本，在虚拟环境下安装需求模块。</li>
+</ol>
+<pre><code class="language-python">conda create -n myenv python=3.5
+# conda create --name myenv
+pip install tensorflow numpy scipy -i http://pypi.douban.com/simple --trusted-host pypi.douban.com
+</code></pre>
+<ol start="2">
+<li>激活新建的虚拟环境，此时直接运行 jupyter notebook，并<strong>未使用运行环境的 Python 内核</strong>，导致 kernel error。此时装在<strong>虚拟环境中的模块</strong>也无法使用。其他环境操作，可参考<a href="https://www.notion.so/yuanchengwei/Python-Tutorials-c7715db2aaef4f858dfcc0495ce550c6#13c747ee79eb4821aea70c33f4673408">Conda Cheet Sheet</a></li>
+</ol>
+<pre><code class="language-python">conda activate myenv
+jupyter notebook
+</code></pre>
+<img src="../post-images/kernel-error.png" alt="kernel-error" style="zoom: 80%;" />
+<ol start="3">
+<li>解决方法1：安装 nb-conda 插件解决问题，就可以在 jupyter notebook 切换虚拟环境的内核，并使用内部安装的模块(推荐)。</li>
+</ol>
+<pre><code class="language-python">conda install nb_conda
+</code></pre>
+<ol start="4">
+<li>解决方法2：激活环境后，安装 ipykernel 插件解决问题</li>
+</ol>
+<pre><code>conda activate myenv
+conda install ipykernel
+python -m ipykernel install --name myenv --display-name myenvkernel
+</code></pre>
+<ol start="5">
+<li>jupyter notebook 中可切换虚拟环境的内核，问题解决</li>
+</ol>
+<p><strong>说明<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>：</strong></p>
+<p>打开Anaconda Prompt,输入 jupyter kernelspec list 查看安装的内核和位置，上面两个解决方法都是在 .../jupyter/kernels/目录下创建一个命名为**{对应名称}<strong>的文件夹，文件夹下放一个</strong>kernel.json**文件。</p>
+<pre><code class="language-json">{
+ &quot;argv&quot;: [
+  &quot;C:\\Users\\yuanchengwei\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe&quot;,
+  &quot;-m&quot;,
+  &quot;ipykernel_launcher&quot;,
+  &quot;-f&quot;,
+  &quot;{connection_file}&quot;
+ ],
+ &quot;display_name&quot;: &quot;Python 3&quot;,
+ &quot;language&quot;: &quot;python&quot;
+}
+</code></pre>
+<p>如果我们在对应的/kernels/目录下，新建一个文件夹，再新建一个kernel.json，把地址设置为'./anaconda3/envs/myenv/bin/python'，就可以用到虚拟环境qq下的python了。</p>
+<p>案例 2：md 转化为 ipynb</p>
+<pre><code>## jupyter notebook 安装
+pip3 install jupytext --upgrade
+
+## jupyterlab 安装
+jupyter labextension install jupyterlab-jupytext --minimize=False
+
+## 目录下所有md文件转化为ipynb
+jupytext --set-formats ipynb,md *.md
+</code></pre>
+<pre><code>运行shell命令
+!ls *.csv
+nba_2016.csv             titanic.csv
+pixar_movies.csv         whitehouse_employees.csv
+
+!pip install numpy
+!pip list | grep pandas
+Requirement already satisfied (use --upgrade to upgrade): numpy in /Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages
+pandas (0.18.1)
+</code></pre>
+<pre><code>Latex 公式
+$$ P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)} $$
+</code></pre>
+<p><a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html">Magic command</a></p>
+<pre><code class="language-python">line magics  % 对单行有效, Automagic is ON, % prefix IS NOT needed for line magics.
+cell magics  %% 对整个cells有效
+
+%lsmagic
+
+Available line magics:
+%alias  %alias_magic  %autocall  %automagic  %autosave  %bookmark  %cat  %cd  %clear  %colors  %config  %connect_info  %cp  %debug  %dhist  %dirs  %doctest_mode  %ed  %edit  %env  %gui  %hist  %history  %killbgscripts  %ldir  %less  %lf  %lk  %ll  %load  %load_ext  %loadpy  %logoff  %logon  %logstart  %logstate  %logstop  %ls  %lsmagic  %lx  %macro  %magic  %man  %matplotlib  %mkdir  %more  %mv  %notebook  %page  %pastebin  %pdb  %pdef  %pdoc  %pfile  %pinfo  %pinfo2  %popd  %pprint  %precision  %profile  %prun  %psearch  %psource  %pushd  %pwd  %pycat  %pylab  %qtconsole  %quickref  %recall  %rehashx  %reload_ext  %rep  %rerun  %reset  %reset_selective  %rm  %rmdir  %run  %save  %sc  %set_env  %store  %sx  %system  %tb  %time  %timeit  %unalias  %unload_ext  %who  %who_ls  %whos  %xdel  %xmode
+
+例子
+% run
+% who
+% timeit [i for i in range(1000)]
+% pwd
+% ls
+% cd
+</code></pre>
+<pre><code class="language-bash">Available cell magics:
+%%!  %%HTML  %%SVG  %%bash  %%capture  %%debug  %%file  %%html  %%javascript  %%js  %%latex  %%perl  %%prun  %%pypy  %%python  %%python2  %%python3  %%ruby  %%script  %%sh  %%svg  %%sx  %%system  %%time  %%timeit  %%writefile
+
+例子
+%%bash
+for i in {1..5}
+do
+  echo &quot;i is $i&quot;
+done
+i is 1
+i is 2
+i is 3
+i is 4
+i is 5
+</code></pre>
+<p>键盘快捷键</p>
+<p>https://zhuanlan.zhihu.com/p/32600329</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/w55100/article/details/88925697">使用anaconda虚拟环境运行Jupyter Notebook详解</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[VS Code 快捷键和用法]]></title>
         <id>https://numantia.github.io/post/vscode-keyboard-shorcut/</id>
@@ -2497,632 +2936,6 @@ Windows:
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Python 编程常见问题集]]></title>
-        <id>https://numantia.github.io/post/python-FAQs/</id>
-        <link href="https://numantia.github.io/post/python-FAQs/">
-        </link>
-        <updated>2021-06-03T18:09:44.000Z</updated>
-        <content type="html"><![CDATA[<p>[toc]</p>
-<p><ul class="markdownIt-TOC">
-<li><a href="#import-module">Import Module</a>
-<ul>
-<li><a href="#1-typeerror-module-object-is-not-callable">1. TypeError: 'module' object is not callable</a></li>
-<li><a href="#unboundlocalerror-local-variable-xxx-referenced-before-assignment">UnboundLocalError： local variable 'xxx' referenced before assignment</a></li>
-</ul>
-</li>
-<li><a href="#data-type-and-conversion">Data type and Conversion</a></li>
-<li><a href="#string">String</a>
-<ul>
-<li><a href="#1-typeerror-str-object-is-not-callable">1. TypeError: 'str' object is not callable</a></li>
-<li><a href="#2-string-%E5%88%87%E7%89%87%E9%80%86%E5%BA%8F%E8%BE%93%E5%87%BA%E9%80%86%E5%BA%8F%E5%9F%BA%E6%95%B0%E8%BE%93%E5%87%BA">2. String 切片逆序输出，逆序基数输出</a></li>
-</ul>
-</li>
-<li><a href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99">文件读写</a>
-<ul>
-<li><a href="#1-%E5%AF%BC%E5%87%BA-csv-%E5%AD%98%E5%9C%A8%E7%A9%BA%E7%99%BD%E8%A1%8C%E9%9A%94%E8%A1%8C%E7%A9%BA%E8%A1%8C">1. 导出 csv 存在空白行/隔行空行</a></li>
-<li><a href="#2-%E5%A4%9A%E4%B8%AA-print-%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E5%9C%A8%E5%90%8C%E4%B8%80%E8%A1%8C">2. 多个 Print() 显示内容在同一行</a></li>
-<li><a href="#3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</a></li>
-<li><a href="#4-unicodedecodeerror-utf-8-codec-cant-decode-byte-oxc1-in-position-0">4. UnicodeDecodeError: ‘utf-8’ codec can't decode byte oxc1 in position 0</a></li>
-</ul>
-</li>
-<li><a href="#numpy">Numpy</a>
-<ul>
-<li><a href="#1-numpy-%E8%8E%B7%E5%8F%96%E5%AF%B9%E5%BA%94%E6%95%B0%E5%AD%97%E7%B4%A2%E5%BC%95%E5%80%BC">1. numpy 获取对应数字索引值</a></li>
-<li><a href="#2-npdelete-%E6%96%B9%E6%B3%95">2. np.delete() 方法</a></li>
-<li><a href="#3-numpy%E4%B8%AD%E6%89%BE%E5%89%8D%E5%87%A0%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%80%BC%E6%9C%80%E5%B0%8F%E5%80%BC">3. numpy中找前几个最大值/最小值</a></li>
-<li><a href="#4-ndarray-%E5%88%A4%E6%96%AD%E7%A9%BA%E4%B8%8E%E9%9D%9E%E7%A9%BA">4. ndarray 判断空与非空</a></li>
-<li><a href="#5-npall-%E5%92%8C-npany%E7%9A%84%E7%94%A8%E6%B3%95%E8%A7%A3%E6%9E%90">5. np.all 和 np.any的用法解析</a></li>
-<li><a href="#6-nppad%E7%9A%84%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3">6. np.pad()的用法详解</a></li>
-</ul>
-</li>
-<li><a href="#pandas">Pandas</a>
-<ul>
-<li><a href="#1-%E5%AD%97%E5%85%B8%E5%88%9B%E5%BB%BA-dataframe-%E9%95%BF%E5%BA%A6%E4%B8%8D%E4%B8%80%E8%87%B4%E5%87%BA%E9%94%99">1. 字典创建 DataFrame 长度不一致出错</a></li>
-<li><a href="#2-pandas-to-excel-%E5%AD%98%E5%82%A8%E4%B8%8D%E5%90%8C-sheet">2. Pandas to-excel() 存储不同 Sheet</a></li>
-<li><a href="#3-pandas-%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D-%E8%A1%A8%E6%A0%BC%E5%A4%8D%E5%88%B6%E5%90%8C%E6%AD%A5%E4%BF%AE%E6%94%B9%E9%97%AE%E9%A2%98">3. Pandas 浅拷贝和深拷贝 - 表格复制同步修改问题</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<p>持续更新...</p>
-<p>指数幂和n次方根</p>
-<pre><code class="language-python">import math
-
-math.pow( x, y )
-x**y
-
-# a的r次方
-math.pow(a, 1/r)
-
-pow(x,y,z) 等价于 x**y%z
-4**2.5%3  # 结果为2.0
-</code></pre>
-<h1 id="import-module">Import Module</h1>
-<h2 id="1-typeerror-module-object-is-not-callable">1. TypeError: 'module' object is not callable</h2>
-<p><strong>产生原因</strong></p>
-<p>模块前面未加模块名限定</p>
-<p><strong>解决方法</strong></p>
-<pre><code class="language-python">Python导入模块的方法有两种：
-import module  # 所有导入的方法使用时需加上模块名的限
-from module import *  # 无需模块名
-</code></pre>
-<h2 id="unboundlocalerror-local-variable-xxx-referenced-before-assignment">UnboundLocalError： local variable 'xxx' referenced before assignment</h2>
-<p><strong>产生原因</strong></p>
-<p>外部定义了变量，函数内部对该变量运算时</p>
-<pre><code class="language-python">def test():
-       if value == 1:
-              a += 1  # 赋值操作a就会被认为是局部变量，而非全局变量
-       return a  # return 或者 print 操作，由于局部变量a未定义，因此就会报错
-
-value = a = 1
-b = test()
-</code></pre>
-<p><strong>解决方法</strong></p>
-<pre><code class="language-python"># a 定义为全局变量
-def test():
-       global a
-       if value == 1:
-              a += 1
-       return a
-
-value = a = 1
-b = test()
-
-# a 在函数内部定义为局部变量
-def test():
-　　  a = 1
-       if value == 1:
-              a += 1
-       return a
-
-value = a = 1
-b = test()
-</code></pre>
-<h1 id="data-type-and-conversion">Data type and Conversion</h1>
-<p>https://blog.csdn.net/vivian_python/article/details/102968868</p>
-<p>https://blog.csdn.net/nameix/article/details/54341949</p>
-<p>首先：表现形式不一致：list：[];字典{}；元组（）集合{}；</p>
-<p>其次：python的列表各个元素可以是不一致的类型即[1,&quot;asd&quot;,10.25]；字典得有key-value，且key不能重复；元组不可以修改，是只读的list,但对于可变数据类型是可以修改的如：a=（1，2，[5,6,7]）,a[-1][-1]=2,则a=[1，2，2]；集合的元素不能有重复；</p>
-<p>最后：类型转换：list（）；set（）；dict（）；tuple（）</p>
-<p>比如删除list的重复元素，直接将其变换成set类型即可，然后在list变成列表。</p>
-<p>List</p>
-<p>dict</p>
-<p>可存储长度不同，文件类型可以不一</p>
-<p>np.array</p>
-<p>长度必须一致</p>
-<pre><code class="language-python"># 查看格式
-print(type(1),type(3.14),
-      type('a'),type('abd'),
-      type((1,2,3)),type(True),type(None),
-      type([]),type({1,2}),type({1:'monday',2:'tuesday'}))
-
-# 强制类型转换
-f = 3.14
-print('f=%f,int(f)=%d '%(f,int(f)))
-print(float(int(f)))
-print(chr(65)) #整数转化为ascii码字符
-print(ord('a')) #ascii字符转化为整数
-
-# 转成布尔类型 bool()
-print(bool('1'),bool('0'),bool([0])) #True
-print(bool(''),bool(0),bool([]),bool(()),bool({})) #False
-
-# 字符串 str()
-print(type(str(f)))
-
-# 加 r 忽略转义字符
-print('c:\\\\user\\\\pycharm') #\\\\转义\\
-print(r'c:\\user\\pycharm') #用r无需加转义
-</code></pre>
-<h1 id="string">String</h1>
-<h2 id="1-typeerror-str-object-is-not-callable">1. TypeError: 'str' object is not callable</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-python">&gt;&gt;&gt; x=1.235
-&gt;&gt;&gt; int(x)
-1
-&gt;&gt;&gt; str=&quot;fsgavfdbafdbntsbgbt&quot;
-&gt;&gt;&gt; len(str)
-19
-&gt;&gt;&gt;
-&gt;&gt;&gt; x=987456123
-&gt;&gt;&gt; str(x)
-TypeError: 'str' object is not callable
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>str 为内部函数，str 变量赋值将其转化为变量，发生冲突，无法调用</p>
-<p><strong>解决方法</strong></p>
-<p>更改变量名，和系统内置函数名称<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>不重复</p>
-<h2 id="2-string-切片逆序输出逆序基数输出">2. String 切片逆序输出，逆序基数输出</h2>
-<p>name[::-1],没有写数字，默认为0，两个冒号表示从头到尾，以-1为间隔输出，即逆序输出全部</p>
-<p>name[::-2]，以-1为间隔输出，即逆序输出奇数下标元素</p>
-<h1 id="文件读写">文件读写</h1>
-<h2 id="1-导出-csv-存在空白行隔行空行">1. 导出 csv 存在空白行/隔行空行</h2>
-<pre><code class="language-python">with open(test.csv,'w',newline='') as f:
-</code></pre>
-<h2 id="2-多个-print-显示内容在同一行">2. 多个 Print() 显示内容在同一行</h2>
-<p><strong>产生原因</strong></p>
-<p>原理：Print 函数输出最后一个值缺省为换行符，由<code>end= '\n'</code>指定 , 去掉 <code>\n</code> ，即可实现不换行</p>
-<pre><code class="language-python">print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
-
-    Prints the values to a stream, or to sys.stdout by default.
-    Optional keyword arguments:
-    file:  a file-like object (stream); defaults to the current sys.stdout.
-    sep:   string inserted between values, default a space.
-    end:   string appended after the last value, default a newline.
-    flush: whether to forcibly flush the stream.
-</code></pre>
-<p><strong>解决方法</strong></p>
-<pre><code class="language-python">print('hello,',end = '')
-print('world')
-&gt;&gt;&gt; hello,world
-</code></pre>
-<h2 id="3-permissionerror-errno-13-permission-denied">3. PermissionError: [Errno 13] Permission denied</h2>
-<p><strong>问题描述</strong></p>
-<p>保存CSV，路径为<strong>文件名</strong>，有访问权限，部分数据已顺利存储进入，继续运行，报错<code>PermissionError: [Errno 13] Permission denied</code></p>
-<p><strong>产生原因</strong></p>
-<p><a href="https://blog.csdn.net/shuiyixin/article/details/90370387?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control">文章</a> 指出有三个原因造成该错误，第一是缺乏访问权限，第二是路径为<strong>文件夹名</strong>，而非文件名，第三为改文件打开。这里补充一个原因，该文件夹默认添加到云盘（Onedrive，Icloud，坚果云等）的同步文件夹中，同步操作时该文件无添加权限。</p>
-<p><strong>解决方法</strong></p>
-<p>关闭同步软件</p>
-<h2 id="4-unicodedecodeerror-utf-8-codec-cant-decode-byte-oxc1-in-position-0">4. UnicodeDecodeError: ‘utf-8’ codec can't decode byte oxc1 in position 0</h2>
-<p>对于<strong>中文的文本文件常容易因为编码的问题而读取失败</strong>，正如上图所示。遇到这样的编码问题该如何处置呢？解决办法有两种情况：</p>
-<p>1）当原始文件txt或csv的数据不是uft8格式时，需要另存为utf8格式编码；</p>
-<p>2）如果原始的数据文件就是uft8格式，为了正常读入，需要将read_csv函数的参数encoding设置为utf-8</p>
-<h1 id="numpy">Numpy</h1>
-<h2 id="1-numpy-获取对应数字索引值">1. numpy 获取对应数字索引值</h2>
-<pre><code class="language-python">q=np.arange(0,16,1)
-g=np.where(q==7)
-print q
-print g
-
-[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]
-(array([7]),)
-
-q=np.arange(0,16,1)
-g=np.argwhere(q==7) # 注意这里，返回索引值的列表
-print q
-print g
-print int(g) # 转化为可运算的数字序列
-
-[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]
-[[7]]
-7
-</code></pre>
-<h2 id="2-npdelete-方法">2. np.delete() 方法</h2>
-<p>numpy.delete()适用于numpy ndarray数组。但是numpy数组不支持删除数组元素，numpy.delete() 返回删除了某些元素的新数组。</p>
-<pre><code class="language-python">numpy.delete(arr,obj,axis = None)
-</code></pre>
-<p>arr : 输入向量</p>
-<p>obj : 表明哪一个子向量应该被移除（index）。可以为整数或一个int型的向量</p>
-<p>axis : 表明删除哪个轴的子向量，若默认，则返回一个被拉平的向量</p>
-<p>例子</p>
-<pre><code class="language-python">import numpy as np
-a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
-index = [2, 3, 6]
-new_a = np.delete(a, index)
-print(new_a) #Prints `[1, 2, 5, 6, 8, 9]
-</code></pre>
-<h2 id="3-numpy中找前几个最大值最小值">3. numpy中找前几个最大值/最小值</h2>
-<p>方法1：</p>
-<pre><code class="language-python">def find_max(a):
-    b = np.zeros(4)
-    c = np.zeros(4)
-    c[0] = np.max(a)    #最大值
-    b[0] = np.where(a==c[0])[0]     #最大``值位置
-    new_a = np.delete(a,b[0])
-
-    c[1] = np.max(new_a)    #次大值
-    b[1] = np.where(new_a==c[1])[0]     #找出次大值位置。注：位置为新数组位置，无意义
-    new_a1 = np.delete(new_a,b[1])
-
-    c[2] = np.max(new_a1)   #第三大值
-    b[2] = np.where(new_a1==c[2] )[0]   #找出第三大值位置
-    new_a2 = np.delete(new_a1,b[2])
-
-    c[3] = np.max(new_a2)   #第四大值
-    b[3] = np.where(new_a2==c[3])[0]    #找出第四大值位置
-    return b,c
-</code></pre>
-<p>方法2：</p>
-<pre><code class="language-python">&gt;&gt;&gt; import heapq
-&gt;&gt;&gt; nums=[1,8,2,23,7,-4,18,23,42,37,2]
-&gt;&gt;&gt; print(heapq.nlargest(3,nums))
-[42, 37, 23]
-&gt;&gt;&gt; print(heapq.nsmallest(3,nums))
-[-4, 1, 2]
-</code></pre>
-<h2 id="4-ndarray-判断空与非空">4. ndarray 判断空与非空</h2>
-<p>方法1：</p>
-<pre><code class="language-python"># 一维数组
-array = np.array([])
-if array:
-    print('非空')
-if not array:
-    print('空')
-# 二维数组
-array = np.array([[1], []])
-if array.any():
-    print('非空')
-if not array.any():
-    print('空')
-</code></pre>
-<h2 id="5-npall-和-npany的用法解析">5. np.all 和 np.any的用法解析</h2>
-<p><strong>一维数组</strong></p>
-<p><code>np.all((a, axis=None, out=None, keepdims=np._NoValue))</code> : 判断给定轴上所有元素是否***都为 True***，如果<code>axis</code>为None，返回单个布尔值True或False。</p>
-<pre><code class="language-python">a1 = np.arange(5)       # 生成一个矩阵 [0  1  2  3  4]
-print(&quot;np.all(a1):&quot;, np.all(a2))    # 并运算，未输入axis，输出：False
-</code></pre>
-<p><code>any(a, axis=None, out=None, keepdims=np._NoValue)</code> : 断给定轴向上***是否有一个元素为True***</p>
-<pre><code class="language-python">a2 = np.arange(5)       # 生成一个矩阵 [0  1  2  3  4]
-print(&quot;np.any(a2):&quot;, np.any(a2))    # 输出：True
-</code></pre>
-<p><strong>二维数组</strong></p>
-<pre><code class="language-python">b1 = np.arange(36).reshape(2, 3, 6)     # # 创建一个2*3*6矩阵`
-print(&quot;np.all(b1):&quot;, np.all(b1))    # 判断矩阵中所有元素是否都为True
-&gt;&gt;&gt; np.all(b1): False
-print(&quot;np.all(b1):&quot;, np.all(b1))    # 判断矩阵中所有元素是否都为True
-&gt;&gt;&gt; np.any(b1): True
-</code></pre>
-<p><strong><a href="https://blog.csdn.net/yl_best/article/details/102593264">多维数组</a></strong></p>
-<pre><code class="language-python">b02 = np.all(b1, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 所有元素是否都为True
-print(&quot;np.all(b1, axis=0):\n&quot;, b02)
-&gt;&gt;&gt;np.all(b1, axis=0):
-[[[False True True True True True]
-[ True True True True True True]
-[ True True True True True True]]]
-
-b03 = np.any(b1, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 是否有一个元素为True
-print(&quot;np.any(b1, axis=0):\n&quot;, b03)
-&gt;&gt;&gt;np.any(b1, axis=0):
-[[[ True True True True True True]
-[ True True True True True True]
-[ True True True True True True]]]
-
-b02 = np.all(b1 &lt; 15, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 所有元素是否都小于15
-print(&quot;(np.all(b1 &lt; 15, axis=0):\n&quot;, b02)
-&gt;&gt;&gt;(np.all(b1 &lt; 15, axis=0):
-[[[False False False False False False]
-[False False False False False False]
-[False False False False False False]]]
-
-b03 = np.any(b1 &lt; 15, axis=0, keepdims=True)      # 判断矩阵中 某个轴向上 是否有一个元素小于15。所有元素都大于15为False，有一个小于15即为True
-print(&quot;np.any(b1 &lt; 15, axis=0):\n&quot;, b03)
-&gt;&gt;&gt;np.any(b1 &lt; 15, axis=0):
-[[[ True True True True True True]
-[ True True True True True True]
-[ True True True False False False]]] 
-
-</code></pre>
-<p><strong>功能：</strong></p>
-<p>某矩阵A前n行是否全为零/前N+1行是否存在不为零的元素</p>
-<pre><code class="language-python">if np.all(A[:n, :] == 0):
-	print(&quot;A矩阵前n行所有元素均为零&quot;)
-
-if np.any(A[:n+1，:] !=0 ):
-	print(&quot;A矩阵前n+1行存在元素不为零&quot;)
-</code></pre>
-<h2 id="6-nppad的用法详解">6. np.pad()的用法详解</h2>
-<p>https://blog.csdn.net/zenghaitao0128/article/details/78713663</p>
-<h1 id="pandas">Pandas</h1>
-<h2 id="1-字典创建-dataframe-长度不一致出错">1. 字典创建 DataFrame 长度不一致出错</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-python">import pandas as pd
-d = {'A': [1, 2], 'C': [1, 2, 3, 4]}
-data = pd.DataFrame(d)
-&gt;&gt;&gt; ValueError: arrays must all be same length
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>字典创建 DataFrame，键值对应的数组需等长。可以将键值数组转化转化为Series格式。</p>
-<p><strong>解决方法</strong></p>
-<pre><code class="language-python">import pandas as pd
-a = {'A': [1, 2], 'C': [1, 2, 3, 4]}
-b = dict([(k, pd.Series(v)) for k, v in d.items()]) # 列表转化为字典
-c = pd.DataFrame(b) # 字典转化为Dataframe
-c.to_excel('1.xlsx',index=False) # 序号从1开始
-
-&gt;&gt;&gt;
-    A  C
-1  1.0  1
-2  2.0  2
-3  NaN  3
-4  NaN  4
-</code></pre>
-<h2 id="2-pandas-to-excel-存储不同-sheet">2. Pandas to-excel() 存储不同 Sheet</h2>
-<p><strong>问题描述</strong></p>
-<pre><code class="language-python">import pandas as pd
-a = dict.fromkeys(['a','b','c'],[])
-b = dict.fromkeys(['a','b','c'],[])
-num = 1 
-for index in a.keys():
-    a[index] = [num, num + 1 ,num + 2]
-    for index in b.keys():
-        b[index] = [num, num**2, num**3]
-df1 = pd.DataFrame(df1)
-df2 = pd.DataFrame(df2)
-df1.to_excel('export_test.xls',sheet_name = 'sheet1')
-df1.to_excel('export_test.xls',sheet_name = 'sheet2‘)
-</code></pre>
-<p>输出表格只有sheet2表，sheet1 表被覆盖。</p>
-<p><strong>产生原因</strong></p>
-<p>多次 to_excel() 输出，’export_test.xlsx‘ 被打开多次，写入只保留了最后一次。</p>
-<p><strong>解决方法1 :</strong>   with open 方式使 ’export_test.xlsx‘ 被打开一次。</p>
-<pre><code class="language-python">import pandas as pd
-a = dict.fromkeys(['a','b','c'],[])
-b = dict.fromkeys(['a','b','c'],[])
-num = 1 
-for index in a.keys():
-    a[index] = [num, num + 1 ,num + 2]
-    for index in b.keys():
-        b[index] = [num, num**2, num**3]
-df1 = pd.DataFrame(df1)
-df2 = pd.DataFrame(df2)
-
-with pd.ExcelWriter('export_test.xlsx') as write:
-    df1.to_excel(write,sheet_name = 'sheet1')
-    df2.to_excel(write,sheet_name = 'sheet2')
-</code></pre>
-<p><strong>解决方法2：</strong> 不用 with 方法，需在写入后上 write.save()</p>
-<pre><code class="language-python">import pandas as pd
-a = dict.fromkeys(['a','b','c'],[])
-b = dict.fromkeys(['a','b','c'],[])
-num = 1 
-for index in a.keys():
-    a[index] = [num, num + 1 ,num + 2]
-    for index in b.keys():
-        b[index] = [num, num**2, num**3]
-df1 = pd.DataFrame(df1)
-df2 = pd.DataFrame(df2)
-
-write = pd.ExcelWriter('export_test.xlsx')
-df1.to_excel(write,sheet_name = 'sheet1')
-df2.to_excel(write,sheet_name = 'sheet2')
-write.save()
-</code></pre>
-<p><strong>解决方法3：</strong> 补充<a href="https://www.thinbug.com/q/45251721">例子</a>利用字典循环输出不同 Sheet 表格</p>
-<pre><code class="language-python">import pandas as pd
-
-df1 = pd.DataFrame({'1_A': [1,2,3,4], '1_B': [5,4,6,5],
-                    '1_C': [8,7,9,0], '1_D': [9,7,8,5], '1_E': [2,4,9,8]})
-df2 = pd.DataFrame({'1_A': [5,4,1,3], '1_B': [55,2,3,4]})
-
-setup_dict = {'Sheet_1': df1, 'Sheet_2': df2}
-
-with pd.ExcelWriter('excel_file.xlsx',
-                    engine='xlsxwriter') as writer:
-
-    for ws_name, df_sheet in setup_dict.items():
-        df_sheet.to_excel(writer, sheet_name=ws_name)
-</code></pre>
-<h2 id="3-pandas-浅拷贝和深拷贝-表格复制同步修改问题">3. Pandas 浅拷贝和深拷贝 - 表格复制同步修改问题</h2>
-<p><strong>问题描述</strong></p>
-<p>浅拷贝复制 pandas 数据，原数据修改会同时改变复制数据</p>
-<pre><code class="language-python">import pandas as pd
-a = pd.DataFrame({'id':[1,2,3,4,5],'fruit_name':[&quot;apple&quot;,&quot;orange&quot;,&quot;pineapple&quot;,&quot;banana&quot;,&quot;strawberry&quot;],'price':[7,8,9,10,11]})
-b = a
-a['price'] =[1, 1, 1, 1, 1]
-
-&gt;&gt;&gt; b
-   id  fruit_name  price
-0   1       apple      1
-1   2      orange      1
-2   3   pineapple      1
-3   4      banana      1
-4   5  strawberry      1
-</code></pre>
-<p><strong>产生原因</strong></p>
-<p>浅拷贝共用内存</p>
-<p><strong>解决方法</strong></p>
-<pre><code class="language-python"> b = a.copy()
- a['price'] =[2, 2, 2, 2, 2]
-
-&gt;&gt;&gt; a
-   id  fruit_name  price
-0   1       apple      2
-1   2      orange      2
-2   3   pineapple      2
-3   4      banana      2
-4   5  strawberry      2
-&gt;&gt;&gt; b
-   id  fruit_name  price
-0   1       apple      1
-1   2      orange      1
-2   3   pineapple      1
-3   4      banana      1
-4   5  strawberry      1
- 
-</code></pre>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p><a href="https://blog.csdn.net/nameix/article/details/54341949">内置函数+内置变量+内置模块</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Python 添加配置文件（.ini, .py, .json, etc）]]></title>
-        <id>https://numantia.github.io/post/python-configuration-method/</id>
-        <link href="https://numantia.github.io/post/python-configuration-method/">
-        </link>
-        <updated>2021-05-25T06:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p><ul class="markdownIt-TOC">
-<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%BF%85%E8%A6%81%E6%80%A7">配置文件必要性</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%AF%94%E8%BE%83">常用配置文件比较</a>
-<ul>
-<li><a href="#1-ini-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">1. ini 配置文件</a></li>
-<li><a href="#2-json-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">2. json 配置文件</a></li>
-<li><a href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B1%BB">3.  初始化类</a></li>
-</ul>
-</li>
-</ul>
-</p>
-<p>[TOC]</p>
-<h1 id="配置文件必要性">配置文件必要性</h1>
-<ol>
-<li>集中管理，统一修改，降低修改难度，避免修改不全面</li>
-<li>代码和参数分离，方便不同模块代码中重复调用，保持核心代码整洁</li>
-</ol>
-<h1 id="常用配置文件比较">常用配置文件比较</h1>
-<p>配置文件复杂度比 ini &lt; json ≈ toml &lt; yaml</p>
-<table>
-<thead>
-<tr>
-<th>格式类型</th>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>config.ini</td>
-<td>通用格式，格式简单</td>
-<td>不适合存储大量数据</td>
-</tr>
-<tr>
-<td>config.json</td>
-<td>通用格式，可嵌套，适合存放大量的<strong>结构化配置</strong>或者本地数据</td>
-<td><strong>嵌套过深</strong>的问题，容易导致出错；语法标准严格限制，无法在当中<strong>写注释</strong></td>
-</tr>
-<tr>
-<td>config.py / setting.py</td>
-<td>在python工程中方便通过import方式导入</td>
-<td>不利于<strong>非 Python 的平台</strong>进行配置文件共享</td>
-</tr>
-</tbody>
-</table>
-<h2 id="1-ini-配置文件">1. ini 配置文件</h2>
-<p>使用 “ import configparser ”导入configparser模块，即可实现配置文件的写入、更新、删除、读取等操作。</p>
-<p><strong>读</strong>  :</p>
-<p><code>config.get(&quot;section&quot;, &quot;option&quot;)</code>  # 获取指定section下的options</p>
-<p><code>config.getint(&quot;section&quot;, &quot;option&quot;)</code> # 将获取到值转换为int型</p>
-<p><code>config.getboolean(&quot;section&quot;, &quot;option&quot;)</code> # 将获取到值转换为bool型</p>
-<p><code>config.getfloat(&quot;section&quot;, &quot;option&quot;)</code>  # 将获取到值转换为浮点型</p>
-<p><strong>更新：</strong></p>
-<p><code>config.set(&quot;section_mod&quot;, &quot;option&quot;, &quot;option_value&quot;)</code> # 修改section_mod的option</p>
-<p><code>config.add_section(&quot;section_add&quot;)</code> # 添加section节点</p>
-<p><code>config.set(&quot;section_add&quot;, &quot;option&quot;, &quot;option_value&quot;)</code> # 设置指定section_add的options</p>
-<p><strong>检查：</strong></p>
-<p><code>config.options('section')</code>  # 获取指定section 的options即该节点的所有键</p>
-<p><code>config.has_section(&quot;section&quot;)</code># 是否存在该section</p>
-<p><code>config.has_option(&quot;section&quot;, &quot;option&quot;)</code>  # 是否存在该option</p>
-<p><strong>删除：</strong></p>
-<p><code>config.remove_section(&quot;section_rmv&quot;)</code> # 整个section_rmv下的所有内容都将删除</p>
-<p><code>config.remove_option(&quot;section_rmv&quot;, 'option')</code> # 删除section_rmv下的指定option</p>
-<p><strong>保存：</strong></p>
-<p><code>config.write(open(&quot;Config&quot;, &quot;w&quot;))</code> # 保存config</p>
-<p><strong>注意事项</strong></p>
-<ol>
-<li>
-<p>读取都是字符串，无需在配置的时候写成字符串</p>
-</li>
-<li>
-<p>读取字符串不区分大小写</p>
-</li>
-</ol>
-<p>参考链接 1. <a href="https://zhuanlan.zhihu.com/p/59479898">python中配置文件的使用方法</a></p>
-<h2 id="2-json-配置文件">2. json 配置文件</h2>
-<pre><code class="language-python">&gt;&gt;&gt; import json
-&gt;&gt;&gt; from pprint import pprint
-&gt;&gt;&gt; with open('/Users/Bobot/db.json') as j:
-...   cfg = json.load(j)['localdb']
-... 
-&gt;&gt;&gt; pprint(cfg)
-{'database': 'mysql',
- 'host': '127.0.0.1',
- 'password': '123456',
- 'port': 3306,
- 'user': 'root'}
-</code></pre>
-<p>使用json.load()读取json文件，读入的词典，无法直接用键值当做变量，常规需要 <code>database = cfg ['database']</code>  赋值方式来配置变量，若变量增多，配置过程会非常繁琐。通过 <code>globals().update(config)</code>  可以实现字典的变量访问，<code>globals()</code>获得（模块级）全局变量所组成的字典，修改该字典等同修改全局变量，所以通过 <code>.update(config)</code>可以将 <code>config</code> 字典内容转为变量<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
-<pre><code class="language-python">a_dict = {&quot;key&quot;: &quot;value&quot;}
-globals().update(a_dict)
-print(key)
-</code></pre>
-<h2 id="3-初始化类">3.  初始化类</h2>
-<p><strong>config.ini</strong></p>
-<pre><code class="language-ini">[first_section]
-option1 = 1
-option2 = 0
-option3 = 3.4
-</code></pre>
-<p><strong>config.json</strong></p>
-<pre><code class="language-json">{
-    &quot;localdb&quot;:{
-        &quot;host&quot;: &quot;127.0.0.1&quot;,
-        &quot;user&quot;: &quot;root&quot;,
-        &quot;password&quot;: &quot;123456&quot;,
-        &quot;port&quot;: 3306,
-        &quot;database&quot;: &quot;mysql&quot;
-    }
-}
-</code></pre>
-<p><strong>initDemo()</strong></p>
-<pre><code class="language-python">import configparser
-import json
-
-class initDemo():
-    def __init__(self,fp1,fp2):
-        self.fp1 = fp1 # .json 文件路径
-        self.fp2 = fp2 # .ini 文件路径
-
-    def read_json_config(self):
-        &quot;&quot;&quot;&quot;读取json配置文件&quot;&quot;&quot;
-        with open(self.fp1) as json_file:
-            config = json.load(json_file)['localdb']
-        return config
-
-    def read_ini_config(self):
-        
-        &quot;&quot;&quot;&quot;读取ini配置文件&quot;&quot;&quot;
-        config = configparser.ConfigParser()
-        config.read(self.fp2, encoding=&quot;utf-8&quot;)
-
-        first_section_items = dict(config.items(&quot;first_section&quot;))
-        all_keys = config.options('first_section') # 只能识别小写，获取指定section 的options即该节点的所有键
-        
-        item1 = config.getint('first_section','item1') # 将获取到值转换为int型
-        itme2 = config.getboolean('first_section','item2') # 将获取到值转换为bool型
-        item3 = config.getfloat('first_section','item3') # 将获取到值转换为浮点型
-        return 
-
-    def update_json_config(self, config):
-        &quot;&quot;&quot;&quot;更新配置文件&quot;&quot;&quot;
-        with open(self.fp1, 'w') as json_file:
-            json.dump(config, json_file)
-        return None
-</code></pre>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><ol>
-<li><a href="https://blog.csdn.net/modabao/article/details/89193990">Python3.用json作为配置文件</a></li>
-</ol>
- <a href="#fnref1" class="footnote-backref">↩︎</a></li>
-</ol>
-</section>
 ]]></content>
     </entry>
 </feed>
